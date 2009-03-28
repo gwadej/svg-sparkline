@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-use Test::More tests => 4;
+use Test::More tests => 5;
 use Carp;
 
 use strict;
@@ -15,3 +15,5 @@ eval { SVG::Sparkline->new( 'Whisker' ); };
 like( $@, qr/Missing arguments hash/, 'Missing args' );
 eval { SVG::Sparkline->new( 'Whisker', '' ); };
 like( $@, qr/hash reference/, 'Not a hash reference' );
+eval { SVG::Sparkline->new( 'Whisker', {} ); };
+like( $@, qr/Missing required/, 'No "y" parameter' );

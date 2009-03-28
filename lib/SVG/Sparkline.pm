@@ -3,27 +3,31 @@ package SVG::Sparkline;
 use warnings;
 use strict;
 use Carp;
+use SVG();
+use List::Util();
 
 our $VERSION = '0.0.3';
 
 my %factory = (
-    whisker => \&_whisker,
+    Whisker => \&_whisker,
 );
 
 sub new
 {
     my ($class, $type, $args) = @_;
     croak "No Sparkline type specified.\n" unless defined $type;
-    croak "Unrecognized Sparkline type '$type'.\n" unless exists $factory{lc $type};
+    croak "Unrecognized Sparkline type '$type'.\n" unless exists $factory{$type};
     croak "Missing arguments hash.\n" unless defined $args;
     croak "Arguments not supplied as a hash reference.\n" unless 'HASH' eq ref $args;
+    croak "Missing required 'y' argument.\n" unless exists $args->{y} and defined $args->{y};
 
     my $self = bless {
-        height => 10,
+        height => ($args->{height}||10),
+        width => ($args->{width}||0),
         color => '#000',
     }, $class;
-    
-    $factory{lc $type}->( $self, $args );
+
+    $factory{$type}->( $self, $args );
 
     return $self;
 }
@@ -31,8 +35,77 @@ sub new
 sub _whisker
 {
     my ($self, $args) = @_;
+    # validate parameters
+    my @values;
+    if( 'ARRAY' eq ref $args->{y} )
+    {
+        @values =  @{$args->{y}};
+    }
+    elsif( !ref $args->{y} )
+    {
+        @values = split //, $args->{y};
+    }
+    else
+    {
+        croak "Unrecognized type of 'y' data.\n";
+    }
+    @values =  map { _whisker_val( $_ ) } @values;
+    croak "No values specified for 'y'.\n" unless @values;
+
+    # Figure out the width I want and define the viewBox
+    my $space = 3;
+    $self->{width} ||= @values * $space;
+    my $wwidth = 1;
+    my $off = 1;
+    my $wheight = $self->{height};
+    if(List::Util::first { $_ < 0 } @values)
+    {
+        $wheight = $self->{height}/2;
+    }
+    $self->{viewBox} = "0 -$wheight $self->{width} $self->{height}";
+    $self->{viewBox} = 
+    $self->{_SVG} = _svg(
+        width=>$self->{width}, height=>$self->{height}, viewBox=>$self->{viewBox},
+    );
+
+    my $path = "M$off,0";
+    foreach my $v (@values)
+    {
+        if( $v )
+        {
+            my ($u,$d) = ( -$v*$wheight, $v*$wheight );
+            $path .= "v${u}m$space,${d}" 
+        }
+        else
+        {
+            $path .= "m$space,0";
+        }
+    }
+    $self->{_SVG}->path( 'stroke-width'=>$wwidth, stroke=>$self->{color}, d=>$path );
 
     return;
+}
+
+sub _whisker_val
+{
+    my $y = shift;
+
+    return $y <=> 0 if $y =~ /\d/;
+    return $y eq '+' ? 1 : ( $y eq '-' ? -1 : 0 );
+}
+
+sub to_string
+{
+    my ($self) = @_;
+    return $self->xmlify();
+}
+
+sub _svg
+{
+    return SVG->new(
+        -inline=>1, -nocredits=>1, -raiseerror=>1, -indent=>'', -elsep=>'',
+        @_
+    );
 }
 
 1; # Magic true value required at end of module
@@ -78,6 +151,8 @@ focus here is on the kinds of data well-suited to the sparklines concept.
 
 =head2 new
 
+=head2 to_string
+
 =for author to fill in:
     Write a separate section listing the public components of the modules
     interface. These normally consist of either subroutines that may be
@@ -122,7 +197,7 @@ SVG::Sparkline requires no configuration files or environment variables.
 
 =head1 DEPENDENCIES
 
-L<Carp>, L<SVG>
+L<Carp>, L<SVG>, L<List::Util>.
 
 =head1 INCOMPATIBILITIES
 
