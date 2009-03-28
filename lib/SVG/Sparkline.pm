@@ -7,14 +7,15 @@ use Carp;
 our $VERSION = '0.0.3';
 
 my %factory = (
-    Whisker => \&_whisker,
+    whisker => \&_whisker,
 );
 
 sub new
 {
     my ($class, $type, $args) = @_;
-    croak "'$type' is not a valid Sparkline type.\n" unless exists $factory{$type};
-    $args = {} unless defined $args;
+    croak "No Sparkline type specified.\n" unless defined $type;
+    croak "Unrecognized Sparkline type '$type'.\n" unless exists $factory{lc $type};
+    croak "Missing arguments hash.\n" unless defined $args;
     croak "Arguments not supplied as a hash reference.\n" unless 'HASH' eq ref $args;
 
     my $self = bless {
@@ -22,7 +23,7 @@ sub new
         color => '#000',
     }, $class;
     
-    $factory{$type}->( $self, $args );
+    $factory{lc $type}->( $self, $args );
 
     return $self;
 }
