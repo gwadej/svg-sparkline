@@ -3,7 +3,7 @@ package SVG::Sparkline;
 use warnings;
 use strict;
 use Carp;
-use SVG();
+use SVG;
 use List::Util();
 
 our $VERSION = '0.0.3';
@@ -24,6 +24,7 @@ sub new
     my $self = bless {
         height => ($args->{height}||10),
         width => ($args->{width}||0),
+        -inline => ($args->{'-inline'}||0),
         color => '#000',
     }, $class;
 
@@ -63,10 +64,10 @@ sub _whisker
         $wheight = $self->{height}/2;
     }
     $self->{viewBox} = "0 -$wheight $self->{width} $self->{height}";
-    $self->{viewBox} = 
-    $self->{_SVG} = _svg(
+    my $svg = _svg(
         width=>$self->{width}, height=>$self->{height}, viewBox=>$self->{viewBox},
     );
+    $self->{_SVG} = $svg;
 
     my $path = "M$off,0";
     foreach my $v (@values)
@@ -74,14 +75,14 @@ sub _whisker
         if( $v )
         {
             my ($u,$d) = ( -$v*$wheight, $v*$wheight );
-            $path .= "v${u}m$space,${d}" 
+            $path .= "v${u}m$space,${d}";
         }
         else
         {
             $path .= "m$space,0";
         }
     }
-    $self->{_SVG}->path( 'stroke-width'=>$wwidth, stroke=>$self->{color}, d=>$path );
+    $svg->path( 'stroke-width'=>$wwidth, stroke=>$self->{color}, d=>$path );
 
     return;
 }
@@ -97,7 +98,9 @@ sub _whisker_val
 sub to_string
 {
     my ($self) = @_;
-    return $self->xmlify();
+    my $str = $self->{_SVG}->xmlify();
+    $str =~ s/<\?[^\?]+\?>// if $self->{'-inline'};
+    return $str;
 }
 
 sub _svg
