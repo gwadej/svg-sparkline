@@ -8,102 +8,37 @@ use List::Util();
 
 our $VERSION = '0.0.3';
 
-my %factory = (
-    Whisker => \&_whisker,
-);
-
 sub new
 {
     my ($class, $type, $args) = @_;
     croak "No Sparkline type specified.\n" unless defined $type;
-    croak "Unrecognized Sparkline type '$type'.\n" unless exists $factory{$type};
+    # Use eval to load plugin.
+    eval "use SVG::Sparkline::$type;";  ## no critic (ProhibitStringyEval)
+    croak "Unrecognized Sparkline type '$type'.\n" if $@;
     croak "Missing arguments hash.\n" unless defined $args;
     croak "Arguments not supplied as a hash reference.\n" unless 'HASH' eq ref $args;
     croak "Missing required 'y' argument.\n" unless exists $args->{y} and defined $args->{y};
 
     my $self = bless {
-        height => ($args->{height}||10),
-        width => ($args->{width}||0),
-        -nodecl => ($args->{'-nodecl'}||0),
-        -allns => ($args->{'-allns'}||0),
+        height => 10,
+        width => 0,
+        -nodecl => 0,
+        -allns => 0,
         color => '#000',
+        %{$args},
     }, $class;
 
-    $factory{$type}->( $self, $args );
+    $self->_make( $type );
 
     return $self;
 }
 
-sub _whisker
-{
-    my ($self, $args) = @_;
-    # validate parameters
-    my @values;
-    if( 'ARRAY' eq ref $args->{y} )
-    {
-        @values =  @{$args->{y}};
-    }
-    elsif( !ref $args->{y} )
-    {
-        @values = split //, $args->{y};
-    }
-    else
-    {
-        croak "Unrecognized type of 'y' data.\n";
-    }
-    @values =  map { _whisker_val( $_ ) } @values;
-    croak "No values specified for 'y'.\n" unless @values;
-
-    # Figure out the width I want and define the viewBox
-    my $thick = 1;
-    my $space = 3*$thick;
-    if($self->{width})
-    {
-        $thick = sprintf '%.02f', $self->{width} / (3*@values);
-        $thick =~ s/\.0\d$//;
-        $thick =~ s/0$//;
-        $space = 3*$thick;
-    }
-    else
-    {
-        $self->{width} = @values * $space;
-    }
-    ++$space if $space =~s/\.9\d$//;
-    my $wheight = $self->{height};
-    if(List::Util::first { $_ < 0 } @values)
-    {
-        $wheight = $self->{height}/2;
-    }
-    $self->{viewBox} = "0 -$wheight $self->{width} $self->{height}";
-    my $svg = _svg(
-        width=>$self->{width}, height=>$self->{height}, viewBox=>$self->{viewBox},
-    );
-    $self->{_SVG} = $svg;
-
-    my $path = "M$thick,0";
-    foreach my $v (@values)
-    {
-        if( $v )
-        {
-            my ($u,$d) = ( -$v*$wheight, $v*$wheight );
-            $path .= "v${u}m$space,${d}";
-        }
-        else
-        {
-            $path .= "m$space,0";
-        }
-    }
-    $svg->path( 'stroke-width'=>$thick, stroke=>$self->{color}, d=>$path );
-
+sub _make {
+    my ($self, $type) = @_;
+    # Disable strict to allow calling method from plugin.
+    no strict 'refs'; ## no critic (ProhibitNoStrict)
+    $self->{_SVG} = "SVG::Sparkline::$type"->make( $self );
     return;
-}
-
-sub _whisker_val
-{
-    my $y = shift;
-
-    return $y <=> 0 if $y =~ /\d/;
-    return $y eq '+' ? 1 : ( $y eq '-' ? -1 : 0 );
 }
 
 sub to_string
@@ -165,16 +100,14 @@ focus here is on the kinds of data well-suited to the sparklines concept.
 
 =head1 INTERFACE 
 
-=head2 new
+=head2 CVG::Sparkline->new( $type, $args_hr )
+
+Create a new L<SVG::Sparkline> object of the specified type, using the
+parameters in the C<$args_hr> hash reference.
 
 =head2 to_string
 
-=for author to fill in:
-    Write a separate section listing the public components of the modules
-    interface. These normally consist of either subroutines that may be
-    exported, or methods that may be called on objects belonging to the
-    classes provided by the module.
-
+Convert the L<SVG::Sparkline> object to an XML string.
 
 =head1 DIAGNOSTICS
 
@@ -201,15 +134,7 @@ focus here is on the kinds of data well-suited to the sparklines concept.
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
-=for author to fill in:
-    A full explanation of any configuration system(s) used by the
-    module, including the names and locations of any configuration
-    files, and the meaning of any environment variables or properties
-    that can be set. These descriptions must also include details of any
-    configuration language used.
-  
 SVG::Sparkline requires no configuration files or environment variables.
-
 
 =head1 DEPENDENCIES
 
@@ -217,26 +142,9 @@ L<Carp>, L<SVG>, L<List::Util>.
 
 =head1 INCOMPATIBILITIES
 
-=for author to fill in:
-    A list of any modules that this module cannot be used in conjunction
-    with. This may be due to name conflicts in the interface, or
-    competition for system or program resources, or due to internal
-    limitations of Perl (for example, many modules that use source code
-    filters are mutually incompatible).
-
 None reported.
 
-
 =head1 BUGS AND LIMITATIONS
-
-=for author to fill in:
-    A list of known problems with the module, together with some
-    indication Whether they are likely to be fixed in an upcoming
-    release. Also a list of restrictions on the features the module
-    does provide: data types that cannot be handled, performance issues
-    and the circumstances in which they may arise, practical
-    limitations on the size of data sets, special cases that are not
-    (yet) handled, etc.
 
 No bugs have been reported.
 
@@ -244,11 +152,9 @@ Please report any bugs or feature requests to
 C<bug-svg-sparkline@rt.cpan.org>, or through the web interface at
 L<http://rt.cpan.org>.
 
-
 =head1 AUTHOR
 
 G. Wade Johnson  C<< <wade@anomaly.org> >>
-
 
 =head1 LICENCE AND COPYRIGHT
 
@@ -256,7 +162,6 @@ Copyright (c) 2009, G. Wade Johnson C<< <wade@anomaly.org> >>. All rights reserv
 
 This module is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself. See L<perlartistic>.
-
 
 =head1 DISCLAIMER OF WARRANTY
 
