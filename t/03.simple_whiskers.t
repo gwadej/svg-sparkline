@@ -1,6 +1,6 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
-use Test::More tests => 6;
+use Test::More tests => 8;
 use Carp;
 use SVG::Sparkline;
 
@@ -8,18 +8,23 @@ use strict;
 use warnings;
 my $expect = '<svg height="10" viewBox="0 -10 18 10" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M1,0v-10m3,10v-10m3,10m3,0v-10m3,10m3,0v-10m3,10" stroke="#000" stroke-width="1" /></svg>';
 
-my $w1 = SVG::Sparkline->new( 'Whisker', { -inline=>1, y=>[1,1,0,1,0,1] } );
-isa_ok( $w1, 'SVG::Sparkline', 'Positive only array' );
-is( $w1->to_string, $expect, 'array: output correct' );
-open( my $fh, '>', 'sparkline.svg' );
-print $fh $w1->to_string;
-close $fh;
+my $w1 = SVG::Sparkline->new( 'Whisker', { -nodecl=>1, y=>[1,1,0,1,0,1] } );
+isa_ok( $w1, 'SVG::Sparkline', 'pos array: right type' );
+is( $w1->to_string, $expect, 'pos array: output correct' );
 
-my $w2 = SVG::Sparkline->new( 'Whisker', { -inline=>1, y=>'110101' } );
-isa_ok( $w2, 'SVG::Sparkline', 'Positive only binary string' );
-is( $w1->to_string, $expect, 'binary string: output correct' );
+my $w2 = SVG::Sparkline->new( 'Whisker', { -nodecl=>1, y=>'110101' } );
+isa_ok( $w2, 'SVG::Sparkline', 'pos binstr: right type' );
+is( $w1->to_string, $expect, 'pos binstr: output correct' );
 
-my $w3 = SVG::Sparkline->new( 'Whisker', { -inline=>1, y=>'++0+0+' } );
-isa_ok( $w3, 'SVG::Sparkline', 'Positive only tick string' );
-is( $w1->to_string, $expect, 'tick string: output correct' );
+my $w3 = SVG::Sparkline->new( 'Whisker', { -nodecl=>1, y=>'++0+0+' } );
+isa_ok( $w3, 'SVG::Sparkline', 'pos tickstr: right type' );
+is( $w1->to_string, $expect, 'pos tickstr: output correct' );
+
+my $w4 = SVG::Sparkline->new( 'Whisker', { -nodecl=>1, y=>[0,1,1,0,0,-1,-1,-1,1,1,-1,-1] } );
+like( $w4->to_string, qr/d="M1,0m3,0v-5m3,5v-5m3,5m3,0m3,0v5m3,-5v5m3,-5v5m3,-5v-5m3,5v-5m3,5v5m3,-5v5m3,-5"/,
+    'posneg array: correct output' );
+
+my $w5 = SVG::Sparkline->new( 'Whisker', { -nodecl=>1, y=>'0++00---++--' } );
+like( $w5->to_string, qr/d="M1,0m3,0v-5m3,5v-5m3,5m3,0m3,0v5m3,-5v5m3,-5v5m3,-5v-5m3,5v-5m3,5v5m3,-5v5m3,-5"/,
+    'posneg tickstr: correct output' );
 

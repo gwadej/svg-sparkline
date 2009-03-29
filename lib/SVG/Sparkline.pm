@@ -24,7 +24,8 @@ sub new
     my $self = bless {
         height => ($args->{height}||10),
         width => ($args->{width}||0),
-        -inline => ($args->{'-inline'}||0),
+        -nodecl => ($args->{'-nodecl'}||0),
+        -allns => ($args->{'-allns'}||0),
         color => '#000',
     }, $class;
 
@@ -100,8 +101,8 @@ sub to_string
     my ($self) = @_;
     my $str = $self->{_SVG}->xmlify();
     # Cleanup
-    $str =~ s/ xmlns:(?:svg|xlink)="[^"]+"//g; # Remove unused namespaces.
-    $str =~ s/<\?[^\?]+\?>// if $self->{'-inline'};
+    $str =~ s/ xmlns:(?:svg|xlink)="[^"]+"//g unless $self->{'-allns'};
+    $str =~ s/<\?[^\?]+\?>// if $self->{'-nodecl'};
     return $str;
 }
 
