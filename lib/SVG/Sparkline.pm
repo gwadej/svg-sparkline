@@ -55,10 +55,20 @@ sub _whisker
     croak "No values specified for 'y'.\n" unless @values;
 
     # Figure out the width I want and define the viewBox
-    my $space = 3;
-    $self->{width} ||= @values * $space;
-    my $wwidth = 1;
-    my $off = 1;
+    my $thick = 1;
+    my $space = 3*$thick;
+    if($self->{width})
+    {
+        $thick = sprintf '%.02f', $self->{width} / (3*@values);
+        $thick =~ s/\.0\d$//;
+        $thick =~ s/0$//;
+        $space = 3*$thick;
+    }
+    else
+    {
+        $self->{width} = @values * $space;
+    }
+    ++$space if $space =~s/\.9\d$//;
     my $wheight = $self->{height};
     if(List::Util::first { $_ < 0 } @values)
     {
@@ -70,7 +80,7 @@ sub _whisker
     );
     $self->{_SVG} = $svg;
 
-    my $path = "M$off,0";
+    my $path = "M$thick,0";
     foreach my $v (@values)
     {
         if( $v )
@@ -83,7 +93,7 @@ sub _whisker
             $path .= "m$space,0";
         }
     }
-    $svg->path( 'stroke-width'=>$wwidth, stroke=>$self->{color}, d=>$path );
+    $svg->path( 'stroke-width'=>$thick, stroke=>$self->{color}, d=>$path );
 
     return;
 }
