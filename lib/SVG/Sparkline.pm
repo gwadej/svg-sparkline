@@ -99,6 +99,8 @@ sub to_string
 {
     my ($self) = @_;
     my $str = $self->{_SVG}->xmlify();
+    # Cleanup
+    $str =~ s/ xmlns:(?:svg|xlink)="[^"]+"//g; # Remove unused namespaces.
     $str =~ s/<\?[^\?]+\?>// if $self->{'-inline'};
     return $str;
 }
