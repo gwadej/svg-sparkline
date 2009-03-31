@@ -1,9 +1,8 @@
-package SVG::Sparkline::Whisker;
+package SVG::Sparkline::Line;
 
 use warnings;
 use strict;
 use Carp;
-use List::Util;
 use SVG;
 use SVG::Sparkline;
 
@@ -13,101 +12,87 @@ sub make
 {
     my ($class, $args) = @_;
     # validate parameters
-    my @values;
-    if( 'ARRAY' eq ref $args->{y} )
-    {
-        @values =  @{$args->{y}};
-    }
-    elsif( !ref $args->{y} )
-    {
-        @values = split //, $args->{y};
-    }
-    else
-    {
-        croak "Unrecognized type of 'y' data.\n";
-    }
-    @values =  map { _val( $_ ) } @values;
-    croak "No values specified for 'y'.\n" unless @values;
+    croak "Missing required 'y' parameter.\n"
+        if !exists $args->{y} or 'ARRAY' ne ref $args->{y};
+    croak "Missing required 'x' parameter.\n"
+        if !exists $args->{x} or 'ARRAY' ne ref $args->{x};
+    croak "No values for 'y' specified.\n" unless @{$args->{y}};
+    croak "No values for 'x' specified.\n" unless @{$args->{x}};
+    croak "Count of 'x' and 'y' values must match.\n"
+        unless @{$args->{x}} == @{$args->{y}};
+    croak "Missing required 'width' parameter.\n"
+        if !exists $args->{width} or $args->{width} < 1;
 
     # Figure out the width I want and define the viewBox
-    my $thick = 1;
-    my $space = 3*$thick;
-    if($args->{width})
-    {
-        $thick = sprintf '%.02f', $args->{width} / (3*@values);
-        $thick =~ s/0$//;
-        $thick =~ s/\.0\d?$//;
-        $space = 3*$thick;
-    }
-    else
-    {
-        $args->{width} = @values * $space;
-    }
-    ++$space if $space =~s/\.9\d$//;
-    my $wheight = $args->{height};
-    if(List::Util::first { $_ < 0 } @values)
-    {
-        $wheight = $args->{height}/2;
-    }
+    my $xvals = _vals( $args->{x} );
+    my $yvals = _vals( $args->{y} );
+
+    my $thick = $args->{thick} || 1;
+    my $xscale = sprintf '%.02d', $args->{width} / $xvals->{range};
+    my $yscale = sprintf '%.02d', $args->{height} / $yvals->{range};
+
     my $svg = SVG::Sparkline::_svg(
         width=>$args->{width}, height=>$args->{height},
-        viewBox=> "0 -$wheight $args->{width} $args->{height}",
+        viewBox=> "0 -$args->{height} $args->{width} $args->{height}",
     );
 
-    my $path = "M$thick,0";
-    foreach my $v (@values)
-    {
-        if( $v )
-        {
-            my ($u,$d) = ( -$v*$wheight, $v*$wheight );
-            $path .= "v${u}m$space,${d}";
-        }
-        else
-        {
-            $path .= "m$space,0";
-        }
-    }
-    $svg->path( 'stroke-width'=>$thick, stroke=>$args->{color}, d=>$path );
+    my $points = join( ' ',
+        map { _f($xscale*$xvals->{vals}->[$_]) .','. _f(-$yscale*$yvals->{vals}->[$_]) }
+        0 .. $#{$xvals->{vals}}
+    );
+    $svg->polyline( 'stroke-width'=>$thick, stroke=>$args->{color}, points=>$points );
 
     return $svg;
 }
 
-sub _val
+sub _vals
 {
-    my $y = shift;
+    my ($array) = @_;
+    my $desc = {
+        min => List::Util::min( @{$array} ),
+        max => List::Util::max( @{$array} ),
+    };
 
-    return $y <=> 0 if $y =~ /\d/;
-    return $y eq '+' ? 1 : ( $y eq '-' ? -1 : 0 );
+    $desc->{range} = $desc->{max}-$desc->{min}+1;
+    push @{$desc->{vals}}, $_-$desc->{min} foreach @{$array};
+    return $desc;
 }
 
+sub _f
+{
+    my $val = sprintf '%.02d', $_[0];
+    $val =~ s/0$//;
+    $val =~ s/\.00$//;
+    return $val;
+}
 
 1; # Magic true value required at end of module
 __END__
 
 =head1 NAME
 
-SVG::Sparkline::Whisker - [One line description of module's purpose here]
+SVG::Sparkline::Line - [One line description of module's purpose here]
 
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Whisker version 0.0.3
+This document describes SVG::Sparkline::Line version 0.0.3
 
 
 =head1 SYNOPSIS
 
-    use SVG::Sparkline::Whisker;
+    use SVG::Sparkline::Line;
 
 =head1 DESCRIPTION
 
 Not used directly. This module provides a factory interface to build
-a 'Whisker' sparkline. It is loaded on demand by L<SVG::Sparkline>.
+a 'Line' sparkline. It is loaded on demand by L<SVG::Sparkline>.
 
 =head1 INTERFACE 
 
 =head2 make
 
-Create an L<SVG> object that represents the Whisker style of Sparkline.
+Create an L<SVG> object that represents the Line style of Sparkline.
 
 =head1 DIAGNOSTICS
 
@@ -134,11 +119,11 @@ Create an L<SVG> object that represents the Whisker style of Sparkline.
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
-SVG::Sparkline::Whisker requires no configuration files or environment variables.
+SVG::Sparkline::Line requires no configuration files or environment variables.
 
 =head1 DEPENDENCIES
 
-L<Carp>, L<SVG>, L<SVG::Sparkline>, L<List::Util>.
+L<Carp>, L<SVG>, L<SVG::Sparkline>.
 
 =head1 INCOMPATIBILITIES
 

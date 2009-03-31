@@ -4,7 +4,6 @@ use warnings;
 use strict;
 use Carp;
 use SVG;
-use List::Util();
 
 our $VERSION = '0.0.3';
 
@@ -138,7 +137,7 @@ SVG::Sparkline requires no configuration files or environment variables.
 
 =head1 DEPENDENCIES
 
-L<Carp>, L<SVG>, L<List::Util>.
+L<Carp>, L<SVG>.
 
 =head1 INCOMPATIBILITIES
 
