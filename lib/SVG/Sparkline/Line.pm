@@ -4,9 +4,13 @@ use warnings;
 use strict;
 use Carp;
 use SVG;
-use SVG::Sparkline;
+use SVG::Sparkline::Utils;
 
+use 5.008000;
 our $VERSION = '0.0.3';
+
+*_f = *SVG::Sparkline::Utils::format_f;
+*_vals = *SVG::Sparkline::Utils::summarize_values;
 
 sub make
 {
@@ -28,10 +32,10 @@ sub make
     my $yvals = _vals( $args->{y} );
 
     my $thick = $args->{thick} || 1;
-    my $xscale = sprintf '%.02d', $args->{width} / $xvals->{range};
-    my $yscale = sprintf '%.02d', $args->{height} / $yvals->{range};
+    my $xscale = $args->{width} / $xvals->{range};
+    my $yscale = $args->{height} / $yvals->{range};
 
-    my $svg = SVG::Sparkline::_svg(
+    my $svg = SVG::Sparkline::Utils::make_svg(
         width=>$args->{width}, height=>$args->{height},
         viewBox=> "0 -$args->{height} $args->{width} $args->{height}",
     );
@@ -40,30 +44,9 @@ sub make
         map { _f($xscale*$xvals->{vals}->[$_]) .','. _f(-$yscale*$yvals->{vals}->[$_]) }
         0 .. $#{$xvals->{vals}}
     );
-    $svg->polyline( 'stroke-width'=>$thick, stroke=>$args->{color}, points=>$points );
+    $svg->polyline( fill=>'none', 'stroke-width'=>$thick, stroke=>$args->{color}, points=>$points );
 
     return $svg;
-}
-
-sub _vals
-{
-    my ($array) = @_;
-    my $desc = {
-        min => List::Util::min( @{$array} ),
-        max => List::Util::max( @{$array} ),
-    };
-
-    $desc->{range} = $desc->{max}-$desc->{min}+1;
-    push @{$desc->{vals}}, $_-$desc->{min} foreach @{$array};
-    return $desc;
-}
-
-sub _f
-{
-    my $val = sprintf '%.02d', $_[0];
-    $val =~ s/0$//;
-    $val =~ s/\.00$//;
-    return $val;
 }
 
 1; # Magic true value required at end of module

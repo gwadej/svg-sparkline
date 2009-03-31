@@ -5,6 +5,7 @@ use strict;
 use Carp;
 use SVG;
 
+use 5.008000;
 our $VERSION = '0.0.3';
 
 sub new
@@ -48,14 +49,6 @@ sub to_string
     $str =~ s/ xmlns:(?:svg|xlink)="[^"]+"//g unless $self->{'-allns'};
     $str =~ s/<\?[^\?]+\?>// if $self->{'-nodecl'};
     return $str;
-}
-
-sub _svg
-{
-    return SVG->new(
-        -inline=>1, -nocredits=>1, -raiseerror=>1, -indent=>'', -elsep=>'',
-        @_
-    );
 }
 
 1; # Magic true value required at end of module

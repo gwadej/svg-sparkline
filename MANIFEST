@@ -2,6 +2,7 @@ Build.PL
 Changes
 lib/SVG/Sparkline.pm
 lib/SVG/Sparkline/Line.pm
+lib/SVG/Sparkline/Utils.pm
 lib/SVG/Sparkline/Whisker.pm
 Makefile.PL
 MANIFEST

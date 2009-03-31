@@ -5,9 +5,12 @@ use strict;
 use Carp;
 use List::Util;
 use SVG;
-use SVG::Sparkline;
+use SVG::Sparkline::Utils;
 
+use 5.008000;
 our $VERSION = '0.0.3';
+
+*_f = *SVG::Sparkline::Utils::format_f;
 
 sub make
 {
@@ -34,9 +37,7 @@ sub make
     my $space = 3*$thick;
     if($args->{width})
     {
-        $thick = sprintf '%.02f', $args->{width} / (3*@values);
-        $thick =~ s/0$//;
-        $thick =~ s/\.0\d?$//;
+        $thick = _f( $args->{width} / (3*@values) );
         $space = 3*$thick;
     }
     else
@@ -49,7 +50,7 @@ sub make
     {
         $wheight = $args->{height}/2;
     }
-    my $svg = SVG::Sparkline::_svg(
+    my $svg = SVG::Sparkline::Utils::make_svg(
         width=>$args->{width}, height=>$args->{height},
         viewBox=> "0 -$wheight $args->{width} $args->{height}",
     );
