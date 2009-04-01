@@ -2,6 +2,7 @@ Build.PL
 Changes
 lib/SVG/Sparkline.pm
 lib/SVG/Sparkline/Area.pm
+lib/SVG/Sparkline/Bar.pm
 lib/SVG/Sparkline/Line.pm
 lib/SVG/Sparkline/Utils.pm
 lib/SVG/Sparkline/Whisker.pm
@@ -20,6 +21,8 @@ t/07.line_bad_parms.t
 t/08.simple_line.t
 t/09.area_bad_parms.t
 t/10.simple_area.t
+t/11.bar_bad_parms.t
+t/12.simple_bar.t
 t/perlcritic.t
 t/pod-coverage.t
 t/pod.t
