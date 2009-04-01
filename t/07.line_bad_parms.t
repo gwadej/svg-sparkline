@@ -12,13 +12,13 @@ eval { SVG::Sparkline->new( 'Line', { y=>''} ) };
 like( $@, qr/Missing required 'y'/, 'y is not an array' );
 
 eval { SVG::Sparkline->new( 'Line', { y=>[] } ) };
+like( $@, qr/No values for 'y' specified/, 'y is empty' );
+
+eval { SVG::Sparkline->new( 'Line', { y=>[1] } ) };
 like( $@, qr/Missing required 'x'/, 'x is missing' );
 
-eval { SVG::Sparkline->new( 'Line', { y=>[], x=>'' } ) };
+eval { SVG::Sparkline->new( 'Line', { y=>[1], x=>'' } ) };
 like( $@, qr/Missing required 'x'/, 'x is not an array' );
-
-eval { SVG::Sparkline->new( 'Line', { y=>[], x=>[] } ) };
-like( $@, qr/No values for 'y' specified/, 'y is empty' );
 
 eval { SVG::Sparkline->new( 'Line', { y=>[1], x=>[] } ) };
 like( $@, qr/No values for 'x' specified/, 'x is empty' );

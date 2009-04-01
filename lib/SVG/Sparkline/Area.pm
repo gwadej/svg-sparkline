@@ -17,12 +17,8 @@ sub make
 {
     my ($class, $args) = @_;
     # validate parameters
-    croak "Missing required 'y' parameter.\n"
-        if !exists $args->{y} or 'ARRAY' ne ref $args->{y};
-    croak "Missing required 'x' parameter.\n"
-        if !exists $args->{x} or 'ARRAY' ne ref $args->{x};
-    croak "No values for 'y' specified.\n" unless @{$args->{y}};
-    croak "No values for 'x' specified.\n" unless @{$args->{x}};
+    SVG::Sparkline::Utils::validate_array_param( $args, 'y' );
+    SVG::Sparkline::Utils::validate_array_param( $args, 'x' );
     croak "Count of 'x' and 'y' values must match.\n"
         unless @{$args->{x}} == @{$args->{y}};
     croak "Missing required 'width' parameter.\n"

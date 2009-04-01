@@ -37,6 +37,16 @@ sub make_svg
     );
 }
 
+sub validate_array_param
+{
+    my ($args, $name) = @_;
+    local $Carp::CarpLevel = 2;
+    croak "Missing required '$name' parameter.\n"
+        if !exists $args->{$name} or 'ARRAY' ne ref $args->{$name};
+    croak "No values for '$name' specified.\n" unless @{$args->{$name}};
+    return;
+}
+
 1; # Magic true value required at end of module
 __END__
 
@@ -74,6 +84,8 @@ This document describes SVG::Sparkline::Utils version 0.0.3
 =head2 make_svg
 
 =head2 summarize_values
+
+=head2 validate_array_param
 
 =for author to fill in:
     Write a separate section listing the public components of the modules
