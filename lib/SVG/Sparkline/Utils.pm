@@ -13,6 +13,7 @@ sub format_f
     my $val = sprintf '%.02f', $_[0];
     $val =~ s/0$//;
     $val =~ s/\.0$//;
+    $val = 0 if $val eq '-0';
     return $val;
 }
 
@@ -24,7 +25,7 @@ sub summarize_values
         max => List::Util::max( @{$array} ),
     };
 
-    $desc->{range} = $desc->{max}-$desc->{min}+1;
+    $desc->{range} = $desc->{max}-$desc->{min};
     push @{$desc->{vals}}, $_-$desc->{min} foreach @{$array};
     return $desc;
 }

@@ -29,16 +29,16 @@ sub make
     my $yvals = _vals( $args->{y} );
 
     my $xscale = $args->{width} / $xvals->{range};
-    my $yscale = $args->{height} / $yvals->{range};
+    my $yscale = -$args->{height} / $yvals->{range};
 
     my $svg = SVG::Sparkline::Utils::make_svg(
         width=>$args->{width}, height=>$args->{height},
         viewBox=> "0 -$args->{height} $args->{width} $args->{height}",
     );
-    my $baseline = _f($yscale*$yvals->{min});
+    my $baseline = _f(-$yscale*$yvals->{min});
 
     my $points = join( ' ', "0,$baseline",
-        ( map { _f($xscale*$xvals->{vals}->[$_]) .','. _f(-$yscale*$yvals->{vals}->[$_]) }
+        ( map { _f($xscale*$xvals->{vals}->[$_]) .','. _f($yscale*$yvals->{vals}->[$_]) }
         0 .. $#{$xvals->{vals}} ), _f($xscale*$xvals->{vals}->[-1]).",$baseline"
     );
     $svg->polygon( fill=>$args->{color}, points=>$points );

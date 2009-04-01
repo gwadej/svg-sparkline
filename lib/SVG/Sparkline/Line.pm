@@ -30,7 +30,7 @@ sub make
 
     my $thick = $args->{thick} || 1;
     my $xscale = $args->{width} / $xvals->{range};
-    my $yscale = $args->{height} / $yvals->{range};
+    my $yscale = -$args->{height} / $yvals->{range};
 
     my $svg = SVG::Sparkline::Utils::make_svg(
         width=>$args->{width}, height=>$args->{height},
@@ -38,7 +38,7 @@ sub make
     );
 
     my $points = join( ' ',
-        map { _f($xscale*$xvals->{vals}->[$_]) .','. _f(-$yscale*$yvals->{vals}->[$_]) }
+        map { _f($xscale*$xvals->{vals}->[$_]) .','. _f($yscale*$yvals->{vals}->[$_]) }
         0 .. $#{$xvals->{vals}}
     );
     $svg->polyline( fill=>'none', 'stroke-width'=>$thick, stroke=>$args->{color}, points=>$points );
