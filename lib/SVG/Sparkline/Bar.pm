@@ -38,7 +38,7 @@ sub make
         viewBox=> "0 -$args->{height} $args->{width} $args->{height}",
     );
 
-    my $prev = 0;
+    my $prev = -$vals->{min};
     my $path = "M0,$baseline";
     foreach my $v (@{$vals->{vals}})
     {
@@ -47,7 +47,7 @@ sub make
         $path .= "h$thick";
         $prev = $v;
     }
-    $path .= 'v'._f( $yscale*($baseline-$prev) ) unless $prev == $baseline;
+    $path .= 'v'._f( $yscale*(-$vals->{min}-$prev) ) unless $prev == -$vals->{min};
     $path .= 'z';
     $svg->path( stroke=>'none', fill=>$args->{color}, d=>$path );
 
