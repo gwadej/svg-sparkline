@@ -9,6 +9,7 @@ use SVG::Sparkline::Utils;
 use 5.008000;
 our $VERSION = '0.0.3';
 
+# aliases to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
 *_vals = *SVG::Sparkline::Utils::summarize_values;
 

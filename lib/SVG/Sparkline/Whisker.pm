@@ -10,6 +10,7 @@ use SVG::Sparkline::Utils;
 use 5.008000;
 our $VERSION = '0.0.3';
 
+# alias to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
 
 sub make
@@ -46,10 +47,8 @@ sub make
     }
     ++$space if $space =~s/\.9\d$//;
     my $wheight = $args->{height};
-    if(List::Util::first { $_ < 0 } @values)
-    {
-        $wheight = $args->{height}/2;
-    }
+    $wheight /= 2 if List::Util::first { $_ < 0 } @values;
+
     my $svg = SVG::Sparkline::Utils::make_svg(
         width=>$args->{width}, height=>$args->{height},
         viewBox=> "0 -$wheight $args->{width} $args->{height}",
