@@ -6,7 +6,7 @@ use SVG::Sparkline;
 
 use strict;
 use warnings;
-my $expect = '<svg height="10" viewBox="0 -10 18 10" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M1,0v-10m3,10v-10m3,10m3,0v-10m3,10m3,0v-10m3,10" stroke="#000" stroke-width="1" /></svg>';
+my $expect = '<svg height="10" viewBox="0 -5 18 10" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M1,0v-5m3,5v-5m3,5m3,0v-5m3,5m3,0v-5m3,5" stroke="#000" stroke-width="1" /></svg>';
 
 my $w1 = SVG::Sparkline->new( 'Whisker', { -nodecl=>1, y=>[1,1,0,1,0,1] } );
 isa_ok( $w1, 'SVG::Sparkline', 'pos array: right type' );

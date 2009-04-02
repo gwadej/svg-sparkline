@@ -3,7 +3,6 @@ package SVG::Sparkline::Whisker;
 use warnings;
 use strict;
 use Carp;
-use List::Util;
 use SVG;
 use SVG::Sparkline::Utils;
 
@@ -46,8 +45,7 @@ sub make
         $args->{width} = @values * $space;
     }
     ++$space if $space =~s/\.9\d$//;
-    my $wheight = $args->{height};
-    $wheight /= 2 if List::Util::first { $_ < 0 } @values;
+    my $wheight = $args->{height}/2;
 
     my $svg = SVG::Sparkline::Utils::make_svg(
         width=>$args->{width}, height=>$args->{height},
