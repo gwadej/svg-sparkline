@@ -51,17 +51,11 @@ __END__
 
 =head1 NAME
 
-SVG::Sparkline::Line - [One line description of module's purpose here]
-
+SVG::Sparkline::Line - Supports SVG::Sparkline for line graphs.
 
 =head1 VERSION
 
 This document describes SVG::Sparkline::Line version 0.1.0
-
-
-=head1 SYNOPSIS
-
-    use SVG::Sparkline::Line;
 
 =head1 DESCRIPTION
 
@@ -76,23 +70,23 @@ Create an L<SVG> object that represents the Line style of Sparkline.
 
 =head1 DIAGNOSTICS
 
-=for author to fill in:
-    List every single error and warning message that the module can
-    generate (even the ones that will "never happen"), with a full
-    explanation of each problem, one or more likely causes, and any
-    suggested remedies.
-
 =over
 
-=item C<< Error message here, perhaps with %s placeholders >>
+=item C<< Missing required '%s' parameter. >>
 
-[Description of error here]
+The named parameter is either not supplied or is not an array.
 
-=item C<< Another error message here >>
+=item C<< Missing required 'width' parameter. >>
 
-[Description of error here]
+The I<Line> sparkline type requires a specified width in pixels.
 
-[Et cetera, et cetera]
+=item C<< No values for '%s' specified. >>
+
+The supplied array has no values.
+
+=item C<< Count of 'x' and 'y' values must match. >>
+
+The two arrays have different numbers of values.
 
 =back
 
@@ -103,7 +97,7 @@ SVG::Sparkline::Line requires no configuration files or environment variables.
 
 =head1 DEPENDENCIES
 
-L<Carp>, L<SVG>, L<SVG::Sparkline>.
+L<Carp>, L<SVG>, L<SVG::Sparkline::Line>.
 
 =head1 INCOMPATIBILITIES
 

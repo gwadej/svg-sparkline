@@ -84,17 +84,11 @@ __END__
 
 =head1 NAME
 
-SVG::Sparkline::Whisker - [One line description of module's purpose here]
-
+SVG::Sparkline::Whisker - Supports SVG::Sparkline for whisker graphs.
 
 =head1 VERSION
 
 This document describes SVG::Sparkline::Whisker version 0.1.0
-
-
-=head1 SYNOPSIS
-
-    use SVG::Sparkline::Whisker;
 
 =head1 DESCRIPTION
 
@@ -109,26 +103,18 @@ Create an L<SVG> object that represents the Whisker style of Sparkline.
 
 =head1 DIAGNOSTICS
 
-=for author to fill in:
-    List every single error and warning message that the module can
-    generate (even the ones that will "never happen"), with a full
-    explanation of each problem, one or more likely causes, and any
-    suggested remedies.
+=over 4
 
-=over
+=item C<< Unrecognized type of 'y' data. >>
 
-=item C<< Error message here, perhaps with %s placeholders >>
+The I<y> parameter only supports strings of {'-','+','0'}, {'0','1'}, or
+a reference to an array of numbers.
 
-[Description of error here]
+=item C<< No values specified for 'y'. >>
 
-=item C<< Another error message here >>
-
-[Description of error here]
-
-[Et cetera, et cetera]
+An empty array was supplied for the I<y> parameter.
 
 =back
-
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
@@ -136,7 +122,7 @@ SVG::Sparkline::Whisker requires no configuration files or environment variables
 
 =head1 DEPENDENCIES
 
-L<Carp>, L<SVG>, L<SVG::Sparkline>, L<List::Util>.
+L<Carp>, L<SVG>, L<SVG::Sparkline::Utils>.
 
 =head1 INCOMPATIBILITIES
 

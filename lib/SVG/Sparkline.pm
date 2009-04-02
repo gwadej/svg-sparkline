@@ -63,7 +63,6 @@ SVG::Sparkline - Create Sparklines in SVG
 
 This document describes SVG::Sparkline version 0.1.0
 
-
 =head1 SYNOPSIS
 
     use SVG::Sparkline;
@@ -90,12 +89,212 @@ kinds of sparklines. This class is not intended to be used to build large,
 complex graphs (there are other modules much more suited to that job). The
 focus here is on the kinds of data well-suited to the sparklines concept.
 
+Although the basics are there, this module is not yet feature complete.
+
 =head1 INTERFACE 
 
 =head2 CVG::Sparkline->new( $type, $args_hr )
 
 Create a new L<SVG::Sparkline> object of the specified type, using the
 parameters in the C<$args_hr> hash reference.
+
+The parameters passed in C<$args_hr> depend somewhat on the C<$type>.
+However, some are common.
+
+=over 4
+
+=item height
+
+This optional parameter specifies the height of the Sparkline in pixels.
+The data for the sparkline is scaled to fit this height. If not specified,
+the default height is 10 pixels.
+
+=item width
+
+This parameter specifies the width of the Sparkline in pixels. All data is
+scaled to fit this width. Whether the I<width> parameter is optional or
+required depends on the sparkline type. The type also determines the default
+width if one is not specifies.
+
+=item x
+
+This parameter must be a reference to an array of numbers specifying the
+x-coordinates of the data set to display. It is required for I<Line> and
+I<Area> sparklines and ignored for I<Bar> and I<Whisker> sparklines. For
+the types that require the I<x> parameter, the number of items specified
+for I<x> and I<y> must be the same.
+
+=item y
+
+This required parameter specifies the y-coordinates of the data set to
+display. Although all sparkline types accept a reference to an array of
+numbers, the I<Whisker> type supports other options.
+
+=item color
+
+This optional parameter specifies the color for the displayed data as an
+SVG supported color string. Each sparkline type uses this color slightly
+differently.
+
+=back
+
+The supported graph types are: B<Area>, B<Bar>, B<Line>, and B<Whisker>.
+Each type is described below with any parameters specific to that type.
+
+=head3 Area
+
+An C<Area> sparkline is a basic line graph with shaded between the line and
+the x axis. The supplied I<color> attribute determines the shading.
+
+=over 4
+
+=item x
+
+The I<x> parameter is required for the I<Area> sparkline type. The value must
+be a reference to an array of numeric values in increasing order. There must
+be the same number of I<x> values as I<y> values.
+
+=item y
+
+The I<y> parameter is required for the I<Area> sparkline type. The value must
+be a reference to an array of numeric values, where each I<y> value matches the
+corresponding I<x> value.
+
+=item width
+
+This parameter is required for the I<Area> sparkline type. The value is the width
+of the sparkline in pixels.
+
+=item color
+
+This optional parameter specifies the color of the filled area between the
+data line and the x-axis as a SVG supported color string. The default value
+for this parameter is I<#000> (black).
+
+=back
+
+=head3 Bar
+
+The I<Bar> sparkline type is a simple bar graph. This sparkline type does not
+require any I<x> values.
+
+=over 4
+
+=item y
+
+The I<y> parameter is required for the I<Bar> sparkline type. The value must
+be a reference to an array of numeric values, specifying the height of the
+corresponding bar.
+
+=item thick
+
+This optional parameter specifies the thickness of the individual bars on the
+bar graph. This parameter is ignored if the I<width> parameter is specified.
+If neither I<width> or I<thick> are specified, the default value of I<thick>
+is 3.
+
+=item width
+
+This optional parameter specifies the width of the sparkline in pixels. If
+the I<width> is not specified, the width of the sparkline is the value of
+I<thick> times the number of I<y> values.
+
+=item color
+
+This optional parameter specifies the color of the filled area between the
+data line and the x-axis as a SVG supported color string. The default value
+for this parameter is I<#000> (black).
+
+=back
+
+=head3 Line
+
+The I<Line> sparkline type is a simple line graph. Both I<x> and I<y> values
+are required for I<Line> sparklines.
+
+=over 4
+
+=item x
+
+The I<x> parameter is required for the I<Line> sparkline type. The value must
+be a reference to an array of numeric values in increasing order. There must
+be the same number of I<x> values as I<y> values.
+
+=item y
+
+The I<y> parameter is required for the I<Line> sparkline type. The value must
+be a reference to an array of numeric values, where each I<y> value matches the
+corresponding I<x> value.
+
+=item width
+
+This parameter is required for the I<Line> sparkline type. The value is the width
+of the sparkline in pixels.
+
+=item thick
+
+This optional parameter specifies the thickness of the data line in pixels.
+If not specified, the default value is 1 pixel.
+
+=item color
+
+This optional parameter specifies the color of the data line as a SVG supported
+color string. The default value for this parameter is I<#000> (black).
+
+=back
+
+=head3 Whisker
+
+The I<Whisker> sparkline type shows a sequence of events that can have one
+of two outcomes (e.g. win/loss). A short line upwards is one of the outcomes
+and a short line downward is the other outcome. There is also a third possible
+where no tick is displayed.
+
+=over 4
+
+=item y
+
+The I<y> parameter is required for the I<Whisker> sparkline type. The value
+can be one of three things:
+
+=over 4
+
+=item string of '+', '-', or '0'
+
+Where '+' means an uptick, '-' is a down tick, and 0 is no tick.
+
+=item string of '1' or '0'.
+
+Where '1' means an uptick, and '0' means no tick.
+
+=item reference to an array of numbers
+
+Where any positive number is an uptick, any negative number is a downtick,
+and zero is no tick.
+
+=back
+
+=item width
+
+This optional parameter specifies the width of the sparkline in pixels. If
+the I<width> is not specified, the width of the sparkline is the value of
+I<thick> times 3 times the number of I<y> values.
+
+=item thick
+
+This optional parameter specifies the thickness of the individual whiskers
+on the whisker chart. The gaps between the whiskers is twice the value of
+I<thick>. This parameter is ignored if the I<width> parameter is specified.
+If neither I<width> or I<thick> are specified, the default value of I<thick>
+is 1.
+
+=item color
+
+This optional parameter specifies the color of the individual whiskers as a
+SVG supported color string. The default value for this parameter is I<#000>
+(black).
+
+=back
 
 =head2 to_string
 
@@ -143,6 +342,11 @@ No bugs have been reported.
 Please report any bugs or feature requests to
 C<bug-svg-sparkline@rt.cpan.org>, or through the web interface at
 L<http://rt.cpan.org>.
+
+=head1 FUTURE DIRECTIONS
+
+I plan to support more optional features and more I<intelligence> so that
+the module can do a better job without you specifying everything.
 
 =head1 AUTHOR
 

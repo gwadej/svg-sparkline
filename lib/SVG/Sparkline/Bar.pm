@@ -59,17 +59,11 @@ __END__
 
 =head1 NAME
 
-SVG::Sparkline::Bar - [One line description of module's purpose here]
-
+SVG::Sparkline::Bar - Supports SVG::Sparkline for bar graphs.
 
 =head1 VERSION
 
 This document describes SVG::Sparkline::Bar version 0.1.0
-
-
-=head1 SYNOPSIS
-
-    use SVG::Sparkline::Bar;
 
 =head1 DESCRIPTION
 
@@ -84,26 +78,17 @@ Create an L<SVG> object that represents the Bar style of Sparkline.
 
 =head1 DIAGNOSTICS
 
-=for author to fill in:
-    List every single error and warning message that the module can
-    generate (even the ones that will "never happen"), with a full
-    explanation of each problem, one or more likely causes, and any
-    suggested remedies.
-
 =over
 
-=item C<< Error message here, perhaps with %s placeholders >>
+=item C<< Missing required '%s' parameter. >>
 
-[Description of error here]
+The named parameter is either not supplied or is not an array.
 
-=item C<< Another error message here >>
+=item C<< No values for '%s' specified. >>
 
-[Description of error here]
-
-[Et cetera, et cetera]
+The supplied array has no values.
 
 =back
-
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
