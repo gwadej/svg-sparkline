@@ -6,7 +6,7 @@ use Carp;
 use List::Util;
 use SVG;
 
-our $VERSION = '0.0.3';
+our $VERSION = '0.1.0';
 
 sub format_f
 {
@@ -58,7 +58,7 @@ SVG::Sparkline::Utils - [One line description of module's purpose here]
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Utils version 0.0.3
+This document describes SVG::Sparkline::Utils version 0.1.0
 
 
 =head1 SYNOPSIS

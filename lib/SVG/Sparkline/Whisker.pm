@@ -8,7 +8,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = '0.0.3';
+our $VERSION = '0.1.0';
 
 # alias to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -91,7 +91,7 @@ SVG::Sparkline::Whisker - [One line description of module's purpose here]
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Whisker version 0.0.3
+This document describes SVG::Sparkline::Whisker version 0.1.0
 
 
 =head1 SYNOPSIS
