@@ -17,7 +17,6 @@ sub new
     croak "Unrecognized Sparkline type '$type'.\n" if $@;
     croak "Missing arguments hash.\n" unless defined $args;
     croak "Arguments not supplied as a hash reference.\n" unless 'HASH' eq ref $args;
-    croak "Missing required 'y' argument.\n" unless exists $args->{y} and defined $args->{y};
 
     my $self = bless {
         height => 10,

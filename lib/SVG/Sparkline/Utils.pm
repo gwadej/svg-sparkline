@@ -42,8 +42,8 @@ sub validate_array_param
 {
     my ($args, $name) = @_;
     local $Carp::CarpLevel = 2;
-    croak "Missing required '$name' parameter.\n"
-        if !exists $args->{$name} or 'ARRAY' ne ref $args->{$name};
+    croak "Missing required '$name' parameter.\n" if !exists $args->{$name};
+    croak "'$name' must be an array reference.\n" unless 'ARRAY' eq ref $args->{$name};
     croak "No values for '$name' specified.\n" unless @{$args->{$name}};
     return;
 }

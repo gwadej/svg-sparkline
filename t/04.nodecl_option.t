@@ -8,12 +8,12 @@ use warnings;
 use SVG::Sparkline;
 
 {
-    my $w = SVG::Sparkline->new( 'Whisker', {y=>'++0++0--'} );
+    my $w = SVG::Sparkline->new( 'Whisker', {values=>'++0++0--'} );
     like( $w->to_string, qr/^<\?xml/, 'xml decl if missing -nodecl' );
 }
 
 {
-    my $w = SVG::Sparkline->new( 'Whisker', {y=>'++0++0--', -nodecl=>1} );
+    my $w = SVG::Sparkline->new( 'Whisker', {values=>'++0++0--', -nodecl=>1} );
     unlike( $w->to_string, qr/^<\?xml/, 'no xml decl if -nodecl' );
 }
 

@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = '0.1.0';
+our $VERSION = '0.1.1';
 
 # alias to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -17,8 +17,8 @@ sub make
     my ($class, $args) = @_;
     # validate parameters
     my @values;
-    SVG::Sparkline::Utils::validate_array_param( $args, 'y' );
-    my $vals = SVG::Sparkline::Utils::summarize_values( $args->{y} );
+    SVG::Sparkline::Utils::validate_array_param( $args, 'values' );
+    my $vals = SVG::Sparkline::Utils::summarize_values( $args->{values} );
     my $yscale = -$args->{height} / $vals->{range};
     my $baseline = _f(-$yscale*$vals->{min});
 
@@ -63,7 +63,7 @@ SVG::Sparkline::Bar - Supports SVG::Sparkline for bar graphs.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Bar version 0.1.0
+This document describes SVG::Sparkline::Bar version 0.1.1
 
 =head1 DESCRIPTION
 
