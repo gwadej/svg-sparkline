@@ -106,6 +106,10 @@ Create an L<SVG> object that represents the Whisker style of Sparkline.
 
 =over 4
 
+=item C<< Missing required '%s' parameter. >>
+
+The named parameter is not supplied.
+
 =item C<< Unrecognized type of 'values' data. >>
 
 The I<values> parameter only supports strings of {'-','+','0'}, {'0','1'}, or

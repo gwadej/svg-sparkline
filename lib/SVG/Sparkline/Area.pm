@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = '0.1.0';
+our $VERSION = '0.1.1';
 
 # aliases to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -55,7 +55,7 @@ SVG::Sparkline::Area - Supports SVG::Sparkline for area graphs.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Area version 0.1.0
+This document describes SVG::Sparkline::Area version 0.1.1
 
 =head1 DESCRIPTION
 
@@ -74,11 +74,11 @@ Create an L<SVG> object that represents the Area style of Sparkline.
 
 =item C<< Missing required '%s' parameter. >>
 
-The named parameter is either not supplied or is not an array.
+The named parameter is not supplied.
 
-=item C<< Missing required 'width' parameter. >>
+=item C<< '%s' must be an array reference. >>
 
-The I<Line> sparkline type requires a specified width in pixels.
+The named parameter was not an array reference.
 
 =item C<< No values for '%s' specified. >>
 

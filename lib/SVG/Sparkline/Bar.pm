@@ -82,7 +82,11 @@ Create an L<SVG> object that represents the Bar style of Sparkline.
 
 =item C<< Missing required '%s' parameter. >>
 
-The named parameter is either not supplied or is not an array.
+The named parameter is not supplied.
+
+=item C<< '%s' must be an array reference. >>
+
+The named parameter was not an array reference.
 
 =item C<< No values for '%s' specified. >>
 
