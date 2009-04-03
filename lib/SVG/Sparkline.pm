@@ -66,7 +66,7 @@ This document describes SVG::Sparkline version 0.1.1
 
     use SVG::Sparkline;
 
-    my $sl1 = SVG::Sparkline->new( 'Whisker', { y=>\@values, color=>'#eee', height=>12 } );
+    my $sl1 = SVG::Sparkline->new( 'Whisker', { values=>\@values, color=>'#eee', height=>12 } );
     print $sl1->to_string();
 
     my $sl2 = SVG::Sparkline->new( 'Line', { y=>\@values, x=>\@x, color=>'blue', height=>12 } );
@@ -75,7 +75,7 @@ This document describes SVG::Sparkline version 0.1.1
     my $sl3 = SVG::Sparkline->new( 'Area', { y=>\@values, x=>\@x, color=>'green', height=>10 } );
     print $sl3->to_string();
 
-    my $sl4 = SVG::Sparkline->new( 'Bar', { y=>\@values, color=>'#66f', height=>10 } );
+    my $sl4 = SVG::Sparkline->new( 'Bar', { values=>\@values, color=>'#66f', height=>10 } );
     print $sl4->to_string();
   
 =head1 DESCRIPTION
@@ -161,9 +161,9 @@ for I<x> and I<y> must be the same.
 
 =item y
 
-This required parameter specifies the y-coordinates of the data set to
-display. Although all sparkline types accept a reference to an array of
-numbers, the I<Whisker> type supports other options.
+This parameter is required for I<Line> and I<Whisker> sparklines and
+specifies the y-coordinates of the data set to display. The value of this
+parameter is an array of numbers.
 
 =item color
 
@@ -215,11 +215,11 @@ require any I<x> values.
 
 =over 4
 
-=item y
+=item values
 
-The I<y> parameter is required for the I<Bar> sparkline type. The value must
-be a reference to an array of numeric values, specifying the height of the
-corresponding bar.
+The I<values> parameter is required for the I<Bar> sparkline type. The
+value must be a reference to an array of numeric values, specifying the
+height of the corresponding bar.
 
 =item thick
 
@@ -232,7 +232,7 @@ is 3.
 
 This optional parameter specifies the width of the sparkline in pixels. If
 the I<width> is not specified, the width of the sparkline is the value of
-I<thick> times the number of I<y> values.
+I<thick> times the number of I<values>.
 
 =item color
 
@@ -287,10 +287,10 @@ where no tick is displayed.
 
 =over 4
 
-=item y
+=item values
 
-The I<y> parameter is required for the I<Whisker> sparkline type. The value
-can be one of three things:
+The I<values> parameter is required for the I<Whisker> sparkline type.
+The value can be one of three things:
 
 =over 4
 
@@ -313,7 +313,7 @@ and zero is no tick.
 
 This optional parameter specifies the width of the sparkline in pixels. If
 the I<width> is not specified, the width of the sparkline is the value of
-I<thick> times 3 times the number of I<y> values.
+I<thick> times 3 times the number of I<values>.
 
 =item thick
 
