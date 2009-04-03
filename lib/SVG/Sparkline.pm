@@ -6,7 +6,7 @@ use Carp;
 use SVG;
 
 use 5.008000;
-our $VERSION = '0.1.0';
+our $VERSION = '0.1.1';
 
 sub new
 {
@@ -61,7 +61,7 @@ SVG::Sparkline - Create Sparklines in SVG
 
 =head1 VERSION
 
-This document describes SVG::Sparkline version 0.1.0
+This document describes SVG::Sparkline version 0.1.1
 
 =head1 SYNOPSIS
 
@@ -96,10 +96,46 @@ Although the basics are there, this module is not yet feature complete.
 =head2 CVG::Sparkline->new( $type, $args_hr )
 
 Create a new L<SVG::Sparkline> object of the specified type, using the
-parameters in the C<$args_hr> hash reference.
+parameters in the C<$args_hr> hash reference. There are two groups of
+parameters. Parameters that start with a B<-> character control the
+L<SVG::Sparkline> object. Parameters that do not start with B<-> are used
+in attributes in the sparkline itself.
 
-The parameters passed in C<$args_hr> depend somewhat on the C<$type>.
-However, some are common.
+=head3 Configuration Parameters
+
+Configuration parameters are independent of the type of sparkline being
+generated.
+
+=over 4
+
+=item -nodecl
+
+The value of this parameter is a boolean that specifies whether the XML
+declaration statement is to be removed from the generated SVG.
+
+If you are embedding the SVG content directly in another document (maybe
+HTML), you should pass this parameter with a 1. If you are generating a
+standalone sparkline document, you should pass a 0.
+
+The I<-nodecl> parameter defaults to 0.
+
+=item -allns
+
+The value of this parameter is a boolean that specifies whether to supply
+all potential namespace attributes relating to SVG.
+
+If the value of the parameter is 0 or the parameter is not supplied, only
+the default SVG namespace is included in the sparkline.
+
+If the value of the parameter is 1, a namespace is supplied for the prefix
+I<svg> and the prefix I<xlink>.
+
+=back
+
+=head3 Attribute Parameters
+
+The attribute parameters passed in C<$args_hr> depend somewhat on the
+C<$type>. However, some are common.
 
 =over 4
 
@@ -302,26 +338,8 @@ Convert the L<SVG::Sparkline> object to an XML string.
 
 =head1 DIAGNOSTICS
 
-=for author to fill in:
-    List every single error and warning message that the module can
-    generate (even the ones that will "never happen"), with a full
-    explanation of each problem, one or more likely causes, and any
-    suggested remedies.
-
-=over
-
-=item C<< Error message here, perhaps with %s placeholders >>
-
-[Description of error here]
-
-=item C<< Another error message here >>
-
-[Description of error here]
-
-[Et cetera, et cetera]
-
-=back
-
+Diagnostic message for the various types are documented in the appropriate
+F<SVG::Sparkline::*> module.
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
