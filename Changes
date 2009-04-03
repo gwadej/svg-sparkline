@@ -1,5 +1,9 @@
 Revision history for SVG-Sparkline
 
-0.0.1  Sat Mar 28 09:28:10 2009
+0.1.1  Wed Apr 2 20:30:00 2009
+       Documentation cleanup and minor interface changes. Whisker and Bar
+       now have 'values' parameter instead of 'y'. Whisker input strings
+       are now more rational.
+0.1.0  Wed Apr 1 20:00:00 2009
        Initial release.
 
