@@ -24,7 +24,11 @@ sub make
     }
     elsif( !ref $args->{values} )
     {
-        @values = split //, $args->{values};
+        my $valstr = $args->{values};
+        # Convert 1/0 string to a +/- string.
+        $valstr =~ tr/10/+-/ if $valstr =~ /1/;
+
+        @values = split //, $valstr;
     }
     else
     {

@@ -300,7 +300,7 @@ Where '+' means an uptick, '-' is a down tick, and 0 is no tick.
 
 =item string of '1' or '0'.
 
-Where '1' means an uptick, and '0' means no tick.
+Where '1' means an uptick, and '0' means a downtick.
 
 =item reference to an array of numbers
 
