@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = '0.1.1';
+our $VERSION = '0.2.0';
 
 # alias to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -37,6 +37,7 @@ sub make
         width=>$args->{width}, height=>$args->{height},
         viewBox=> "0 -$args->{height} $args->{width} $args->{height}",
     );
+    SVG::Sparkline::Utils::add_bgcolor( $svg, -$args->{height}, $args );
 
     my $prev = -$vals->{min};
     my $path = "M0,$baseline";
@@ -63,7 +64,7 @@ SVG::Sparkline::Bar - Supports SVG::Sparkline for bar graphs.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Bar version 0.1.1
+This document describes SVG::Sparkline::Bar version 0.2.0
 
 =head1 DESCRIPTION
 

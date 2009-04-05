@@ -129,6 +129,13 @@ the default SVG namespace is included in the sparkline.
 If the value of the parameter is 1, a namespace is supplied for the prefix
 I<svg> and the prefix I<xlink>.
 
+=item -bgcolor
+
+The value of this parameter is an SVG-supported color string which specifies
+a color for the background of the sparkline. In general, this parameter should
+not be supplied or should be very subtle to avoid taking attention away from
+the actual data displayed.
+
 =back
 
 =head3 Attribute Parameters
@@ -152,7 +159,8 @@ on the sparkline type.
 
 =item values
 
-The value of this parameter is an array of numbers.
+This parameter specifies the data to be displayed by the sparkline. The actual
+form of this data is determined by the sparkline type.
 
 =item color
 
@@ -174,22 +182,15 @@ the x axis. The supplied I<color> attribute determines the shading.
 
 =item values
 
-=item x
-
-The I<x> parameter is required for the I<Area> sparkline type. The value must
-be a reference to an array of numeric values in increasing order. There must
-be the same number of I<x> values as I<y> values.
-
-=item y
-
-The I<y> parameter is required for the I<Area> sparkline type. The value must
-be a reference to an array of numeric values, where each I<y> value matches the
-corresponding I<x> value.
+The value of this parameter is a reference to an array. This array is either
+an array of numeric values representing the y-values of the data to be plotted,
+or an array of anonymous arrays, each containing an x-value and a y-value.
 
 =item width
 
-This parameter is required for the I<Area> sparkline type. The value is the width
-of the sparkline in pixels.
+This parameter is optional for the I<Area> sparkline type. The value is the width
+of the sparkline in pixels. The default value for this parameter is the number of
+items in the I<values> parameter.
 
 =item color
 
@@ -240,22 +241,17 @@ are required for I<Line> sparklines.
 
 =over 4
 
-=item x
+=item values
 
-The I<x> parameter is required for the I<Line> sparkline type. The value must
-be a reference to an array of numeric values in increasing order. There must
-be the same number of I<x> values as I<y> values.
-
-=item y
-
-The I<y> parameter is required for the I<Line> sparkline type. The value must
-be a reference to an array of numeric values, where each I<y> value matches the
-corresponding I<x> value.
+The value of this parameter is a reference to an array. This array is either
+an array of numeric values representing the y-values of the data to be plotted,
+or an array of anonymous arrays, each containing an x-value and a y-value.
 
 =item width
 
-This parameter is required for the I<Line> sparkline type. The value is the width
-of the sparkline in pixels.
+This parameter is optional for the I<Area> sparkline type. The value is the width
+of the sparkline in pixels. The default value for this parameter is the number of
+items in the I<values> parameter.
 
 =item thick
 

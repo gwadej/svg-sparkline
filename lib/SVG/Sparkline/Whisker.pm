@@ -56,6 +56,7 @@ sub make
         width=>$args->{width}, height=>$args->{height},
         viewBox=> "0 -$wheight $args->{width} $args->{height}",
     );
+    SVG::Sparkline::Utils::add_bgcolor( $svg, -$wheight, $args );
 
     my $path = "M$thick,0";
     foreach my $v (@values)

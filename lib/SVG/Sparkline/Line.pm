@@ -17,16 +17,6 @@ sub make
     my ($class, $args) = @_;
     # validate parameters
     SVG::Sparkline::Utils::validate_array_param( $args, 'values' );
-    #SVG::Sparkline::Utils::validate_array_param( $args, 'y' );
-    #SVG::Sparkline::Utils::validate_array_param( $args, 'x' );
-    #croak "Count of 'x' and 'y' values must match.\n"
-        #unless @{$args->{x}} == @{$args->{y}};
-    #croak "Missing required 'width' parameter.\n"
-        #if !exists $args->{width} or $args->{width} < 1;
-
-    # Figure out the width I want and define the viewBox
-    #my $xvals = _vals( $args->{x} );
-    #my $yvals = _vals( $args->{y} );
     my $valdesc = SVG::Sparkline::Utils::summarize_xy_values( $args->{values} );
 
     my $thick = $args->{thick} || 1;
@@ -38,6 +28,7 @@ sub make
         width=>$args->{width}, height=>$args->{height},
         viewBox=> "0 -$args->{height} $args->{width} $args->{height}",
     );
+    SVG::Sparkline::Utils::add_bgcolor( $svg, -$args->{height}, $args );
 
     my $points = join( ' ',
         map { _f($xscale*$_->[0]) .','. _f($yscale*$_->[1]) }
