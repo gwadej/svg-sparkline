@@ -31,7 +31,7 @@ sub make
 
     my $thick = $args->{thick} || 1;
     $args->{width} ||= @{$valdesc->{vals}};
-    my $xscale = $args->{width} / $valdesc->{xrange};
+    my $xscale = ($args->{width}-1) / $valdesc->{xrange};
     my $yscale = -$args->{height} / $valdesc->{yrange};
 
     my $svg = SVG::Sparkline::Utils::make_svg(

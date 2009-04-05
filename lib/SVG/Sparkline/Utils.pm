@@ -39,7 +39,7 @@ sub summarize_xy_values
         ymax => List::Util::max( @{$array} ),
         xmin => 0,
         xmax => $#{$array},
-        xrange => @{$array},
+        xrange => $#{$array},
     };
 
     $desc->{yrange} = $desc->{ymax}-$desc->{ymin};
