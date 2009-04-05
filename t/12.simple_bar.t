@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 6;
+use Test::More tests => 8;
 use Carp;
 use SVG::Sparkline;
 
@@ -36,5 +36,17 @@ my $b5 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[2,2,5,0,-2,-2,-5] } 
 is( $b5->to_string,
     '<svg height="10" viewBox="0 -10 21 10" width="21" xmlns="http://www.w3.org/2000/svg"><path d="M0,-5v-2h3h3v-3h3v5h3v2h3h3v3h3v-5z" fill="#000" stroke="none" /></svg>',
     'dupes: output correct'
+);
+
+my $b6 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[1,2,3,4,3,2,1] } );
+is ( $b6->to_string,
+    '<svg height="10" viewBox="0 -10 21 10" width="21" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v-2.5h3v-2.5h3v-2.5h3v-2.5h3v2.5h3v2.5h3v2.5h3v2.5z" fill="#000" stroke="none" /></svg>',
+    'pos: output correct'
+);
+
+my $b7 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[-1,-2,-3,-4,-3,-2,-1] } );
+is ( $b7->to_string,
+    '<svg height="10" viewBox="0 -10 21 10" width="21" xmlns="http://www.w3.org/2000/svg"><path d="M0,-10v2.5h3v2.5h3v2.5h3v2.5h3v-2.5h3v-2.5h3v-2.5h3v-2.5z" fill="#000" stroke="none" /></svg>',
+    'negs: output correct'
 );
 

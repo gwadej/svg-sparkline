@@ -24,6 +24,9 @@ sub summarize_values
         min => List::Util::min( @{$array} ),
         max => List::Util::max( @{$array} ),
     };
+    
+    $desc->{min} = 0 if $desc->{min} > 0;
+    $desc->{max} = 0 if $desc->{max} < 0;
 
     $desc->{range} = $desc->{max}-$desc->{min};
     push @{$desc->{vals}}, $_-$desc->{min} foreach @{$array};
