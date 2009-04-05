@@ -6,7 +6,7 @@ use Carp;
 use List::Util;
 use SVG;
 
-our $VERSION = '0.1.0';
+our $VERSION = '0.2.0';
 
 sub format_f
 {
@@ -39,7 +39,7 @@ sub summarize_xy_values
         ymax => List::Util::max( @{$array} ),
         xmin => 0,
         xmax => $#{$array},
-        xrange => $#{$array},
+        xrange => @{$array},
     };
 
     $desc->{yrange} = $desc->{ymax}-$desc->{ymin};
@@ -101,7 +101,7 @@ SVG::Sparkline::Utils - Utility functions used by the sparkline type modules.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Utils version 0.1.0
+This document describes SVG::Sparkline::Utils version 0.2.0
 
 =head1 DESCRIPTION
 

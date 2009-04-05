@@ -30,6 +30,7 @@ sub make
     my $valdesc = SVG::Sparkline::Utils::summarize_xy_values( $args->{values} );
 
     my $thick = $args->{thick} || 1;
+    $args->{width} ||= @{$valdesc->{vals}};
     my $xscale = $args->{width} / $valdesc->{xrange};
     my $yscale = -$args->{height} / $valdesc->{yrange};
 
