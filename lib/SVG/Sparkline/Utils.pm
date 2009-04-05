@@ -30,6 +30,50 @@ sub summarize_values
     return $desc;
 }
 
+sub summarize_xy_values
+{
+    my ($array) = @_;
+    return summarize_xy_pairs( $array ) if 'ARRAY' eq ref $array->[0];
+    my $desc = {
+        ymin => List::Util::min( @{$array} ),
+        ymax => List::Util::max( @{$array} ),
+        xmin => 0,
+        xmax => $#{$array},
+        xrange => $#{$array},
+    };
+
+    $desc->{yrange} = $desc->{ymax}-$desc->{ymin};
+    my $i = 0;
+    $desc->{vals} = [map { [$i++,$_-$desc->{ymin}] } @{$array}];
+    return $desc;
+}
+
+sub summarize_xy_pairs 
+{
+    my ($array) = @_;
+    my $desc = {
+        xmin => $array->[0]->[0],
+        xmax => $array->[0]->[0],
+        ymin => $array->[0]->[1],
+        ymax => $array->[0]->[1],
+    };
+
+    foreach my $p ( @{$array} )
+    {
+        die "Array element is not a pair.\n"
+            unless 'ARRAY' eq ref $p && 2 == @{$p};
+        $desc->{xmin} = $p->[0] if $p->[0] < $desc->{xmin};
+        $desc->{xmax} = $p->[0] if $p->[0] > $desc->{xmax};
+        $desc->{ymin} = $p->[1] if $p->[1] < $desc->{ymin};
+        $desc->{ymax} = $p->[1] if $p->[1] > $desc->{ymax};
+    }
+    $desc->{xrange} = $desc->{xmax}-$desc->{xmin};
+    $desc->{yrange} = $desc->{ymax}-$desc->{ymin};
+    $desc->{vals} =
+        [map { [$_->[0]-$desc->{xmin},$_->[1]-$desc->{ymin}] } @{$array}];
+    return $desc;
+}
+
 sub make_svg
 {
     return SVG->new(
@@ -82,6 +126,10 @@ the supplied parameters as well.
 Given a list of numeric values generate a structured summary simplifying
 changes for later. Calculate I<min>, I<max>, I<range>, and generate a
 list of all values after subtracting the I<min>.
+
+=head2 summarize_xy_values
+
+=head2 summarize_xy_pairs
 
 =head2 validate_array_param
 
