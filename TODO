@@ -1,0 +1,22 @@
+Future features.
+
+ 1. Cookbook
+ 2. x/y args for Line and Area?
+ 3. Ability to set baseline
+ 4. Axes?
+ 5. Mark important points
+    a. High/Low
+    b. Particular points
+    c. First/last
+ 6. Display a reference line on sparkline
+    a. Particular x value
+    b. Particular y value
+ 7. Band of y-values feature
+    - See the ET article
+ 8. Labels?
+ 9. Padding so that data does not go to edges of sparkline.
+10. Opacity features.
+11. Combining multiple data sets in one sparkline.
+    a. Overlapping
+    b. One above the others
+12. Check y-scaling
