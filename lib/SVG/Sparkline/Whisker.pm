@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = '0.1.1';
+our $VERSION = '0.2.0';
 
 # alias to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -80,7 +80,7 @@ sub _val
     my $val = shift;
 
     return $val <=> 0 if $val =~ /\d/;
-    return $val eq '+' ? 1 : ( $val eq '-' ? -1 : 0 );
+    return $val eq '+' ? 1 : ( $val eq '-' ? -1 : die "Unrecognized character '$val'\n" );
 }
 
 
@@ -93,7 +93,7 @@ SVG::Sparkline::Whisker - Supports SVG::Sparkline for whisker graphs.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Whisker version 0.1.1
+This document describes SVG::Sparkline::Whisker version 0.2.0
 
 =head1 DESCRIPTION
 
