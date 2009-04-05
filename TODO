@@ -19,11 +19,3 @@ Future features.
 11. Combining multiple data sets in one sparkline.
     a. Overlapping
     b. One above the others
-12. Check y-scaling
-    a. Area
-    b. Bar - DONE
-    c. Line
-    d. Whisker -DONE
-13. Check x-scaling
-    a. Bar - DONE
-    b. Whisker - DONE

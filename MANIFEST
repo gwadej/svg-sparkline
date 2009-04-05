@@ -23,3 +23,4 @@ t/09.area_bad_parms.t
 t/10.simple_area.t
 t/11.bar_bad_parms.t
 t/12.simple_bar.t
+t/13.bgcolor.t

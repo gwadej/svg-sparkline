@@ -56,7 +56,7 @@ sub summarize_xy_pairs
     my ($array) = @_;
     my $desc = {
         xmin => $array->[0]->[0],
-        xmax => $array->[0]->[0],
+        xmax => $array->[-1]->[0],
         ymin => $array->[0]->[1],
         ymax => $array->[0]->[1],
     };

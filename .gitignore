@@ -1,6 +1,7 @@
 Makefile
 Build
 _build
+cover_db
 blib
 .*.swp
 pm_to_blib

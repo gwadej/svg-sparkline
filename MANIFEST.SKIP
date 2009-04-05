@@ -4,6 +4,8 @@ TODO$
 \.bak$
 \.old$
 Makefile$
+Build$
+^_build
 ^blib
 ^pm_to_blib
 ^t/local_
