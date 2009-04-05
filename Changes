@@ -1,5 +1,9 @@
 Revision history for SVG-Sparkline
 
+0.2.0  ???
+       Change parameters for Line and Area to use 'values'. Correct horizontal
+       scaling on Line and Area charts. Fail if Whisker data contains bad
+       characters.
 0.1.1  Wed Apr 2 20:30:00 2009
        Documentation cleanup and minor interface changes. Whisker and Bar
        now have 'values' parameter instead of 'y'. Whisker input strings
