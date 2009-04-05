@@ -1,4 +1,6 @@
 Makefile
+Build
+_build
 blib
 .*.swp
 pm_to_blib
