@@ -71,7 +71,26 @@ There are a few configuration items that apply to all sparkline types.
 
 =head3 I want to embed the sparkline and the XML declaration is in the way.
 
+The XML declaration is an optional string added at the beginning of an XML file.
+It can be used to provide some standardized information to the XML parser used
+to read the XML document.
+
+Unfortunately, it can only occur at the beginning of an XML document. If you want
+to embed the sparkline output in another XML document, this declaration must not
+be present.
+
+Pass the attribute C<< -nodecl => 1 >> to the L<SVG::Sparkline> constructor to
+have the SVG generated without the XML declaration. For example,
+
+    my $sp = SVG::Sparkline->new( Line => { -nodecl=>1, values=>\@data } );
+
+Generates a sparkline without the declaration.
+
 =head2 How to choose a Sparkline Type
+
+Choosing the sparkline type is a judgement call based on the data you need to
+display and the look you want to convey. The following suggestions may help
+you decide which type is right for your circumstance.
 
 =head3 Binary outcomes
 
@@ -105,6 +124,20 @@ sparkline, you would do the following:
 Once you have sparkline type, you may need to customize the sparkline.
 
 =head3 How do I make the sparkline taller/shorter?
+
+The L<SVG::Sparkline> constructor supports an optional I<height> parameter that
+controls the pixel height of the sparkline. Since the data is automatically
+scaled to fit the height, this attribute also helps determine the resolution that
+is displayed.
+
+   my $sl = SVG::Sparkline->new( Line => { values =>\@samples, height=>15 } );
+
+The above code generates a sparkline 1.5x as tall as the default. Although SVG
+supports (practically) infinitely scalable graphics, You should tend to make
+your sparklines close to the height of the text you are embedding it within.
+
+If you need graphs substantially larger than that, another graphing library with
+more customizability is probably a better choice.
 
 =head3 How do I extend/reduce the sparkline horizontally?
 
