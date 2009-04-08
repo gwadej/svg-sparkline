@@ -210,9 +210,49 @@ I<black>, I<yellow>, I<magenta>, I<cyan>, I<gray>, I<silver>, etc.
 
 =head3 I want the Whiskers to be thicker/thinner.
 
+There are two ways to change the thickness of the whiskers on a I<Whisker>
+sparkline. The L<SVG::Sparkline> constructor supports an optional I<thick>
+parameter that specifies the whisker thickness (in pixels) on a I<Whisker>
+sparkline. For example,
+
+  my $sl = SVG::Sparkline( Whisker=>{ values=>\@tosses, thick=>2 } );
+
+generates whiskers that are 2 pixels wide, instead of the default 1.
+
+Specifying a I<width> different than the default also changes the
+whisker size. The whisker size defaults to 1/3 the I<width> divided by the
+number of data points.
+
+  my $sl = SVG::Sparkline( Whisker=>{ values=>\@tosses, width=>120 } );
+
+If there are 10 values in C<@tosses>, the whiskers are drawn 4 pixels wide.
+
 =head3 I want the Line to be thicker/thinner.
 
+The thickness of the line on the I<Line> sparkline is controlled by the optional
+I<thick> parameter to the constructor. This parameter specifies the stroke width
+of the line in pixels.
+
+  my $sl = SVG::Sparkline( Line=>{ values=>\@highs, thick=>2 } );
+
+generates a line 2 pixels wide instead of the default 1 pixel line.
+
 =head3 I want the bars to be wider/narrower.
+
+There are two ways to change the width of the bars on a I<Bar> sparkline.
+The L<SVG::Sparkline> constructor supports an optional I<thick> parameter that
+specifies the bar thickness (in pixels) on a I<Bar> sparkline. For example,
+
+  my $sl = SVG::Sparkline( Bar=>{ values=>\@rainfall, thick=>6 } );
+
+generates bars that are 6 pixels wide, instead of the default 3.
+
+Specifying a I<width> different than the default also changes the bar size. The
+bar size defaults to the I<width> divided by the number of data points.
+
+  my $sl = SVG::Sparkline( Bar=>{ values=>\@rainfall, width=>120 } );
+
+If we assume 12 months of data in C<@rainfall>, the bars are drawn 10 pixels wide.
 
 =head2 Using the generated sparklines
 
