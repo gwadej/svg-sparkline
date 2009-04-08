@@ -141,9 +141,72 @@ more customizability is probably a better choice.
 
 =head3 How do I extend/reduce the sparkline horizontally?
 
+The L<SVG::Sparkline> constructor supports an optional I<width> parameter that
+specifies the width of the sparkline in pixels. L<SVG::Sparkline> uses this
+parameter to scale the sparkline horizontally. For I<Line> and I<Area> sparklines
+this changes the horizontal resolution of the data. For I<Bar> and I<Whisker>
+sparklines this changes the width of the bar or whisker.
+
+   my $sl => SVG::Sparkline->new( Bar => { values=>\@rainfall, width=>60 } );
+
+Assuming that we have one rainfall entry per month in the C<@rainfall> array, this
+would give us a 60 pixel wide sparkline, with each bar being 5 pixels wide.
+
 =head3 How do I change the color of the sparkline?
 
+The L<SVG::Sparkline> constructor supports an optional I<color> parameter that
+specifies the color of the display element. The value of this parameter must be
+in a format that SVG understands.
+
+   my $sl = SVG::Sparkline->new( Area => { values=>\@depth, color=>'#0000ff' } );
+
+This would make an area graph with the filled area being blue. See the recipe
+L</"How do I specify a color for the line or background?"> for legal color formats.
+
 =head3 How do I change the color of the background?
+
+The L<SVG::Sparkline> constructor supports an optional I<bgcolor> parameter that
+specifies the color of the background. The value of this parameter must be
+in a format that SVG understands.
+
+   my $sl = SVG::Sparkline->new( Line => { values=>\@depth, bgcolor=>'silver' } );
+
+This would make a line graph on a light gray background. See the recipe
+L</"How do I specify a color for the line or background?"> for legal color formats.
+
+=head3 How do I specify a color for the line or background?
+
+Colors are specified using the color definitions defined for SVG. These formats include
+
+=over 4
+
+=item 6 digit rgb hex
+
+This is the normal HTML colors you may already be used to. C<#88ff88> would be a
+light green.
+
+=item 3 digit rgb hex
+
+This is a short form of the normal hex string C<#f00> would be red. To convert the
+3 digit form into the 6 digit form, just double each digit (C<#f00> becomes C<#ff0000>
+and C<#123> becomes C<#112233>).
+
+=item rgb() functional notation
+
+This form takes three number between 0 and 255. So, C<rgb(255,0,127)> is equivalent
+to C<#ff007f>.
+
+=item rgb() percentage functional notation
+
+This is like the previous form, but uses percentages instead. (e.g. C<rgb(100%,50%,75%)>).
+
+=item color names
+
+The SVG specification has an extended list of color names that can be used to
+name colors. This includes the normal colors of I<red>, I<green>, I<blue>, I<white>,
+I<black>, I<yellow>, I<magenta>, I<cyan>, I<gray>, I<silver>, etc.
+
+=back
 
 =head3 I want the Whiskers to be thicker/thinner.
 
