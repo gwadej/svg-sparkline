@@ -1,0 +1,167 @@
+=head1 NAME
+
+SVG::Sparkline::Cookbook - Performing specific tasks with SVG::Sparklines
+
+=head1 VERSION
+
+This document describes L<SVG::Sparkline> version 0.2.0.
+
+=head1 INTRODUCTION
+
+This Cookbook was conceived as a way to make usage of the L<SVG::Sparkline>
+module somewhat easier even if you do not spend a lot of time learning it.
+
+The first thing to realize about this module is that it is not intended to
+be a full mapping/charting/graphing tool. If you need fancy markers, lots of
+data sets, 3D effects, and so on, you should look for a more general graphing
+module. Searching CPAN for I<Chart> or I<Graph> should expose several likely
+modules.
+
+=head1 ON SPARKLINES
+
+The sparklines concept is described in Edward Tufte's book I<Beautiful Evidence>.
+An excerpt of the book relating to sparklines can be found on his website
+L<http:://www.edwardtufte.com/>.
+
+The important portions of Tufte's explanation are that a sparkline is
+
+=over 4
+
+=item *
+
+Intense
+
+=item *
+
+Simple
+
+=item *
+
+Word-sized
+
+=back
+
+To the extent possible, I have used these principles to guide me in the 
+features I decide to include or exclude from the module.
+
+Starting at the bottom, sparklines should be I<word-sized>. We are talking
+about something that can easily be embedded in text or a table. Sparklines
+are not about page-sized graphics with lots of detail.
+
+This size issue leads to the I<simple> aspect. It is hard to get hundreds of
+individual data points into a word-sized graphic. Likewise a small graphic
+containing 20 different datasets is likely to be overly complex. Part of the
+effect of the sparkline is that it is simple enough that you can grasp it
+quickly without need for extended study. This is only possible if the graphic
+is as simple as possible.
+
+Finally, Tufte says a sparkline should be intense. The data being displayed
+should be dynamic enough that it shows important characteristics even after
+simplifying the graphic and making it word sized.
+
+A horizontal line, or bar graph with minimal variation is probably not going to
+be very intense. Likewise a graphic with too much variation will overwhelm the
+eye and lose the effect.
+
+=head1 RECIPES
+
+=head2 Basic Configuration
+
+There are a few configuration items that apply to all sparkline types.
+
+=head3 I want to embed the sparkline and the XML declaration is in the way.
+
+=head2 How to choose a Sparkline Type
+
+=head3 Binary outcomes
+
+The I<Whisker> sparkline type easily displays a series of binary outcomes, such
+as wins/losses on a game or coin flips (heads/tails).
+
+=head3 Discrete data
+
+The I<Bar> sparkline type displays discrete data well. When attempting to
+compare a number of values, I<Bar> displays work well. When continuous data
+has been aggregated into a small number of categories, (e.g. rainfall amount
+per month for twelve months), a I<Bar> sparkline also works well.
+
+=head3 Time-series data
+
+When attempting to display continuously changing data or time-series data,
+the I<Line> and I<Area> sparkline types are most appropriate.
+
+=head2 Creating basic sparklines
+
+=head3 I want to create a sparkline for time-series data.
+
+Let's say you have a set of data points that represent regular samples of
+a time-series data set in the array C<@samples>. To create a simple
+sparkline, you would do the following:
+
+   my $sl = SVG::Sparkline->new( Line => { values => \@samples } );
+
+=head2 Changing the display
+
+Once you have sparkline type, you may need to customize the sparkline.
+
+=head3 How do I make the sparkline taller/shorter?
+
+=head3 How do I extend/reduce the sparkline horizontally?
+
+=head3 How do I change the color of the sparkline?
+
+=head3 How do I change the color of the background?
+
+=head3 I want the Whiskers to be thicker/thinner.
+
+=head3 I want the Line to be thicker/thinner.
+
+=head3 I want the bars to be wider/narrower.
+
+=head2 Using the generated sparklines
+
+=head3 I want to write the sparkline to a file.
+
+=head3 I want to embed the sparkline in an HTML file.
+
+=head3 I want to embed the sparkline in an SVG file.
+
+=head2 Decorations
+
+=head3 How do I add a box around the sparkline?
+
+=head3 How do I add a grid under the sparkline?
+
+=head1 AUTHOR
+
+G. Wade Johnson  C<< <wade@anomaly.org> >>
+
+=head1 LICENCE AND COPYRIGHT
+
+Copyright (c) 2009, G. Wade Johnson C<< <wade@anomaly.org> >>. All rights reserved.
+
+This module is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself. See L<perlartistic>.
+
+=head1 DISCLAIMER OF WARRANTY
+
+BECAUSE THIS SOFTWARE IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
+FOR THE SOFTWARE, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN
+OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
+PROVIDE THE SOFTWARE "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
+EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE
+ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE SOFTWARE IS WITH
+YOU. SHOULD THE SOFTWARE PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL
+NECESSARY SERVICING, REPAIR, OR CORRECTION.
+
+IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR
+REDISTRIBUTE THE SOFTWARE AS PERMITTED BY THE ABOVE LICENCE, BE
+LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL,
+OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE
+THE SOFTWARE (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING
+RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A
+FAILURE OF THE SOFTWARE TO OPERATE WITH ANY OTHER SOFTWARE), EVEN IF
+SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF
+SUCH DAMAGES.
