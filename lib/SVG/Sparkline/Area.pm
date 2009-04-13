@@ -18,8 +18,9 @@ sub make
     # validate parameters
     SVG::Sparkline::Utils::validate_array_param( $args, 'values' );
     my $valdesc = SVG::Sparkline::Utils::summarize_xy_values( $args->{values} );
+    $valdesc->{vals} = [ map { [$_->[0], $_->[1]+$valdesc->{ymin}] } @{$valdesc->{vals}} ];
 
-    $args->{width} ||= @{$args->{values}};
+    $args->{width} ||= @{$valdesc->{vals}};
     my $xscale = ($args->{width}-1) / $valdesc->{xrange};
     my $yscale = -$args->{height} / $valdesc->{yrange};
     my $baseline = _f(-$yscale*$valdesc->{ymin});
@@ -32,8 +33,8 @@ sub make
     SVG::Sparkline::Utils::add_bgcolor( $svg, -$args->{height}, $args );
 
     my $points = join( ' ', "0,0",
-        ( map { _f($xscale*$_) .','. _f($yscale*$args->{values}->[$_]) } 0 ..$#{$args->{values}} ),
-        _f($xscale * $#{$args->{values}}).",0"
+        ( map { _f($xscale*$_->[0]) .','. _f($yscale*$_->[1]) } @{$valdesc->{vals}} ),
+        _f($xscale * $valdesc->{vals}->[-1]->[0]).",0"
     );
     $svg->polygon( fill=>$args->{color}, points=>$points, stroke=>'none' );
 
