@@ -52,8 +52,75 @@ sub make
     $path .= 'z';
     $svg->path( stroke=>'none', fill=>$args->{color}, d=>$path );
 
+    if( exists $args->{mark} )
+    {
+        _make_marks( $svg,
+            thick=>$thick, yscale=>$yscale, base=>-$vals->{min},
+            values=>$vals->{vals}, mark=>$args->{mark}
+        );
+    }
     return $svg;
 }
+
+sub _make_marks
+{
+    my ($svg, %args) = @_;
+    
+    my @marks = @{$args{mark}};
+    while(@marks)
+    {
+        my ($index,$color) = splice( @marks, 0, 2 );
+        $index = _check_index( $index, $args{values} );
+        _make_mark( $svg, %args, index=>$index, color=>$color );
+    }
+    return;
+}
+
+sub _make_mark
+{
+    my ($svg, %args) = @_;
+    my $index = $args{index};
+    my $h = $args{values}->[$index]-$args{base};
+    return unless $h;
+    my $x = _f($index * $args{thick});
+    my $y = _f($h * $args{yscale});
+    $svg->rect( x=>$x, y=>$y,
+        width=>$args{thick}, height=>abs($y),
+        stroke=>'none', fill=>$args{color}
+    );
+    return;
+}
+
+sub _check_index
+{
+    my ($index, $values) = @_;
+    return 0 if $index eq 'first';
+    return $#{$values} if $index eq 'last';
+    return $index unless $index =~ /\D/;
+    if( 'high' eq $index )
+    {
+        my $high = $values->[0];
+        my $ndx = 0;
+        foreach my $i ( 1 .. $#{$values} )
+        {
+            ($high,$ndx) = ($values->[$i],$i) if $values->[$i] > $high;
+        }
+        return $ndx;
+    }
+    elsif( 'low' eq $index )
+    {
+        my $low = $values->[0];
+        my $ndx = 0;
+        foreach my $i ( 1 .. $#{$values} )
+        {
+            ($low,$ndx) = ($values->[$i],$i) if $values->[$i] < $low;
+        }
+        return $ndx;
+    }
+
+    die "'$index' is not a valid mark for Whisker sparkline";
+}
+
 
 1; # Magic true value required at end of module
 __END__
