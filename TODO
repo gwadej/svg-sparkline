@@ -1,10 +1,10 @@
 Future features.
 
- 1. Cookbook
+ 1. Cookbook - DONE
  2. x/y args for Line and Area?
  3. Ability to set baseline
  4. Axes?
- 5. Mark important points
+ 5. Mark important points *
     a. High/Low
     b. Particular points
     c. First/last
@@ -19,3 +19,14 @@ Future features.
 11. Combining multiple data sets in one sparkline.
     a. Overlapping
     b. One above the others
+
+-------------------------
+Mark design:
+
+Specify:
+  x,y - would only work on Line.
+  x-index - would work on any.
+  special values of 'high', 'low', 'first', and 'last'
+  need to supply a color.
+  Supply one point/color pair
+  Supply list of point/color pairs
