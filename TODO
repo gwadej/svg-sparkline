@@ -40,7 +40,7 @@ mark => [ high=>'#6f6' ]
 I'll need a virtual method in the type.
 
 How mark is displayed:
-  Area    - vertical line from 0 to data point
+  Area    - vertical line from 0 to data point - DONE
   Bar     - the bar in question - DONE
   Line    - dot at point (might want to control dot size) - DONE
   Whisker - the whole whisker at the index - DONE
