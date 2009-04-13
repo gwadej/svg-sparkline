@@ -22,24 +22,36 @@ use warnings;
         qq{<svg height="10" viewBox="0 -10 8 10" width="8" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="$points" stroke="none" /><line fill="none" stroke="blue" stroke-width="1" x1="0" x2="0" y1="0" y2="-2" /></svg>},
         'pos only: mark first'
     );
+    open my $fh, '>', 'area2.svg';
+    print $fh $l2;
+    close $fh;
 
     my $l3 = SVG::Sparkline->new( Area => { -nodecl=>1, values=>\@yvalues, mark=>[last=>'blue'] } );
     is( "$l3",
         qq{<svg height="10" viewBox="0 -10 8 10" width="8" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="$points" stroke="none" /><line fill="none" stroke="blue" stroke-width="1" x1="7" x2="7" y1="0" y2="-3" /></svg>},
         'pos only: mark last'
     );
+    open my $fh, '>', 'area3.svg';
+    print $fh $l3;
+    close $fh;
 
     my $l4 = SVG::Sparkline->new( Area => { -nodecl=>1, values=>\@yvalues, mark=>[low=>'red'] } );
     is( "$l4",
         qq{<svg height="10" viewBox="0 -10 8 10" width="8" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="$points" stroke="none" /><line fill="none" stroke="red" stroke-width="1" x1="6" x2="6" y1="0" y2="0" /></svg>},
         'pos only: mark low'
     );
+    open my $fh, '>', 'area4.svg';
+    print $fh $l4;
+    close $fh;
 
     my $l5 = SVG::Sparkline->new( Area => { -nodecl=>1, values=>\@yvalues, mark=>[high=>'green'] } );
     is( "$l5",
         qq{<svg height="10" viewBox="0 -10 8 10" width="8" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="$points" stroke="none" /><line fill="none" stroke="green" stroke-width="1" x1="3" x2="3" y1="0" y2="-10" /></svg>},
         'pos only: mark high'
     );
+    open my $fh, '>', 'area5.svg';
+    print $fh $l5;
+    close $fh;
 }
 
 ## negative only

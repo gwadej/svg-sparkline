@@ -18,7 +18,7 @@ sub make
     # validate parameters
     SVG::Sparkline::Utils::validate_array_param( $args, 'values' );
     my $valdesc = SVG::Sparkline::Utils::summarize_xy_values( $args->{values} );
-    my $off = $valdesc->{ymin}-$valdesc->{base};
+    my $off = $valdesc->{offset};
     $valdesc->{vals} = [
         map { [$_->[0], $_->[1]+$off] } @{$valdesc->{vals}}
     ];
@@ -26,7 +26,7 @@ sub make
     $args->{width} ||= @{$valdesc->{vals}};
     my $xscale = ($args->{width}-1) / $valdesc->{xrange};
     my $yscale = -$args->{height} / $valdesc->{yrange};
-    my $baseline = _f(-$yscale*$valdesc->{ymin});
+    my $baseline = _f(-$yscale*$valdesc->{offset});
 
     my $zero = -($baseline+$args->{height});
     my $svg = SVG::Sparkline::Utils::make_svg(
@@ -44,8 +44,8 @@ sub make
     if( exists $args->{mark} )
     {
         _make_marks( $svg,
-            xscale=>$xscale, yscale=>$yscale, base=>$zero,
-            values=>$args->{values}, mark=>$args->{mark}
+            xscale=>$xscale, yscale=>$yscale, base=>$baseline, offset=>$off,
+            values=>$valdesc->{vals}, mark=>$args->{mark}
         );
     }
 
@@ -57,7 +57,7 @@ sub _make_marks
     my ($svg, %args) = @_;
     
     my @marks = @{$args{mark}};
-    my @yvalues = @{$args{values}};
+    my @yvalues = map { $_->[1] - $args{offset} } @{$args{values}};
     while(@marks)
     {
         my ($index,$color) = splice( @marks, 0, 2 );
@@ -71,9 +71,8 @@ sub _make_mark
 {
     my ($svg, %args) = @_;
     my $index = $args{index};
-    my $h = _f($args{values}->[$index] * $args{yscale});
     my $x = _f($args{xscale} * $index);
-    my $y = _f($args{yscale} * $args{values}->[$index]);
+    my $y = _f($args{yscale} * ($args{values}->[$index]->[1]-$args{offset}));
     my $base = _f($args{yscale} * $args{base});
     $svg->line( x1=>$x, y1=>$base, x2=>$x, y2=>$y,
         fill=>'none', stroke=>$args{color}, 'stroke-width'=>1
