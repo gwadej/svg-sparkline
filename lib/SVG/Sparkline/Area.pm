@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = '0.2.0';
+our $VERSION = '0.2.5';
 
 # aliases to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -30,13 +30,50 @@ sub make
     SVG::Sparkline::Utils::add_bgcolor( $svg, -$args->{height}, $args );
     my $baseline = _f(-$yscale*$valdesc->{ymin});
 
-    my $points = join( ' ', "0,$baseline",
+    my $points = join( ' ', "0,0",
         ( map { _f($xscale*$_->[0]) .','. _f($yscale*$_->[1]) } @{$valdesc->{vals}} ),
-        _f($xscale*$valdesc->{vals}->[-1]->[0]).",$baseline"
+        _f($xscale*$valdesc->{vals}->[-1]->[0]).",0"
     );
-    $svg->polygon( fill=>$args->{color}, points=>$points );
+    $svg->polygon( fill=>$args->{color}, points=>$points, stroke=>'none' );
+
+    if( exists $args->{mark} )
+    {
+        _make_marks( $svg,
+            xscale=>$xscale, yscale=>$yscale, base=>0,
+            values=>$valdesc->{vals}, mark=>$args->{mark}
+        );
+    }
 
     return $svg;
+}
+
+sub _make_marks
+{
+    my ($svg, %args) = @_;
+    
+    my @marks = @{$args{mark}};
+    my @yvalues = map { $_->[1] } @{$args{values}};
+    while(@marks)
+    {
+        my ($index,$color) = splice( @marks, 0, 2 );
+        $index = SVG::Sparkline::Utils::mark_to_index( 'Area', $index, \@yvalues );
+        _make_mark( $svg, %args, index=>$index, color=>$color );
+    }
+    return;
+}
+
+sub _make_mark
+{
+    my ($svg, %args) = @_;
+    my $index = $args{index};
+    my $h = _f($args{values}->[$index] * $args{yscale});
+    my $x = _f($args{xscale} * $args{values}->[$index]->[0]);
+    my $y = _f($args{yscale} * $args{values}->[$index]->[1]);
+    my $base = _f($args{yscale} * $args{base});
+    $svg->line( x1=>$x, y1=>$base, x2=>$x, y2=>$y,
+        fill=>'none', stroke=>$args{color}, 'stroke-width'=>1
+    );
+    return;
 }
 
 1; # Magic true value required at end of module
@@ -48,7 +85,7 @@ SVG::Sparkline::Area - Supports SVG::Sparkline for area graphs.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Area version 0.2.0
+This document describes SVG::Sparkline::Area version 0.2.5
 
 =head1 DESCRIPTION
 

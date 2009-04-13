@@ -23,7 +23,7 @@ is( "$l",
 
 my $a = SVG::Sparkline->new( Area => { -nodecl=>1, -bgcolor=>'#fff', values=>\@yvalues } );
 is( "$a",
-    '<svg height="10" viewBox="0 -10 11 10" width="11" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="12" stroke="none" width="13" x="-1" y="-11" /><polygon fill="#000" points="0,-3.33 0,-6.67 1,-5 2,0 3,-1.67 4,-4.33 5,-6 6,-7.33 7,-10 8,-9.33 9,-6.67 10,-5 10,-3.33" /></svg>',
+    '<svg height="10" viewBox="0 -10 11 10" width="11" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="12" stroke="none" width="13" x="-1" y="-11" /><polygon fill="#000" points="0,0 0,-6.67 1,-5 2,0 3,-1.67 4,-4.33 5,-6 6,-7.33 7,-10 8,-9.33 9,-6.67 10,-5 10,0" stroke="none" /></svg>',
     'Area with background'
 );
 
