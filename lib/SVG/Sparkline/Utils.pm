@@ -29,7 +29,6 @@ sub summarize_values
     $desc->{max} = 0 if $desc->{max} < 0;
 
     $desc->{range} = $desc->{max}-$desc->{min};
-    push @{$desc->{vals}}, $_-$desc->{min} foreach @{$array};
     return $desc;
 }
 

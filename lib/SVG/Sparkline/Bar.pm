@@ -25,11 +25,11 @@ sub make
     my $thick = 3;
     if($args->{width})
     {
-        $thick = _f( $args->{width} / @{$vals->{vals}} );
+        $thick = _f( $args->{width} / @{$args->{values}} );
     }
     else
     {
-        $args->{width} = @{$vals->{vals}} * $thick;
+        $args->{width} = @{$args->{values}} * $thick;
     }
     my $zero = -($baseline+$args->{height});
 
