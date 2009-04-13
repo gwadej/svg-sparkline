@@ -16,7 +16,6 @@ sub make
 {
     my ($class, $args) = @_;
     # validate parameters
-    my @values;
     SVG::Sparkline::Utils::validate_array_param( $args, 'values' );
     my $vals = SVG::Sparkline::Utils::summarize_values( $args->{values} );
     my $yscale = -$args->{height} / $vals->{range};
@@ -32,23 +31,24 @@ sub make
     {
         $args->{width} = @{$vals->{vals}} * $thick;
     }
+    my $zero = -($baseline+$args->{height});
 
     my $svg = SVG::Sparkline::Utils::make_svg(
         width=>$args->{width}, height=>$args->{height},
-        viewBox=> "0 -$args->{height} $args->{width} $args->{height}",
+        viewBox=> "0 $zero $args->{width} $args->{height}",
     );
     SVG::Sparkline::Utils::add_bgcolor( $svg, -$args->{height}, $args );
 
-    my $prev = -$vals->{min};
-    my $path = "M0,$baseline";
-    foreach my $v (@{$vals->{vals}})
+    my $prev = 0;
+    my $path = "M0,0";
+    foreach my $v (@{$args->{values}})
     {
         my $curr = _f( $yscale*($v-$prev) );
         $path .= "v$curr" if $curr;
         $path .= "h$thick";
         $prev = $v;
     }
-    $path .= 'v'._f( $yscale*(-$vals->{min}-$prev) ) unless $prev == -$vals->{min};
+    $path .= 'v' . _f( $yscale*(-$prev) ) if $prev;
     $path .= 'z';
     $svg->path( stroke=>'none', fill=>$args->{color}, d=>$path );
 

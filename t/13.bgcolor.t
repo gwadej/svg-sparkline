@@ -29,7 +29,7 @@ is( $a->to_string,
 
 my $b = SVG::Sparkline->new( Bar => { -nodecl=>1, -bgcolor=>'#fff', values=>[2,4,5,3,0,-2,-4,-3,-5,0,3,-3,5,2,0] } );
 is( $b->to_string,
-    '<svg height="10" viewBox="0 -10 45 10" width="45" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="12" stroke="none" width="47" x="-1" y="-11" /><path d="M0,-5v-2h3v-2h3v-1h3v2h3v3h3v2h3v2h3v-1h3v2h3v-5h3v-3h3v6h3v-8h3v3h3v2h3z" fill="#000" stroke="none" /></svg>',
+    '<svg height="10" viewBox="0 -5 45 10" width="45" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="12" stroke="none" width="47" x="-1" y="-11" /><path d="M0,0v-2h3v-2h3v-1h3v2h3v3h3v2h3v2h3v-1h3v2h3v-5h3v-3h3v6h3v-8h3v3h3v2h3z" fill="#000" stroke="none" /></svg>',
     'pos/neg: output correct'
 );
 
