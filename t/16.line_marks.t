@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 15;
+use Test::More tests => 16;
 use Carp;
 use SVG::Sparkline;
 
@@ -112,3 +112,12 @@ use warnings;
     );
 }
 
+{
+    my @yvalues = (72,73,74,80,75,77,70,73);
+    my $points=qq{0,-2 1,-3 2,-4 3,-10 4,-5 5,-7 6,0 7,-3};
+    my $l1 = SVG::Sparkline->new( Line => { -nodecl=>1, values=>\@yvalues, thick=>2, mark=>[2=>'blue'] } );
+    is( "$l1",
+        qq{<svg height="10" viewBox="0 -10 8 10" width="8" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" points="$points" stroke="#000" stroke-width="2" /><circle cx="2" cy="-4" fill="blue" r="2" stroke="none" /></svg>},
+        'Double size mark'
+    );
+}
