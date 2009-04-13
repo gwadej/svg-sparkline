@@ -9,11 +9,11 @@ use SVG::Sparkline;
 
 {
     my $w = SVG::Sparkline->new( Whisker => {values=>'++0++0--'} );
-    like( $w->to_string, qr/^<\?xml/, 'xml decl if missing -nodecl' );
+    like( "$w", qr/^<\?xml/, 'xml decl if missing -nodecl' );
 }
 
 {
     my $w = SVG::Sparkline->new( Whisker => {values=>'++0++0--', -nodecl=>1} );
-    unlike( $w->to_string, qr/^<\?xml/, 'no xml decl if -nodecl' );
+    unlike( "$w", qr/^<\?xml/, 'no xml decl if -nodecl' );
 }
 

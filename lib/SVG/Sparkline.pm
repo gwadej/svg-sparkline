@@ -5,6 +5,8 @@ use strict;
 use Carp;
 use SVG;
 
+use overload  '""' => \&to_string;
+
 use 5.008000;
 our $VERSION = '0.2.5';
 
