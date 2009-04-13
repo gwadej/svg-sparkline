@@ -6,7 +6,7 @@ use Carp;
 use SVG;
 
 use 5.008000;
-our $VERSION = '0.2.1';
+our $VERSION = '0.2.5';
 
 sub new
 {
@@ -60,7 +60,7 @@ SVG::Sparkline - Create Sparklines in SVG
 
 =head1 VERSION
 
-This document describes SVG::Sparkline version 0.2.0
+This document describes SVG::Sparkline version 0.2.5
 
 =head1 SYNOPSIS
 
