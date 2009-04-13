@@ -6,7 +6,7 @@ use Carp;
 use SVG;
 
 use 5.008000;
-our $VERSION = '0.2.0';
+our $VERSION = '0.2.1';
 
 sub new
 {

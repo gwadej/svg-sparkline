@@ -1,5 +1,3 @@
-SVG-Sparkline version 0.2.0
-
 The SVG::Sparkline module supports creating sparkline graphics in SVG.
 
 The parameters used to create the sparkline types and the scaling code

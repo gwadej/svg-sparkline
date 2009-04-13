@@ -6,6 +6,7 @@ lib/SVG/Sparkline/Bar.pm
 lib/SVG/Sparkline/Line.pm
 lib/SVG/Sparkline/Utils.pm
 lib/SVG/Sparkline/Whisker.pm
+lib/SVG/Sparkline/Cookbook.pod
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
