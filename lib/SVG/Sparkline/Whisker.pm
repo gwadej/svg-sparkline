@@ -73,7 +73,50 @@ sub make
     }
     $svg->path( 'stroke-width'=>$thick, stroke=>$args->{color}, d=>$path );
 
+    if( exists $args->{mark} )
+    {
+        _make_marks( $svg,
+           thick=>$thick, space=>$space, wheight=>-$wheight,
+           values=>\@values, mark=>$args->{mark}
+        );
+    }
     return $svg;
+}
+
+sub _make_marks
+{
+    my ($svg, %args) = @_;
+    
+    my @marks = @{$args{mark}};
+    while(@marks)
+    {
+        my ($index,$color) = splice( @marks, 0, 2 );
+        $index = _check_index( $index, $args{values} );
+        _make_mark( $svg, %args, index=>$index, color=>$color );
+    }
+    return;
+}
+
+sub _make_mark
+{
+    my ($svg, %args) = @_;
+    my $index = $args{index};
+    return unless $args{values}->[$index];
+    my $x = $index * $args{space}+$args{thick};
+    $svg->line( x1=>$x, x2=>$x, y1=>0, y2=>$args{wheight} * $args{values}->[$index],
+        'stroke-width'=>$args{thick}, stroke=>$args{color}
+    );
+    return;
+}
+
+sub _check_index
+{
+    my ($index, $values) = @_;
+    return 0 if $index eq 'first';
+    return $#{$values} if $index eq 'last';
+    return $index unless $index =~ /\D/;
+
+    die "'$index' is not a valid mark for Whisker sparkline";
 }
 
 sub _val

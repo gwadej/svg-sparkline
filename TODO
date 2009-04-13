@@ -30,3 +30,19 @@ Specify:
   need to supply a color.
   Supply one point/color pair
   Supply list of point/color pairs
+
+mark => [
+    high=>'blue', low=>'red', first=>'green', last=>'#080',
+    2=>'#0ff', 8=>'#555'
+]
+
+mark => [ high=>'#6f6' ]
+
+I'll need a virtual method in the type.
+
+How mark is displayed:
+  Area    - vertical line from 0 to data point
+  Bar     - the bar in question
+  Line    - dot at point (might want to control dot size)
+  Whisker - the whole whisker at the index - DONE
+
