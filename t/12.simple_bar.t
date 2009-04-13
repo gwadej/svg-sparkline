@@ -8,7 +8,7 @@ use strict;
 use warnings;
 
 my $b1 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[2,4,8,10,5,0,4,8,4,0,1,3,5,2,0] } );
-isa_ok( $b1, 'SVG::Sparkline', 'Created a Area-type Sparkline.' );
+isa_ok( $b1, 'SVG::Sparkline', 'Created a Bar-type Sparkline.' );
 is( $b1->to_string,
     '<svg height="10" viewBox="0 -10 45 10" width="45" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v-2h3v-2h3v-4h3v-2h3v5h3v5h3v-4h3v-4h3v4h3v4h3v-1h3v-2h3v-2h3v3h3v2h3z" fill="#000" stroke="none" /></svg>',
     'pos only: output correct'
