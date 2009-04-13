@@ -83,7 +83,7 @@ sub _make_mark
     my $h = _f($args{values}->[$index] * $args{yscale});
     return unless $h;
     my $x = _f($index * $args{thick});
-    my $y = $h > 0 ? $args{base} : $h;
+    my $y = $h > 0 ? 0 : $h;
     $svg->rect( x=>$x, y=>$y,
         width=>$args{thick}, height=>abs($h),
         stroke=>'none', fill=>$args{color}

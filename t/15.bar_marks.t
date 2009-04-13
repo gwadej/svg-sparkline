@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 10;
+use Test::More tests => 15;
 use Carp;
 use SVG::Sparkline;
 
@@ -73,3 +73,35 @@ use warnings;
 }
 
 # pos and neg
+{
+    my $b1 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[-2,-5,1,5,3], mark=>[1=>'blue'] } );
+    is( $b1->to_string,
+        '<svg height="10" viewBox="0 -5 15 10" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v2h3v3h3v-6h3v-4h3v2h3v3z" fill="#000" stroke="none" /><rect fill="blue" height="5" stroke="none" width="3" x="3" y="0" /></svg>',
+        'neg only: mark index'
+    );
+
+    my $b2 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[-2,-5,1,5,3], mark=>[first=>'blue'] } );
+    is( $b2->to_string,
+        '<svg height="10" viewBox="0 -5 15 10" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v2h3v3h3v-6h3v-4h3v2h3v3z" fill="#000" stroke="none" /><rect fill="blue" height="2" stroke="none" width="3" x="0" y="0" /></svg>',
+        'neg only: mark first'
+    );
+
+    my $b3 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[-2,-5,1,5,3], mark=>[last=>'red'] } );
+    is( $b3->to_string,
+        '<svg height="10" viewBox="0 -5 15 10" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v2h3v3h3v-6h3v-4h3v2h3v3z" fill="#000" stroke="none" /><rect fill="red" height="3" stroke="none" width="3" x="12" y="-3" /></svg>',
+        'neg only: mark last'
+    );
+
+    my $b4 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[-2,-5,1,5,3], mark=>[low=>'red'] } );
+    is( $b4->to_string,
+        '<svg height="10" viewBox="0 -5 15 10" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v2h3v3h3v-6h3v-4h3v2h3v3z" fill="#000" stroke="none" /><rect fill="red" height="5" stroke="none" width="3" x="3" y="0" /></svg>',
+        'neg only: mark low'
+    );
+
+    my $b5 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[-2,-5,1,5,3], mark=>[high=>'green'] } );
+    is( $b5->to_string,
+        '<svg height="10" viewBox="0 -5 15 10" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v2h3v3h3v-6h3v-4h3v2h3v3z" fill="#000" stroke="none" /><rect fill="green" height="5" stroke="none" width="3" x="9" y="-5" /></svg>',
+        'neg only: mark high'
+    );
+}
+
