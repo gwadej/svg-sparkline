@@ -18,19 +18,17 @@ sub make
     # validate parameters
     SVG::Sparkline::Utils::validate_array_param( $args, 'values' );
     my $valdesc = SVG::Sparkline::Utils::summarize_xy_values( $args->{values} );
-    my $off = $valdesc->{offset};
-    $valdesc->{vals} = [
-        map { [$_->[0], $_->[1]-$off] } @{$valdesc->{vals}}
-    ];
 
     my $thick = $args->{thick} || 1;
     $args->{width} ||= @{$valdesc->{vals}};
     my $xscale = ($args->{width}-1) / $valdesc->{xrange};
     my $yscale = -$args->{height} / $valdesc->{yrange};
+    my $baseline = _f(-$yscale*$valdesc->{offset});
 
+    my $zero = -($baseline+$args->{height});
     my $svg = SVG::Sparkline::Utils::make_svg(
         width=>$args->{width}, height=>$args->{height},
-        viewBox=> "0 -$args->{height} $args->{width} $args->{height}",
+        viewBox=> "0 $zero $args->{width} $args->{height}",
     );
     SVG::Sparkline::Utils::add_bgcolor( $svg, -$args->{height}, $args );
 
@@ -70,7 +68,6 @@ sub _make_mark
 {
     my ($svg, %args) = @_;
     my $index = $args{index};
-    my $h = _f($args{values}->[$index] * $args{yscale});
     my $x = _f($args{xscale} * $args{values}->[$index]->[0]);
     my $y = _f($args{yscale} * $args{values}->[$index]->[1]);
     $svg->circle( cx=>$x, cy=>$y, r=>$args{thick},

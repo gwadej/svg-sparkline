@@ -17,7 +17,7 @@ is( "$w",
 
 my $l = SVG::Sparkline->new( Line => { -nodecl=>1, -bgcolor=>'#fff', values=>\@yvalues } );
 is( "$l",
-    '<svg height="10" viewBox="0 -10 11 10" width="11" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="12" stroke="none" width="13" x="-1" y="-11" /><polyline fill="none" points="0,-6.67 1,-5 2,0 3,-1.67 4,-4.33 5,-6 6,-7.33 7,-10 8,-9.33 9,-6.67 10,-5" stroke="#000" stroke-width="1" /></svg>',
+    '<svg height="10" viewBox="0 -6.67 11 10" width="11" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="12" stroke="none" width="13" x="-1" y="-11" /><polyline fill="none" points="0,-3.33 1,-1.67 2,3.33 3,1.67 4,-1 5,-2.67 6,-4 7,-6.67 8,-6 9,-3.33 10,-1.67" stroke="#000" stroke-width="1" /></svg>',
     'Line with background'
 );
 
