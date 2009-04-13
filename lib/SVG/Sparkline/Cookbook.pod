@@ -260,16 +260,20 @@ If we assume 12 months of data in C<@rainfall>, the bars are drawn 10 pixels wid
 
 =head3 I want to write the sparkline to a file.
 
-The C<SVG::Sparkline::to_string> method can be used with C<print> to write to a
-file. For example,
+Use the C<print> global function to write to a file. The C<SVG::Sparkline>
+is converted to a string using the C<SVG::Sparkline::to_string> method,
+automatically. For example,
 
     my $sl = SVG::Sparkline( Bar=>{ values=>\@rainfall } );
     open( my $fh, '>', 'rainfall_sparkline.svg' )
         or die "Unable to create rainfall_sparkline.svg.\n";
-    print $fh $sl->to_string;
+    print $fh $sl;
     close( $fh );
 
 This will result in an SVG file on disk containing the sparkline.
+
+You can also covert a sparkline to a string my calling the
+C<SVG::Sparkline::to_string> method directly.
 
 =head3 I want to embed the sparkline in an HTML file.
 
