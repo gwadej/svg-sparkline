@@ -64,9 +64,6 @@ use warnings;
         '<svg height="10" viewBox="0 0 15 10" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v4h3v-2h3v6h3v2h3v-5h3v-5z" fill="#000" stroke="none" /><rect fill="red" height="10" stroke="none" width="3" x="9" y="0" /></svg>',
         'neg only: mark low'
     );
-    open my $fh, '>', 'bar.svg';
-    print $fh $b4->to_string;
-    close $fh;
 
     my $b5 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[-4,-2,-8,-10,-5], mark=>[high=>'green'] } );
     is( $b5->to_string,
