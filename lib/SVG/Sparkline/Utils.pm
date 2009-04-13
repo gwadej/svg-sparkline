@@ -50,7 +50,7 @@ sub summarize_xy_values
 
     $desc->{yrange} = $desc->{ymax}-$desc->{ymin};
     my $i = 0;
-    $desc->{vals} = [map { [$i++,$_-$desc->{ymin}] } @{$array}];
+    $desc->{vals} = [map { [$i++,$_-$desc->{base}] } @{$array}];
     return $desc;
 }
 
@@ -81,7 +81,7 @@ sub summarize_xy_pairs
     $desc->{xrange} = $desc->{xmax}-$desc->{xmin};
     $desc->{yrange} = $desc->{ymax}-$desc->{ymin};
     $desc->{vals} =
-        [map { [$_->[0]-$desc->{xmin},$_->[1]-$desc->{ymin}] } @{$array}];
+        [map { [$_->[0]-$desc->{xmin},$_->[1]-$desc->{base}] } @{$array}];
     return $desc;
 }
 

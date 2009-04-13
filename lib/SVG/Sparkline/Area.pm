@@ -18,10 +18,6 @@ sub make
     # validate parameters
     SVG::Sparkline::Utils::validate_array_param( $args, 'values' );
     my $valdesc = SVG::Sparkline::Utils::summarize_xy_values( $args->{values} );
-    my $off = $valdesc->{offset};
-    $valdesc->{vals} = [
-        map { [$_->[0], $_->[1]+$off] } @{$valdesc->{vals}}
-    ];
 
     $args->{width} ||= @{$valdesc->{vals}};
     my $xscale = ($args->{width}-1) / $valdesc->{xrange};
@@ -44,7 +40,7 @@ sub make
     if( exists $args->{mark} )
     {
         _make_marks( $svg,
-            xscale=>$xscale, yscale=>$yscale, base=>$zero, offset=>$off,
+            xscale=>$xscale, yscale=>$yscale, base=>$zero,
             values=>$valdesc->{vals}, mark=>$args->{mark}
         );
     }
@@ -57,7 +53,7 @@ sub _make_marks
     my ($svg, %args) = @_;
     
     my @marks = @{$args{mark}};
-    my @yvalues = map { $_->[1] - $args{offset} } @{$args{values}};
+    my @yvalues = map { $_->[1] } @{$args{values}};
     while(@marks)
     {
         my ($index,$color) = splice( @marks, 0, 2 );

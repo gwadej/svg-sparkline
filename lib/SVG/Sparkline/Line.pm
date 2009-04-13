@@ -18,6 +18,10 @@ sub make
     # validate parameters
     SVG::Sparkline::Utils::validate_array_param( $args, 'values' );
     my $valdesc = SVG::Sparkline::Utils::summarize_xy_values( $args->{values} );
+    my $off = $valdesc->{offset};
+    $valdesc->{vals} = [
+        map { [$_->[0], $_->[1]-$off] } @{$valdesc->{vals}}
+    ];
 
     my $thick = $args->{thick} || 1;
     $args->{width} ||= @{$valdesc->{vals}};
