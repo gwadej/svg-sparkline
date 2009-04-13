@@ -44,7 +44,7 @@ sub make
     if( exists $args->{mark} )
     {
         _make_marks( $svg,
-            xscale=>$xscale, yscale=>$yscale, base=>$baseline, offset=>$off,
+            xscale=>$xscale, yscale=>$yscale, base=>$zero, offset=>$off,
             values=>$valdesc->{vals}, mark=>$args->{mark}
         );
     }
@@ -71,10 +71,9 @@ sub _make_mark
 {
     my ($svg, %args) = @_;
     my $index = $args{index};
-    my $x = _f($args{xscale} * $index);
-    my $y = _f($args{yscale} * ($args{values}->[$index]->[1]-$args{offset}));
-    my $base = _f($args{yscale} * $args{base});
-    $svg->line( x1=>$x, y1=>$base, x2=>$x, y2=>$y,
+    my $x = _f($args{xscale} * $args{values}->[$index]->[0]);
+    my $y = _f($args{yscale} * ($args{values}->[$index]->[1]));
+    $svg->line( x1=>$x, y1=>0, x2=>$x, y2=>$y,
         fill=>'none', stroke=>$args{color}, 'stroke-width'=>1
     );
     return;
