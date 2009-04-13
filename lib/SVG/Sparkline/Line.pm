@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = '0.2.0';
+our $VERSION = '0.2.5';
 
 # aliases to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -36,7 +36,43 @@ sub make
     );
     $svg->polyline( fill=>'none', 'stroke-width'=>$thick, stroke=>$args->{color}, points=>$points );
 
+    if( exists $args->{mark} )
+    {
+        _make_marks( $svg,
+            thick=>$thick, xscale=>$xscale, yscale=>$yscale,
+            values=>$valdesc->{vals}, mark=>$args->{mark}
+        );
+    }
+
     return $svg;
+}
+
+sub _make_marks
+{
+    my ($svg, %args) = @_;
+    
+    my @marks = @{$args{mark}};
+    my @yvalues = map { $_->[1] } @{$args{values}};
+    while(@marks)
+    {
+        my ($index,$color) = splice( @marks, 0, 2 );
+        $index = SVG::Sparkline::Utils::mark_to_index( 'Line', $index, \@yvalues );
+        _make_mark( $svg, %args, index=>$index, color=>$color );
+    }
+    return;
+}
+
+sub _make_mark
+{
+    my ($svg, %args) = @_;
+    my $index = $args{index};
+    my $h = _f($args{values}->[$index] * $args{yscale});
+    my $x = _f($args{xscale} * $args{values}->[$index]->[0]);
+    my $y = _f($args{yscale} * $args{values}->[$index]->[1]);
+    $svg->circle( cx=>$x, cy=>$y, r=>$args{thick},
+        stroke=>'none', fill=>$args{color}
+    );
+    return;
 }
 
 1; # Magic true value required at end of module
@@ -48,7 +84,7 @@ SVG::Sparkline::Line - Supports SVG::Sparkline for line graphs.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Line version 0.2.0
+This document describes SVG::Sparkline::Line version 0.2.5
 
 =head1 DESCRIPTION
 

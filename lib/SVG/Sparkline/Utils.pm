@@ -6,7 +6,7 @@ use Carp;
 use List::Util;
 use SVG;
 
-our $VERSION = '0.2.0';
+our $VERSION = '0.2.5';
 
 sub format_f
 {
@@ -105,6 +105,37 @@ sub validate_array_param
     return;
 }
 
+sub mark_to_index
+{
+    my ($type, $index, $values) = @_;
+    return 0 if $index eq 'first';
+    return $#{$values} if $index eq 'last';
+    return $index if $index !~ /\D/ && $index < @{$values};
+    if( 'high' eq $index )
+    {
+        my $high = $values->[0];
+        my $ndx = 0;
+        foreach my $i ( 1 .. $#{$values} )
+        {
+            ($high,$ndx) = ($values->[$i],$i) if $values->[$i] > $high;
+        }
+        return $ndx;
+    }
+    elsif( 'low' eq $index )
+    {
+        my $low = $values->[0];
+        my $ndx = 0;
+        foreach my $i ( 1 .. $#{$values} )
+        {
+            ($low,$ndx) = ($values->[$i],$i) if $values->[$i] < $low;
+        }
+        return $ndx;
+    }
+
+    die "'$index' is not a valid mark for $type sparkline";
+}
+
+
 1; # Magic true value required at end of module
 __END__
 
@@ -114,7 +145,7 @@ SVG::Sparkline::Utils - Utility functions used by the sparkline type modules.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Utils version 0.2.0
+This document describes SVG::Sparkline::Utils version 0.2.5
 
 =head1 DESCRIPTION
 
@@ -139,8 +170,7 @@ the supplied parameters as well.
 =head2 summarize_values
 
 Given a list of numeric values generate a structured summary simplifying
-changes for later. Calculate I<min>, I<max>, I<range>, and generate a
-list of all values after subtracting the I<min>.
+changes for later. Calculate I<min>, I<max>, and I<range>.
 
 =head2 summarize_xy_values
 
@@ -149,6 +179,11 @@ list of all values after subtracting the I<min>.
 =head2 validate_array_param
 
 Validate an array parameter or throw an exception.
+
+=head2 mark_to_index
+
+Given the sparkline type, a mark index and a reference to an array of values,
+return a numeric index representing C<$index>. Throw an exception on error.
 
 =head1 DIAGNOSTICS
 

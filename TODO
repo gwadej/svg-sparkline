@@ -24,7 +24,6 @@ Future features.
 Mark design:
 
 Specify:
-  x,y - would only work on Line.
   x-index - would work on any.
   special values of 'high', 'low', 'first', and 'last'
   need to supply a color.
@@ -42,7 +41,7 @@ I'll need a virtual method in the type.
 
 How mark is displayed:
   Area    - vertical line from 0 to data point
-  Bar     - the bar in question
-  Line    - dot at point (might want to control dot size)
+  Bar     - the bar in question - DONE
+  Line    - dot at point (might want to control dot size) - DONE
   Whisker - the whole whisker at the index - DONE
 

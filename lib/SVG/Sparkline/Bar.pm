@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = '0.2.0';
+our $VERSION = '0.2.5';
 
 # alias to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -93,32 +93,7 @@ sub _make_mark
 
 sub _check_index
 {
-    my ($index, $values) = @_;
-    return 0 if $index eq 'first';
-    return $#{$values} if $index eq 'last';
-    return $index unless $index =~ /\D/;
-    if( 'high' eq $index )
-    {
-        my $high = $values->[0];
-        my $ndx = 0;
-        foreach my $i ( 1 .. $#{$values} )
-        {
-            ($high,$ndx) = ($values->[$i],$i) if $values->[$i] > $high;
-        }
-        return $ndx;
-    }
-    elsif( 'low' eq $index )
-    {
-        my $low = $values->[0];
-        my $ndx = 0;
-        foreach my $i ( 1 .. $#{$values} )
-        {
-            ($low,$ndx) = ($values->[$i],$i) if $values->[$i] < $low;
-        }
-        return $ndx;
-    }
-
-    die "'$index' is not a valid mark for Whisker sparkline";
+    return SVG::Sparkline::Utils::mark_to_index( 'Bar', @_ );
 }
 
 
@@ -131,7 +106,7 @@ SVG::Sparkline::Bar - Supports SVG::Sparkline for bar graphs.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Bar version 0.2.0
+This document describes SVG::Sparkline::Bar version 0.2.5
 
 =head1 DESCRIPTION
 
