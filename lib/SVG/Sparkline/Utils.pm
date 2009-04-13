@@ -43,6 +43,9 @@ sub summarize_xy_values
         xmax => $#{$array},
         xrange => $#{$array},
     };
+    $desc->{base} = 0;
+    $desc->{base} = $desc->{ymin} if $desc->{ymin} > 0;
+    $desc->{base} = $desc->{ymax} if $desc->{ymax} < 0;
 
     $desc->{yrange} = $desc->{ymax}-$desc->{ymin};
     my $i = 0;
@@ -69,6 +72,9 @@ sub summarize_xy_pairs
         $desc->{ymin} = $p->[1] if $p->[1] < $desc->{ymin};
         $desc->{ymax} = $p->[1] if $p->[1] > $desc->{ymax};
     }
+    $desc->{base} = 0;
+    $desc->{base} = $desc->{ymin} if $desc->{ymin} > 0;
+    $desc->{base} = $desc->{ymax} if $desc->{ymax} < 0;
     $desc->{xrange} = $desc->{xmax}-$desc->{xmin};
     $desc->{yrange} = $desc->{ymax}-$desc->{ymin};
     $desc->{vals} =

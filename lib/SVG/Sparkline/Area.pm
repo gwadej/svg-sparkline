@@ -18,7 +18,10 @@ sub make
     # validate parameters
     SVG::Sparkline::Utils::validate_array_param( $args, 'values' );
     my $valdesc = SVG::Sparkline::Utils::summarize_xy_values( $args->{values} );
-    $valdesc->{vals} = [ map { [$_->[0], $_->[1]+$valdesc->{ymin}] } @{$valdesc->{vals}} ];
+    my $off = $valdesc->{ymin}-$valdesc->{base};
+    $valdesc->{vals} = [
+        map { [$_->[0], $_->[1]+$off] } @{$valdesc->{vals}}
+    ];
 
     $args->{width} ||= @{$valdesc->{vals}};
     my $xscale = ($args->{width}-1) / $valdesc->{xrange};

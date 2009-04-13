@@ -1,7 +1,7 @@
 Revision history for SVG-Sparkline
 
 0.2.5  ???
-       Modify the Bar type to handle baselines better.
+       Modify the Bar and Area types to handle baselines better.
        Add support for marks
        Add overload support for stringifying.
 0.2.1  Not released
