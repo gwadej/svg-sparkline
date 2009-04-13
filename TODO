@@ -21,7 +21,7 @@ Future features.
     b. One above the others
 
 -------------------------
-Mark design:
+Mark design: Need to document in Sparkline.pm and Cookbook.
 
 Specify:
   x-index - would work on any.
