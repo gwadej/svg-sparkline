@@ -19,28 +19,29 @@ sub make
     SVG::Sparkline::Utils::validate_array_param( $args, 'values' );
     my $valdesc = SVG::Sparkline::Utils::summarize_xy_values( $args->{values} );
 
-    $args->{width} ||= @{$valdesc->{vals}};
+    $args->{width} ||= @{$args->{values}};
     my $xscale = ($args->{width}-1) / $valdesc->{xrange};
     my $yscale = -$args->{height} / $valdesc->{yrange};
-
-    my $svg = SVG::Sparkline::Utils::make_svg(
-        width=>$args->{width}, height=>$args->{height},
-        viewBox=> "0 -$args->{height} $args->{width} $args->{height}",
-    );
-    SVG::Sparkline::Utils::add_bgcolor( $svg, -$args->{height}, $args );
     my $baseline = _f(-$yscale*$valdesc->{ymin});
 
+    my $zero = -($baseline+$args->{height});
+    my $svg = SVG::Sparkline::Utils::make_svg(
+        width=>$args->{width}, height=>$args->{height},
+        viewBox=> "0 $zero $args->{width} $args->{height}",
+    );
+    SVG::Sparkline::Utils::add_bgcolor( $svg, -$args->{height}, $args );
+
     my $points = join( ' ', "0,0",
-        ( map { _f($xscale*$_->[0]) .','. _f($yscale*$_->[1]) } @{$valdesc->{vals}} ),
-        _f($xscale*$valdesc->{vals}->[-1]->[0]).",0"
+        ( map { _f($xscale*$_) .','. _f($yscale*$args->{values}->[$_]) } 0 ..$#{$args->{values}} ),
+        _f($xscale * $#{$args->{values}}).",0"
     );
     $svg->polygon( fill=>$args->{color}, points=>$points, stroke=>'none' );
 
     if( exists $args->{mark} )
     {
         _make_marks( $svg,
-            xscale=>$xscale, yscale=>$yscale, base=>0,
-            values=>$valdesc->{vals}, mark=>$args->{mark}
+            xscale=>$xscale, yscale=>$yscale, base=>$zero,
+            values=>$args->{values}, mark=>$args->{mark}
         );
     }
 
@@ -52,7 +53,7 @@ sub _make_marks
     my ($svg, %args) = @_;
     
     my @marks = @{$args{mark}};
-    my @yvalues = map { $_->[1] } @{$args{values}};
+    my @yvalues = @{$args{values}};
     while(@marks)
     {
         my ($index,$color) = splice( @marks, 0, 2 );
@@ -67,8 +68,8 @@ sub _make_mark
     my ($svg, %args) = @_;
     my $index = $args{index};
     my $h = _f($args{values}->[$index] * $args{yscale});
-    my $x = _f($args{xscale} * $args{values}->[$index]->[0]);
-    my $y = _f($args{yscale} * $args{values}->[$index]->[1]);
+    my $x = _f($args{xscale} * $index);
+    my $y = _f($args{yscale} * $args{values}->[$index]);
     my $base = _f($args{yscale} * $args{base});
     $svg->line( x1=>$x, y1=>$base, x2=>$x, y2=>$y,
         fill=>'none', stroke=>$args{color}, 'stroke-width'=>1
