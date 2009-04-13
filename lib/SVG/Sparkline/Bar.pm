@@ -55,8 +55,8 @@ sub make
     if( exists $args->{mark} )
     {
         _make_marks( $svg,
-            thick=>$thick, yscale=>$yscale, base=>-$vals->{min},
-            values=>$vals->{vals}, mark=>$args->{mark}
+            thick=>$thick, yscale=>$yscale, base=>$zero,
+            values=>$args->{values}, mark=>$args->{mark}
         );
     }
     return $svg;
@@ -80,12 +80,12 @@ sub _make_mark
 {
     my ($svg, %args) = @_;
     my $index = $args{index};
-    my $h = $args{values}->[$index]-$args{base};
+    my $h = _f($args{values}->[$index] * $args{yscale});
     return unless $h;
     my $x = _f($index * $args{thick});
-    my $y = _f($h * $args{yscale});
+    my $y = $h > 0 ? $args{base} : $h;
     $svg->rect( x=>$x, y=>$y,
-        width=>$args{thick}, height=>abs($y),
+        width=>$args{thick}, height=>abs($h),
         stroke=>'none', fill=>$args{color}
     );
     return;
