@@ -256,6 +256,10 @@ bar size defaults to the I<width> divided by the number of data points.
 
 If we assume 12 months of data in C<@rainfall>, the bars are drawn 10 pixels wide.
 
+=head2 I need to mark a specific data point on the sparkline.
+
+=head2 I need to mark more than one data point on the sparkline.
+
 =head2 Using the generated sparklines
 
 =head3 I want to write the sparkline to a file.
