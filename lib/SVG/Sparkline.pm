@@ -170,6 +170,58 @@ This optional parameter specifies the color for the displayed data as an
 SVG supported color string. Each sparkline type uses this color slightly
 differently.
 
+=item mark
+
+There are times when certain points on the sparkline need to be highlighted
+in some way. For instance, you might want to highlight the lowest and highest
+value of a data set. The C<mark> attribute supports this functionality.
+
+The appearance of the mark is mostly determined by the sparkline type. However,
+you may select different colors for each mark.
+
+The value of the C<mark> attribute is a reference to an array of pairs, where
+each pair consists of an index and a color. The index is either an integer
+specifying which point in the C<values> is to be marked or a string that
+describes a particular point. The supported index strings are
+
+=over 4
+
+=item first
+
+This index string represents the first data point. It is synonymous with a
+numeric index of 0.
+
+=item last
+
+This index string represents the last data point. It is equal to one less than
+the number of C<values>.
+
+=item high
+
+This index string repesents the highest value in the data set. If there is more
+than one point with the highest value, the first index with this value is
+selected.
+
+=item low
+
+This index string repesents the lowest value in the data set. If there is more
+than one point with the lowest value, the first index with this value is
+selected.
+
+=back
+
+The following would be examples of marks:
+
+=over 4
+
+=item Single Indexed Mark
+
+   mark => [ 3 => 'blue' ]
+
+=item High and Low Marks
+
+  mark => [ low => 'red', high => 'green' ]
+
 =back
 
 The supported graph types are: B<Area>, B<Bar>, B<Line>, and B<Whisker>.
@@ -199,6 +251,11 @@ items in the I<values> parameter.
 This optional parameter specifies the color of the filled area between the
 data line and the x-axis as a SVG supported color string. The default value
 for this parameter is I<#000> (black).
+
+=item mark
+
+The mark for an Area is a vertical line of the specified color. The line moves
+from a value of zero up to the value.
 
 =back
 
@@ -234,6 +291,10 @@ This optional parameter specifies the color of the filled area between the
 data line and the x-axis as a SVG supported color string. The default value
 for this parameter is I<#000> (black).
 
+=item mark
+
+The mark for Bar replaces the bar in question with one of the specified color.
+
 =back
 
 =head3 Line
@@ -264,6 +325,12 @@ If not specified, the default value is 1 pixel.
 
 This optional parameter specifies the color of the data line as a SVG supported
 color string. The default value for this parameter is I<#000> (black).
+
+=item mark
+
+The mark for Line is a dot of the specified color at the chosen location. The
+radius of the dot is the same as the width of the line, specified by the
+C<thick> parameter.
 
 =back
 
@@ -318,11 +385,17 @@ This optional parameter specifies the color of the individual whiskers as a
 SVG supported color string. The default value for this parameter is I<#000>
 (black).
 
+=item mark
+
+The mark for Whisker replaces the whisker in question with one of the
+specified color.
+
 =back
 
 =head2 to_string
 
-Convert the L<SVG::Sparkline> object to an XML string.
+Convert the L<SVG::Sparkline> object to an XML string. This is the method that
+is used by the stringification overload.
 
 =head1 DIAGNOSTICS
 
