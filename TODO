@@ -1,47 +1,17 @@
 Future features.
 
- 1. Cookbook - DONE
- 2. x/y args for Line and Area?
- 3. Ability to set baseline
- 4. Axes?
- 5. Mark important points *
-    a. High/Low
-    b. Particular points
-    c. First/last
- 6. Display a reference line on sparkline
+ 1. x/y args for Line and Area?
+ 2. Ability to set baseline
+ 3. Axes?
+ 4. Display a reference line on sparkline
     a. Particular x value
     b. Particular y value
- 7. Band of y-values feature
+ 5. Band of y-values feature
     - See the ET article
- 8. Labels?
- 9. Padding so that data does not go to edges of sparkline.
-10. Opacity features.
-11. Combining multiple data sets in one sparkline.
+ 6. Labels?
+ 7. Padding so that data does not go to edges of sparkline.
+ 8. Opacity features.
+ 9. Combining multiple data sets in one sparkline.
     a. Overlapping
     b. One above the others
-
--------------------------
-Mark design: Need to document in Sparkline.pm and Cookbook.
-
-Specify:
-  x-index - would work on any.
-  special values of 'high', 'low', 'first', and 'last'
-  need to supply a color.
-  Supply one point/color pair
-  Supply list of point/color pairs
-
-mark => [
-    high=>'blue', low=>'red', first=>'green', last=>'#080',
-    2=>'#0ff', 8=>'#555'
-]
-
-mark => [ high=>'#6f6' ]
-
-I'll need a virtual method in the type.
-
-How mark is displayed:
-  Area    - vertical line from 0 to data point - DONE
-  Bar     - the bar in question - DONE
-  Line    - dot at point (might want to control dot size) - DONE
-  Whisker - the whole whisker at the index - DONE
 
