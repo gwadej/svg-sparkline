@@ -224,6 +224,8 @@ The following would be examples of marks:
 
 =back
 
+=back
+
 The supported graph types are: B<Area>, B<Bar>, B<Line>, and B<Whisker>.
 Each type is described below with any parameters specific to that type.
 
