@@ -35,7 +35,7 @@ use warnings;
 
     my $b5 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[4,2,8,10,5], mark=>[high=>'green'] } );
     is( "$b5",
-        '<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v-4h3v2h3v-6h3v-2h3v5h3v5z" fill="#000" stroke="none" /><rect fill="green" height="12" stroke="none" width="3" x="9" y="-10" /></svg>',
+        '<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v-4h3v2h3v-6h3v-2h3v5h3v5z" fill="#000" stroke="none" /><rect fill="green" height="10" stroke="none" width="3" x="9" y="-10" /></svg>',
         'pos only: mark high'
     );
 }
@@ -61,7 +61,7 @@ use warnings;
 
     my $b4 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[-4,-2,-8,-10,-5], mark=>[low=>'red'] } );
     is( "$b4",
-        '<svg height="12" viewBox="0 -1 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v4h3v-2h3v6h3v2h3v-5h3v-5z" fill="#000" stroke="none" /><rect fill="red" height="12" stroke="none" width="3" x="9" y="0" /></svg>',
+        '<svg height="12" viewBox="0 -1 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v4h3v-2h3v6h3v2h3v-5h3v-5z" fill="#000" stroke="none" /><rect fill="red" height="10" stroke="none" width="3" x="9" y="0" /></svg>',
         'neg only: mark low'
     );
 
