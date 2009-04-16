@@ -258,7 +258,37 @@ If we assume 12 months of data in C<@rainfall>, the bars are drawn 10 pixels wid
 
 =head2 I need to mark a specific data point on the sparkline.
 
-=head2 I need to mark more than one data point on the sparkline.
+It is often useful to be able to mark specific data points on a sparkline so
+that you can refer to them elsewhere. You mark a specific data point with the
+C<mark> parameter. For example,
+
+  my $sl = SVG::Sparkline(
+        Line=>{ values=>\@rainfall, mark=>[14=>'blue'] }
+  );
+
+This would show our rainfall line graph with a blue dot on the data for
+the 15th (14 0-based).
+
+The C<mark> attribute takes pairs of values. The first item of each pair is an
+index (or one of four special terms: first, last, high, and low). The second item
+is a SVG-supported color as described in
+L</"How do I specify a color for the line or background?">.
+
+If you need more than one mark, simply add more pairs to the anonymous array.
+
+=head2 I need to mark the high and low values on a sparkline.
+
+So, you can mark a particular index, but what if you don't want to figure out
+the index for the high and low values (especially, if you are generating this
+sparkline multiple times). The special index terms C<high> and C<low> come to
+the rescue.
+
+  my $sl = SVG::Sparkline(
+        Line=>{ values=>\@rainfall, mark=>[high=>'green', low=>'red'] }
+  );
+
+This will generate two dots on the sparkline: a green one at the high value
+and a red one at the low value.
 
 =head2 Using the generated sparklines
 
