@@ -18,7 +18,9 @@ sub make
     # validate parameters
     SVG::Sparkline::Utils::validate_array_param( $args, 'values' );
     my $vals = SVG::Sparkline::Utils::summarize_values( $args->{values} );
-    my $yscale = -$args->{height} / $vals->{range};
+
+    my $height = $args->{height} - 2*$args->{'-pady'};
+    my $yscale = -$height / $vals->{range};
     my $baseline = _f(-$yscale*$vals->{min});
 
     # Figure out the width I want and define the viewBox
@@ -31,7 +33,7 @@ sub make
     {
         $args->{width} = @{$args->{values}} * $thick;
     }
-    my $zero = -($baseline+$args->{height});
+    my $zero = -($baseline+$height+$args->{'-pady'});
 
     my $svg = SVG::Sparkline::Utils::make_svg(
         width=>$args->{width}, height=>$args->{height},

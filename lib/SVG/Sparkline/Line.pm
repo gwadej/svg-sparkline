@@ -21,11 +21,12 @@ sub make
 
     my $thick = $args->{thick} || 1;
     $args->{width} ||= @{$valdesc->{vals}};
+    my $height = $args->{height} - 2*$args->{'-pady'};
     my $xscale = ($args->{width}-1) / $valdesc->{xrange};
-    my $yscale = -$args->{height} / $valdesc->{yrange};
+    my $yscale = -$height / $valdesc->{yrange};
     my $baseline = _f(-$yscale*$valdesc->{offset});
 
-    my $zero = -($baseline+$args->{height});
+    my $zero = -($baseline+$height+$args->{'-pady'});
     my $svg = SVG::Sparkline::Utils::make_svg(
         width=>$args->{width}, height=>$args->{height},
         viewBox=> "0 $zero $args->{width} $args->{height}",

@@ -130,7 +130,7 @@ controls the pixel height of the sparkline. Since the data is automatically
 scaled to fit the height, this attribute also helps determine the resolution that
 is displayed.
 
-   my $sl = SVG::Sparkline->new( Line => { values =>\@samples, height=>15 } );
+   my $sl = SVG::Sparkline->new( Line => { values =>\@samples, height=>18 } );
 
 The above code generates a sparkline 1.5x as tall as the default. Although SVG
 supports (practically) infinitely scalable graphics, You should tend to make
@@ -165,11 +165,11 @@ L</"How do I specify a color for the line or background?"> for legal color forma
 
 =head3 How do I change the color of the background?
 
-The L<SVG::Sparkline> constructor supports an optional I<bgcolor> parameter that
+The L<SVG::Sparkline> constructor supports an optional I<-bgcolor> parameter that
 specifies the color of the background. The value of this parameter must be
 in a format that SVG understands.
 
-   my $sl = SVG::Sparkline->new( Line => { values=>\@depth, bgcolor=>'silver' } );
+   my $sl = SVG::Sparkline->new( Line => { values=>\@depth, -bgcolor=>'silver' } );
 
 This would make a line graph on a light gray background. See the recipe
 L</"How do I specify a color for the line or background?"> for legal color formats.
@@ -322,7 +322,7 @@ simplest and most robust solution.
 Given a sparkline in the file F<rainfall_sparkline.svg>, put the following in your
 HTML to include the sparkline:
 
-   <iframe height="10" width="36" src="rainfall_sparkline.svg"
+   <iframe height="12" width="36" src="rainfall_sparkline.svg"
        style="border:0;" alt="Rainfall amounts"></iframe>
 
 Of course, you may need to adjust the height and width to match your sparkline.
@@ -385,7 +385,7 @@ If you want to have a border despite Tuft's advice, you can use the border
 attribute on the container you use for the SVG. For example, if you used the
 C<iframe> approach from L</"I want to embed the sparkline in an HTML file.">
 
-   <iframe height="10" width="36" src="rainfall_sparkline.svg"
+   <iframe height="12" width="36" src="rainfall_sparkline.svg"
        style="border:1 solid black;" alt="Rainfall amounts"></iframe>
 
 Changing the border style should have the effect you want.

@@ -21,10 +21,12 @@ sub new
     croak "Arguments not supplied as a hash reference.\n" unless 'HASH' eq ref $args;
 
     my $self = bless {
-        height => 10,
+        height => 12,
         width => 0,
         -nodecl => 0,
         -allns => 0,
+        -pady => 1,
+        -padx => 0,
         color => '#000',
         %{$args},
     }, $class;
@@ -137,6 +139,17 @@ The value of this parameter is an SVG-supported color string which specifies
 a color for the background of the sparkline. In general, this parameter should
 not be supplied or should be very subtle to avoid taking attention away from
 the actual data displayed.
+
+=item -padx
+
+The value of this parameter is the number of pixels of padding inside the
+sparkline, but to the left of the first data point and right of the last
+data point. 
+
+=item -pady
+
+The value of this parameter is the number of pixels of padding inside the
+sparkline, but above the highest data point and below the lowest data point.
 
 =back
 
