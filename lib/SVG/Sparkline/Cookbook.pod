@@ -165,11 +165,11 @@ L</"How do I specify a color for the line or background?"> for legal color forma
 
 =head3 How do I change the color of the background?
 
-The L<SVG::Sparkline> constructor supports an optional I<-bgcolor> parameter that
+The L<SVG::Sparkline> constructor supports an optional I<bgcolor> parameter that
 specifies the color of the background. The value of this parameter must be
 in a format that SVG understands.
 
-   my $sl = SVG::Sparkline->new( Line => { values=>\@depth, -bgcolor=>'silver' } );
+   my $sl = SVG::Sparkline->new( Line => { values=>\@depth, bgcolor=>'silver' } );
 
 This would make a line graph on a light gray background. See the recipe
 L</"How do I specify a color for the line or background?"> for legal color formats.

@@ -25,8 +25,8 @@ sub new
         width => 0,
         -nodecl => 0,
         -allns => 0,
-        -pady => 1,
-        -padx => 0,
+        pady => 1,
+        padx => 0,
         color => '#000',
         %{$args},
     }, $class;

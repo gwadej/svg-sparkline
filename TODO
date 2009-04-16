@@ -14,6 +14,7 @@ Future features.
     b. Make default height 12 instead of 10.
        - This gives me the same size for the data.
     c. Parameter to set the padding: pady, padx
+    d. Need test files.
  8. Opacity features.
  9. Combining multiple data sets in one sparkline.
     a. Overlapping

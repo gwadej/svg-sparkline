@@ -50,7 +50,7 @@ sub make
         $args->{width} = @values * $space;
     }
     ++$space if $space =~s/\.9\d$//;
-    my $height = $args->{height} - 2*$args->{'-pady'};
+    my $height = $args->{height} - 2*$args->{pady};
     my $wheight = $args->{height}/2;
 
     my $svg = SVG::Sparkline::Utils::make_svg(
@@ -59,7 +59,7 @@ sub make
     );
     SVG::Sparkline::Utils::add_bgcolor( $svg, -$wheight, $args );
 
-    $wheight -= $args->{'-pady'};
+    $wheight -= $args->{pady};
     my $path = "M$thick,0";
     foreach my $v (@values)
     {

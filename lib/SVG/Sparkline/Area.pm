@@ -20,12 +20,12 @@ sub make
     my $valdesc = SVG::Sparkline::Utils::summarize_xy_values( $args->{values} );
 
     $args->{width} ||= @{$valdesc->{vals}};
-    my $height = $args->{height} - 2*$args->{'-pady'};
+    my $height = $args->{height} - 2*$args->{pady};
     my $xscale = ($args->{width}-1) / $valdesc->{xrange};
     my $yscale = -$height / $valdesc->{yrange};
     my $baseline = _f(-$yscale*$valdesc->{offset});
 
-    my $zero = -($baseline+$height+$args->{'-pady'});
+    my $zero = -($baseline+$height+$args->{pady});
     my $svg = SVG::Sparkline::Utils::make_svg(
         width=>$args->{width}, height=>$args->{height},
         viewBox=> "0 $zero $args->{width} $args->{height}",

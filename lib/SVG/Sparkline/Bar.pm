@@ -19,7 +19,7 @@ sub make
     SVG::Sparkline::Utils::validate_array_param( $args, 'values' );
     my $vals = SVG::Sparkline::Utils::summarize_values( $args->{values} );
 
-    my $height = $args->{height} - 2*$args->{'-pady'};
+    my $height = $args->{height} - 2*$args->{pady};
     my $yscale = -$height / $vals->{range};
     my $baseline = _f(-$yscale*$vals->{min});
 
@@ -33,7 +33,7 @@ sub make
     {
         $args->{width} = @{$args->{values}} * $thick;
     }
-    my $zero = -($baseline+$height+$args->{'-pady'});
+    my $zero = -($baseline+$height+$args->{pady});
 
     my $svg = SVG::Sparkline::Utils::make_svg(
         width=>$args->{width}, height=>$args->{height},
