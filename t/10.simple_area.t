@@ -32,10 +32,10 @@ is( "$a3",
     'width & 11 points: output correct'
 );
 
-$points = '0,0 0,-3.33 1,-1.67 2,3.33 3,1.67 4,-1 5,-2.67 6,-4 7,-6.67 8,-6 9,-3.33 10,-1.67 10,0';
+$points = '0,0 0,-3.33 2,-1.67 4,3.33 6,1.67 8,-1 10,-2.67 12,-4 14,-6.67 16,-6 18,-3.33 20,-1.67 20,0';
 my $a5 = SVG::Sparkline->new( Area => { -nodecl=>1, values=>\@yvalues } );
 is( "$a5",
-    qq{<svg height="12" viewBox="0 -7.67 11 12" width="11" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="$points" stroke="none" /></svg>},
+    qq{<svg height="12" viewBox="0 -7.67 21 12" width="21" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="$points" stroke="none" /></svg>},
     'no width: output correct'
 );
 

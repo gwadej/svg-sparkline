@@ -11,19 +11,19 @@ my @yvalues = (10,5,-10,-5,3,8,12,20,18,10,5);
 
 my $w = SVG::Sparkline->new( Whisker => { -nodecl=>1, padx=>5, values=>[1,1,0,1,0,1] } );
 is( "$w",
-     '<svg height="12" viewBox="-5 -6 28 12" width="28" xmlns="http://www.w3.org/2000/svg"><path d="M1,0v-5m3,5v-5m3,5m3,0v-5m3,5m3,0v-5m3,5" stroke="#000" stroke-width="1" /></svg>',
+    '<svg height="12" viewBox="-5 -6 28 12" width="28" xmlns="http://www.w3.org/2000/svg"><path d="M1,0v-5m3,5v-5m3,5m3,0v-5m3,5m3,0v-5m3,5" stroke="#000" stroke-width="1" /></svg>',
     'Whisker: five x padding'
 );
 
 my $l = SVG::Sparkline->new( Line => { -nodecl=>1, padx=>5, values=>\@yvalues } );
 is( "$l",
-    '<svg height="12" viewBox="-5 -7.67 21 12" width="21" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" points="0,-3.33 1,-1.67 2,3.33 3,1.67 4,-1 5,-2.67 6,-4 7,-6.67 8,-6 9,-3.33 10,-1.67" stroke="#000" stroke-linecap="round" stroke-width="1" /></svg>',
+    '<svg height="12" viewBox="-5 -7.67 31 12" width="31" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" points="0,-3.33 2,-1.67 4,3.33 6,1.67 8,-1 10,-2.67 12,-4 14,-6.67 16,-6 18,-3.33 20,-1.67" stroke="#000" stroke-linecap="round" stroke-width="1" /></svg>',
     'Line: five x padding'
 );
 
 my $a = SVG::Sparkline->new( Area => { -nodecl=>1, padx=>5, values=>\@yvalues } );
 is( "$a",
-    '<svg height="12" viewBox="-5 -7.67 21 12" width="21" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="0,0 0,-3.33 1,-1.67 2,3.33 3,1.67 4,-1 5,-2.67 6,-4 7,-6.67 8,-6 9,-3.33 10,-1.67 10,0" stroke="none" /></svg>',
+    '<svg height="12" viewBox="-5 -7.67 31 12" width="31" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="0,0 0,-3.33 2,-1.67 4,3.33 6,1.67 8,-1 10,-2.67 12,-4 14,-6.67 16,-6 18,-3.33 20,-1.67 20,0" stroke="none" /></svg>',
     'Area: five x padding'
 );
 
@@ -41,13 +41,13 @@ is( "$wb",
 
 my $lb = SVG::Sparkline->new( Line => { -nodecl=>1, padx=>5, bgcolor=>'#fff', values=>\@yvalues } );
 is( "$lb",
-    '<svg height="12" viewBox="-5 -7.67 21 12" width="21" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="14" stroke="none" width="23" x="-6" y="-8.67" /><polyline fill="none" points="0,-3.33 1,-1.67 2,3.33 3,1.67 4,-1 5,-2.67 6,-4 7,-6.67 8,-6 9,-3.33 10,-1.67" stroke="#000" stroke-linecap="round" stroke-width="1" /></svg>',
+    '<svg height="12" viewBox="-5 -7.67 31 12" width="31" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="14" stroke="none" width="33" x="-6" y="-8.67" /><polyline fill="none" points="0,-3.33 2,-1.67 4,3.33 6,1.67 8,-1 10,-2.67 12,-4 14,-6.67 16,-6 18,-3.33 20,-1.67" stroke="#000" stroke-linecap="round" stroke-width="1" /></svg>',
     'Line: five x padding, with background'
 );
 
 my $ab = SVG::Sparkline->new( Area => { -nodecl=>1, padx=>5, bgcolor=>'#fff', values=>\@yvalues } );
 is( "$ab",
-    '<svg height="12" viewBox="-5 -7.67 21 12" width="21" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="14" stroke="none" width="23" x="-6" y="-8.67" /><polygon fill="#000" points="0,0 0,-3.33 1,-1.67 2,3.33 3,1.67 4,-1 5,-2.67 6,-4 7,-6.67 8,-6 9,-3.33 10,-1.67 10,0" stroke="none" /></svg>',
+    '<svg height="12" viewBox="-5 -7.67 31 12" width="31" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="14" stroke="none" width="33" x="-6" y="-8.67" /><polygon fill="#000" points="0,0 0,-3.33 2,-1.67 4,3.33 6,1.67 8,-1 10,-2.67 12,-4 14,-6.67 16,-6 18,-3.33 20,-1.67 20,0" stroke="none" /></svg>',
     'Area: five x padding, with background'
 );
 

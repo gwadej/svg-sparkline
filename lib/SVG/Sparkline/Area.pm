@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = '0.2.5';
+our $VERSION = '0.2.6';
 
 # aliases to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -20,17 +20,19 @@ sub make
     my $valdesc = SVG::Sparkline::Utils::summarize_xy_values( $args->{values} );
 
     my $dwidth;
+    my $xscale;
     if( $args->{width} )
     {
         $dwidth = $args->{width} - 2*$args->{padx};
+        $xscale = ($dwidth-1) / $valdesc->{xrange};
     }
     else
     {
-        $args->{width} = @{$valdesc->{vals}}+2*$args->{padx};
-        $dwidth = @{$valdesc->{vals}}
+        $xscale = $args->{space} || 2;
+        $dwidth = @{$valdesc->{vals}} * $xscale - 1;
+        $args->{width} = $dwidth + 2*$args->{padx};
     }
     my $height = $args->{height} - 2*$args->{pady};
-    my $xscale = ($dwidth-1) / $valdesc->{xrange};
     my $yscale = -$height / $valdesc->{yrange};
     my $baseline = _f(-$yscale*$valdesc->{offset});
 

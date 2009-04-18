@@ -46,6 +46,9 @@ sub _make {
     return;
 }
 
+sub get_height { return $_[0]->{height}; }
+sub get_width { return $_[0]->{width}; }
+
 sub to_string
 {
     my ($self) = @_;
@@ -408,6 +411,14 @@ The mark for Whisker replaces the whisker in question with one of the
 specified color.
 
 =back
+
+=head2 get_height
+
+Returns in height in pixels of the completed sparkline.
+
+=head2 get_width
+
+Returns in width in pixels of the completed sparkline.
 
 =head2 to_string
 

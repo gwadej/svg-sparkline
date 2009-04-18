@@ -2,6 +2,8 @@ Revision history for SVG-Sparkline
 
 0.2.6  ???
        Documentation corrections.
+       Add accessors for height and width.
+       Change the default x scaling for Line and Area types.
 0.2.5  Fri Apr 17 23:45:00 2009
        Modify the Area, Bar and Line types to handle baselines better.
        Add support for marks

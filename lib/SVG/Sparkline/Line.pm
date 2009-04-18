@@ -21,17 +21,19 @@ sub make
 
     my $thick = $args->{thick} || 1;
     my $dwidth;
+    my $xscale;
     if( $args->{width} )
     {
         $dwidth = $args->{width} - 2*$args->{padx};
+        $xscale = ($dwidth-1) / $valdesc->{xrange};
     }
     else
     {
-        $dwidth = @{$valdesc->{vals}};
+        $xscale = $args->{space} || 2;
+        $dwidth = @{$valdesc->{vals}} * $xscale - 1;
         $args->{width} = $dwidth + 2*$args->{padx};
     }
     my $height = $args->{height} - 2*$args->{pady};
-    my $xscale = ($dwidth-1) / $valdesc->{xrange};
     my $yscale = -$height / $valdesc->{yrange};
     my $baseline = _f(-$yscale*$valdesc->{offset});
 
