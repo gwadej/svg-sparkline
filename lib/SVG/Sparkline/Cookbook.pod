@@ -4,7 +4,7 @@ SVG::Sparkline::Cookbook - Performing specific tasks with SVG::Sparklines
 
 =head1 VERSION
 
-This document describes L<SVG::Sparkline> version 0.2.0.
+This document describes L<SVG::Sparkline> version 0.2.5.
 
 =head1 INTRODUCTION
 
@@ -289,6 +289,34 @@ the rescue.
 
 This will generate two dots on the sparkline: a green one at the high value
 and a red one at the low value.
+
+=head2 I want a little more space above/below the data in the sparkline.
+
+The C<pady> parameter specifies the amount of padding between the displayed
+data and the top/bottom of the sparkline in pixels. The default value of
+C<pady> is 1 pixel if none is specified.
+
+  my $sl = SVG::Sparkline(
+        Line=>{ values=>\@rainfall, pady=>3 }
+  );
+
+This adds 2 more pixels of spacing between the highest and lowest values of
+the data and the top and bottom of the sparkline graphic. To add paddin to the
+left and right, see the next recipe.
+
+=head2 I want a little more space to the left/right of the data in the sparkline.
+
+The C<padx> parameter specifies the amount of padding between the displayed
+data and the left and right of the sparkline in pixels. The default value of
+C<padx> is 0 pixels if none is specified.
+
+  my $sl = SVG::Sparkline(
+        Line=>{ values=>\@rainfall, padx=>2 }
+  );
+
+This adds 2 more pixels of spacing between the data and the left and right of
+the sparkline graphic. To add padding to the top and bottom, see the previous
+recipe.
 
 =head2 Using the generated sparklines
 

@@ -25,3 +25,8 @@ t/10.simple_area.t
 t/11.bar_bad_parms.t
 t/12.simple_bar.t
 t/13.bgcolor.t
+t/14.whisker_marks.t
+t/15.bar_marks.t
+t/16.line_marks.t
+t/17.area_marks.t
+t/18.pady.t

@@ -1,10 +1,11 @@
 Revision history for SVG-Sparkline
 
-0.2.5  ???
+0.2.5  Fri Apr 17 23:45:00 2009
        Modify the Area, Bar and Line types to handle baselines better.
        Add support for marks
        Add overload support for stringifying.
-       Add support for vertical padding with pady parameter.
+       Add support for padding the sparkline with the padx and pady
+        parameters
        Removed '-' from bgcolor parameter.
 0.2.1  Not released
        Added the Cookbook document to cover basic uses of SVG::Sparkline.

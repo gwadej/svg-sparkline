@@ -25,21 +25,19 @@ sub make
 
     # Figure out the width I want and define the viewBox
     my $thick = 3;
+    my $dwidth;
     if($args->{width})
     {
-        $thick = _f( $args->{width} / @{$args->{values}} );
+        $dwidth = $args->{width} - $args->{padx}*2;
+        $thick = _f( $dwidth / @{$args->{values}} );
     }
     else
     {
-        $args->{width} = @{$args->{values}} * $thick;
+        $dwidth = @{$args->{values}} * $thick;
+        $args->{width} = $dwidth + 2*$args->{padx}; 
     }
-    my $zero = -($baseline+$height+$args->{pady});
-
-    my $svg = SVG::Sparkline::Utils::make_svg(
-        width=>$args->{width}, height=>$args->{height},
-        viewBox=> "0 $zero $args->{width} $args->{height}",
-    );
-    SVG::Sparkline::Utils::add_bgcolor( $svg, -$args->{height}, $args );
+    $args->{yoff} = -($baseline+$height+$args->{pady});
+    my $svg = SVG::Sparkline::Utils::make_svg( $args );
 
     my $prev = 0;
     my $path = "M0,0";
@@ -57,7 +55,7 @@ sub make
     if( exists $args->{mark} )
     {
         _make_marks( $svg,
-            thick=>$thick, yscale=>$yscale, base=>$zero,
+            thick=>$thick, yscale=>$yscale,
             values=>$args->{values}, mark=>$args->{mark}
         );
     }

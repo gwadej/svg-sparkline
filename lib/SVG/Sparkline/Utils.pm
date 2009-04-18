@@ -87,21 +87,22 @@ sub summarize_xy_pairs
 
 sub make_svg
 {
-    return SVG->new(
+    my ($args) = @_;
+    my $svg = SVG->new(
         -inline=>1, -nocredits=>1, -raiseerror=>1, -indent=>'', -elsep=>'',
-        @_
+        width=>$args->{width}, height=>$args->{height},
+        viewBox=> join( ' ', @{$args}{qw/xoff yoff width height/} )
     );
-}
 
-sub add_bgcolor
-{
-    my ($svg, $offset, $args) = @_;
-    return unless exists $args->{bgcolor};
-    $svg->rect(
-        x => -1, y => $offset-1, width => $args->{width}+2, height => $args->{height}+2,
-        stroke => 'none', fill => $args->{bgcolor}
-    );
-    return;
+    if( exists $args->{bgcolor} )
+    {
+        $svg->rect(
+            x => $args->{xoff}-1, y => $args->{yoff}-1,
+            width => $args->{width}+2, height => $args->{height}+2,
+            stroke => 'none', fill => $args->{bgcolor}
+        );
+    }
+    return $svg;
 }
 
 sub validate_array_param
@@ -173,8 +174,6 @@ the decimal place are removed.
 
 Create the SVG object with the proper base parameters for a sparkline. Apply
 the supplied parameters as well.
-
-=head2 add_bgcolor
 
 =head2 summarize_values
 

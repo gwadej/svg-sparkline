@@ -19,18 +19,23 @@ sub make
     SVG::Sparkline::Utils::validate_array_param( $args, 'values' );
     my $valdesc = SVG::Sparkline::Utils::summarize_xy_values( $args->{values} );
 
-    $args->{width} ||= @{$valdesc->{vals}};
+    my $dwidth;
+    if( $args->{width} )
+    {
+        $dwidth = $args->{width} - 2*$args->{padx};
+    }
+    else
+    {
+        $args->{width} = @{$valdesc->{vals}}+2*$args->{padx};
+        $dwidth = @{$valdesc->{vals}}
+    }
     my $height = $args->{height} - 2*$args->{pady};
-    my $xscale = ($args->{width}-1) / $valdesc->{xrange};
+    my $xscale = ($dwidth-1) / $valdesc->{xrange};
     my $yscale = -$height / $valdesc->{yrange};
     my $baseline = _f(-$yscale*$valdesc->{offset});
 
-    my $zero = -($baseline+$height+$args->{pady});
-    my $svg = SVG::Sparkline::Utils::make_svg(
-        width=>$args->{width}, height=>$args->{height},
-        viewBox=> "0 $zero $args->{width} $args->{height}",
-    );
-    SVG::Sparkline::Utils::add_bgcolor( $svg, -$args->{height}, $args );
+    $args->{yoff} = -($baseline+$height+$args->{pady});
+    my $svg = SVG::Sparkline::Utils::make_svg( $args );
 
     my $points = join( ' ', "0,0",
         ( map { _f($xscale*$_->[0]) .','. _f($yscale*$_->[1]) } @{$valdesc->{vals}} ),
@@ -41,7 +46,7 @@ sub make
     if( exists $args->{mark} )
     {
         _make_marks( $svg,
-            xscale=>$xscale, yscale=>$yscale, base=>$zero,
+            xscale=>$xscale, yscale=>$yscale,
             values=>$valdesc->{vals}, mark=>$args->{mark}
         );
     }

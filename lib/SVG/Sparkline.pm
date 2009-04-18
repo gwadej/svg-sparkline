@@ -31,6 +31,8 @@ sub new
         %{$args},
     }, $class;
 
+    $self->{xoff} = -$self->{padx};
+
     $self->_make( $type );
 
     return $self;
@@ -437,10 +439,10 @@ Please report any bugs or feature requests to
 C<bug-svg-sparkline@rt.cpan.org>, or through the web interface at
 L<http://rt.cpan.org>.
 
-=head1 FUTURE DIRECTIONS
+=head1 ACKNOWLEDGEMENTS
 
-I plan to support more optional features and more I<intelligence> so that
-the module can do a better job without you specifying everything.
+This module has been greatly improved by suggestions and corrections supplied
+but Robert Boone, Debbie Campbell, and Joshua Keroes.
 
 =head1 AUTHOR
 

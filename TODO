@@ -9,14 +9,8 @@ Future features.
  5. Band of y-values feature
     - See the ET article
  6. Labels?
- 7. Padding so that data does not go to edges of sparkline. *
-    a. Default to 1 for y, 0 for x.
-    b. Make default height 12 instead of 10.
-       - This gives me the same size for the data.
-    c. Parameter to set the padding: pady, padx
-    d. Need test files.
- 8. Opacity features.
- 9. Combining multiple data sets in one sparkline.
+ 7. Opacity features.
+ 8. Combining multiple data sets in one sparkline.
     a. Overlapping
     b. One above the others
 
