@@ -23,13 +23,13 @@ is( "$w1",
 
 my $l = SVG::Sparkline->new( Line => { -nodecl=>1, height=>10, pady=>0, values=>\@yvalues } );
 is( "$l",
-    '<svg height="10" viewBox="0 -6.67 11 10" width="11" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" points="0,-3.33 1,-1.67 2,3.33 3,1.67 4,-1 5,-2.67 6,-4 7,-6.67 8,-6 9,-3.33 10,-1.67" stroke="#000" stroke-width="1" /></svg>',
+    '<svg height="10" viewBox="0 -6.67 11 10" width="11" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" points="0,-3.33 1,-1.67 2,3.33 3,1.67 4,-1 5,-2.67 6,-4 7,-6.67 8,-6 9,-3.33 10,-1.67" stroke="#000" stroke-linecap="round" stroke-width="1" /></svg>',
     'Line: zero y padding'
 );
 
 my $l1 = SVG::Sparkline->new( Line => { -nodecl=>1, height=>20, pady=>5, values=>\@yvalues } );
 is( "$l1",
-    '<svg height="20" viewBox="0 -11.67 11 20" width="11" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" points="0,-3.33 1,-1.67 2,3.33 3,1.67 4,-1 5,-2.67 6,-4 7,-6.67 8,-6 9,-3.33 10,-1.67" stroke="#000" stroke-width="1" /></svg>',
+    '<svg height="20" viewBox="0 -11.67 11 20" width="11" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" points="0,-3.33 1,-1.67 2,3.33 3,1.67 4,-1 5,-2.67 6,-4 7,-6.67 8,-6 9,-3.33 10,-1.67" stroke="#000" stroke-linecap="round" stroke-width="1" /></svg>',
     'Line: five y padding'
 );
 

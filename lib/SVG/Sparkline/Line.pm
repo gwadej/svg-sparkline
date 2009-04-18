@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = '0.2.5';
+our $VERSION = '0.2.6';
 
 # aliases to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -42,7 +42,7 @@ sub make
         map { _f($xscale*$_->[0]) .','. _f($yscale*$_->[1]) }
         @{$valdesc->{vals}}
     );
-    $svg->polyline( fill=>'none', 'stroke-width'=>$thick, stroke=>$args->{color}, points=>$points );
+    $svg->polyline( fill=>'none', 'stroke-width'=>$thick, stroke=>$args->{color}, 'stroke-linecap'=>'round', points=>$points );
 
     if( exists $args->{mark} )
     {
