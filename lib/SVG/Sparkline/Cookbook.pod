@@ -256,7 +256,7 @@ bar size defaults to the I<width> divided by the number of data points.
 
 If we assume 12 months of data in C<@rainfall>, the bars are drawn 10 pixels wide.
 
-=head2 I need to mark a specific data point on the sparkline.
+=head3 I need to mark a specific data point on the sparkline.
 
 It is often useful to be able to mark specific data points on a sparkline so
 that you can refer to them elsewhere. You mark a specific data point with the
@@ -276,7 +276,7 @@ L</"How do I specify a color for the line or background?">.
 
 If you need more than one mark, simply add more pairs to the anonymous array.
 
-=head2 I need to mark the high and low values on a sparkline.
+=head3 I need to mark the high and low values on a sparkline.
 
 So, you can mark a particular index, but what if you don't want to figure out
 the index for the high and low values (especially, if you are generating this
@@ -290,7 +290,7 @@ the rescue.
 This will generate two dots on the sparkline: a green one at the high value
 and a red one at the low value.
 
-=head2 I want a little more space above/below the data in the sparkline.
+=head3 I want a little more space above/below the data in the sparkline.
 
 The C<pady> parameter specifies the amount of padding between the displayed
 data and the top/bottom of the sparkline in pixels. The default value of
@@ -304,7 +304,7 @@ This adds 2 more pixels of spacing between the highest and lowest values of
 the data and the top and bottom of the sparkline graphic. To add paddin to the
 left and right, see the next recipe.
 
-=head2 I want a little more space to the left/right of the data in the sparkline.
+=head3 I want a little more space to the left/right of the data in the sparkline.
 
 The C<padx> parameter specifies the amount of padding between the displayed
 data and the left and right of the sparkline in pixels. The default value of
