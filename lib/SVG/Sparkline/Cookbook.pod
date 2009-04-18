@@ -21,7 +21,7 @@ modules.
 
 The sparklines concept is described in Edward Tufte's book I<Beautiful Evidence>.
 An excerpt of the book relating to sparklines can be found on his website
-L<http:://www.edwardtufte.com/>.
+L<http://www.edwardtufte.com/>.
 
 The important portions of Tufte's explanation are that a sparkline is
 
