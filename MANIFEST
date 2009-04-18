@@ -30,3 +30,4 @@ t/15.bar_marks.t
 t/16.line_marks.t
 t/17.area_marks.t
 t/18.pady.t
+t/19.padx.t
