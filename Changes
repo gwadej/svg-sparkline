@@ -1,7 +1,7 @@
 Revision history for SVG-Sparkline
 
 0.2.6  ???
-       Corrections to the Cookbook.
+       Documentation corrections.
 0.2.5  Fri Apr 17 23:45:00 2009
        Modify the Area, Bar and Line types to handle baselines better.
        Add support for marks

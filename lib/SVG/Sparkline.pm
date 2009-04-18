@@ -8,7 +8,7 @@ use SVG;
 use overload  '""' => \&to_string;
 
 use 5.008000;
-our $VERSION = '0.2.5';
+our $VERSION = '0.2.6';
 
 sub new
 {
@@ -135,20 +135,20 @@ the default SVG namespace is included in the sparkline.
 If the value of the parameter is 1, a namespace is supplied for the prefix
 I<svg> and the prefix I<xlink>.
 
-=item -bgcolor
+=item bgcolor
 
 The value of this parameter is an SVG-supported color string which specifies
 a color for the background of the sparkline. In general, this parameter should
 not be supplied or should be very subtle to avoid taking attention away from
 the actual data displayed.
 
-=item -padx
+=item padx
 
 The value of this parameter is the number of pixels of padding inside the
 sparkline, but to the left of the first data point and right of the last
 data point. 
 
-=item -pady
+=item pady
 
 The value of this parameter is the number of pixels of padding inside the
 sparkline, but above the highest data point and below the lowest data point.
