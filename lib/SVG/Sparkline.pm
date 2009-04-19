@@ -277,6 +277,12 @@ for this parameter is I<#000> (black).
 The mark for an Area is a vertical line of the specified color. The line moves
 from a value of zero up to the value.
 
+=item xscale
+
+This parameter determines the distance between data points. The C<width>
+parameter overrides the C<xscale> parameter. If no C<width> or C<xscale>
+are supplied, the default value is 2.
+
 =back
 
 =head3 Bar
@@ -292,18 +298,18 @@ The I<values> parameter is required for the I<Bar> sparkline type. The
 value must be a reference to an array of numeric values, specifying the
 height of the corresponding bar.
 
-=item thick
+=item xscale
 
 This optional parameter specifies the thickness of the individual bars on the
 bar graph. This parameter is ignored if the I<width> parameter is specified.
-If neither I<width> or I<thick> are specified, the default value of I<thick>
+If neither I<width> or I<xscale> are specified, the default value of I<xscale>
 is 3.
 
 =item width
 
 This optional parameter specifies the width of the sparkline in pixels. If
 the I<width> is not specified, the width of the sparkline is the value of
-I<thick> times the number of I<values>.
+I<xscale> times the number of I<values>.
 
 =item color
 
@@ -351,6 +357,12 @@ color string. The default value for this parameter is I<#000> (black).
 The mark for Line is a dot of the specified color at the chosen location. The
 radius of the dot is the same as the width of the line, specified by the
 C<thick> parameter.
+
+=item xscale
+
+This parameter determines the distance between data points. The C<width>
+parameter overrides the C<xscale> parameter. If no C<width> or C<xscale>
+are supplied, the default value is 2.
 
 =back
 

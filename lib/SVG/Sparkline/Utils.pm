@@ -6,7 +6,7 @@ use Carp;
 use List::Util;
 use SVG;
 
-our $VERSION = '0.2.5';
+our $VERSION = '0.2.6';
 
 sub format_f
 {
@@ -15,6 +15,46 @@ sub format_f
     $val =~ s/\.0$//;
     $val = 0 if $val eq '-0';
     return $val;
+}
+
+sub calculate_xscale
+{
+    my ($args, $xrange) = @_;
+
+    if( $args->{width} )
+    {
+        my $dwidth = $args->{width} - 2*$args->{padx};
+        $args->{xscale} = ($dwidth-1) / $xrange;
+    }
+    else
+    {
+        $args->{xscale} ||= 2;
+        my $dwidth = @{$args->{values}} * $args->{xscale} - 1;
+        $args->{width} = $dwidth + 2*$args->{padx};
+    }
+    return;
+}
+
+sub calculate_yscale_and_offset
+{
+    my ($args, $yrange, $offset) = @_;
+
+    my $height = $args->{height} - 2*$args->{pady};
+    $args->{yscale} = -$height / $yrange;
+    my $baseline = format_f( -$args->{yscale} * $offset );
+
+    $args->{yoff} = -($baseline+$height+$args->{pady});
+
+    return;
+}
+
+sub xypairs_to_points_str
+{
+    my ($vals, $xscale, $yscale) = @_;
+    return join( ' ',
+        map { format_f($xscale * $_->[0]) .','. format_f($yscale * $_->[1]) }
+        @{$vals}
+    );
 }
 
 sub summarize_values
@@ -35,7 +75,7 @@ sub summarize_values
 sub summarize_xy_values
 {
     my ($array) = @_;
-    return summarize_xy_pairs( $array ) if 'ARRAY' eq ref $array->[0];
+    return _summarize_xy_pairs( $array ) if 'ARRAY' eq ref $array->[0];
     my $desc = {
         ymin => List::Util::min( @{$array} ),
         ymax => List::Util::max( @{$array} ),
@@ -54,7 +94,7 @@ sub summarize_xy_values
     return $desc;
 }
 
-sub summarize_xy_pairs 
+sub _summarize_xy_pairs 
 {
     my ($array) = @_;
     my $desc = {
@@ -170,6 +210,31 @@ Convert numeric data to a reasonable output format for sparkline-sized SVG.
 No more than 2 decimal places are displayed and all trailing zeros after
 the decimal place are removed.
 
+=head2 calculate_xscale
+
+Given an C<SVG::Sparkline> argument hash and a range of x values, calculate
+the xscaling.
+
+The following optional values are read from C<$args>: C<width>, C<padx>,
+and C<xscale>. Depending on the various values, the following values in
+C<$args> may be updated: C<xscale> and C<width>.
+
+=head2 calculate_yscale_and_offset
+
+Given an C<SVG::Sparkline> argument hash and a range of y values, calculate
+the yscaling and y offset for the graphic.
+
+The following optional values are read from C<$args>: C<height>, C<pady>,
+and C<yscale>. Depending on the various values, the following values in
+C<$args> may be updated: C<yscale>, C<height>, and C<yoff>.
+
+=head2 xypairs_to_points_str
+
+Given a reference to an array of x, y pairs (C<$vals>) and scaling factors
+(C<$xscale>, C<$yscale>), create a string appropriate for the I<points>
+attribute of either an SVG C<polyline> or C<polygon> element graphing these
+points.
+
 =head2 make_svg
 
 Create the SVG object with the proper base parameters for a sparkline. Apply
@@ -182,7 +247,12 @@ changes for later. Calculate I<min>, I<max>, and I<range>.
 
 =head2 summarize_xy_values
 
-=head2 summarize_xy_pairs
+Given a list of pairs of numeric values, generate a structured summary
+simplifying changes for later. Calculate I<min>, I<max>, I<range> for the
+C<x> and C<y> values supplied.
+
+If supplied with a list of numeric values, instead of a list of pairs,
+create a list of appropriate pairs and calculate the summaries as above.
 
 =head2 validate_array_param
 

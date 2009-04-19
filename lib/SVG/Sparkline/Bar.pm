@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = '0.2.5';
+our $VERSION = '0.2.6';
 
 # alias to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -24,16 +24,16 @@ sub make
     my $baseline = _f(-$yscale*$vals->{min});
 
     # Figure out the width I want and define the viewBox
-    my $thick = 3;
     my $dwidth;
     if($args->{width})
     {
         $dwidth = $args->{width} - $args->{padx}*2;
-        $thick = _f( $dwidth / @{$args->{values}} );
+        $args->{xscale} = _f( $dwidth / @{$args->{values}} );
     }
     else
     {
-        $dwidth = @{$args->{values}} * $thick;
+        $args->{xscale} ||= 3;
+        $dwidth = @{$args->{values}} * $args->{xscale};
         $args->{width} = $dwidth + 2*$args->{padx}; 
     }
     $args->{yoff} = -($baseline+$height+$args->{pady});
@@ -45,7 +45,7 @@ sub make
     {
         my $curr = _f( $yscale*($v-$prev) );
         $path .= "v$curr" if $curr;
-        $path .= "h$thick";
+        $path .= "h$args->{xscale}";
         $prev = $v;
     }
     $path .= 'v' . _f( $yscale*(-$prev) ) if $prev;
@@ -55,7 +55,7 @@ sub make
     if( exists $args->{mark} )
     {
         _make_marks( $svg,
-            thick=>$thick, yscale=>$yscale,
+            thick=>$args->{xscale}, yscale=>$yscale,
             values=>$args->{values}, mark=>$args->{mark}
         );
     }
