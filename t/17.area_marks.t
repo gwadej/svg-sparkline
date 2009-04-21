@@ -31,7 +31,7 @@ use warnings;
 
     my $l4 = SVG::Sparkline->new( Area => { -nodecl=>1, values=>\@yvalues, mark=>[low=>'red'] } );
     is( "$l4",
-        qq{<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="$points" stroke="none" /><line fill="none" stroke="red" stroke-width="1" x1="12" x2="12" y1="0" y2="0" /></svg>},
+        qq{<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="$points" stroke="none" /><circle cx="12" cy="0" fill="red" r="1" stroke="none" /></svg>},
         'pos only: mark low'
     );
 
@@ -72,7 +72,7 @@ use warnings;
 
     my $l5 = SVG::Sparkline->new( Area => { -nodecl=>1, values=>\@yvalues, mark=>[high=>'green'] } );
     is( "$l5",
-        qq{<svg height="12" viewBox="0 -1 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="$points" stroke="none" /><line fill="none" stroke="green" stroke-width="1" x1="12" x2="12" y1="0" y2="0" /></svg>},
+        qq{<svg height="12" viewBox="0 -1 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="$points" stroke="none" /><circle cx="12" cy="0" fill="green" r="1" stroke="none" /></svg>},
         'neg only: mark high'
     );
 }

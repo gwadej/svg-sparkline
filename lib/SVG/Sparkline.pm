@@ -8,7 +8,7 @@ use SVG;
 use overload  '""' => \&to_string;
 
 use 5.008000;
-our $VERSION = '0.2.6';
+our $VERSION = '0.2.7';
 
 sub new
 {

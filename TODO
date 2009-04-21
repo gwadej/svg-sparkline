@@ -1,18 +1,16 @@
 Future features.
 
- 1. Add testing for xscale parameter on Line, Area, and Bar.
- 2. Mark on area for any item that has zero height gets no mark.
- 3. Display a reference line on sparkline
+ 1. Display a reference line on sparkline
     a. Particular x value
     b. Particular y value
- 4. Band of y-values feature
+ 2. Band of y-values feature
     - See the ET article
- 5. x/y args for Line and Area?
- 6. Ability to set baseline
- 7. Axes?
- 8. Labels?
- 9. Opacity features.
-10. Combining multiple data sets in one sparkline.
+ 3. x/y args for Line and Area?
+ 4. Ability to set baseline
+ 5. Axes?
+ 6. Labels?
+ 7. Opacity features.
+ 8. Combining multiple data sets in one sparkline.
     a. Overlapping
     b. One above the others
 

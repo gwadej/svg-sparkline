@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = '0.2.6';
+our $VERSION = '0.2.7';
 
 # aliases to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -61,9 +61,16 @@ sub _make_mark
     my $index = $args{index};
     my $x = _f($args{xscale} * $args{values}->[$index]->[0]);
     my $y = _f($args{yscale} * ($args{values}->[$index]->[1]));
-    $svg->line( x1=>$x, y1=>0, x2=>$x, y2=>$y,
-        fill=>'none', stroke=>$args{color}, 'stroke-width'=>1
-    );
+    if(abs($y) <= 0.01)
+    {
+        $svg->circle( cx=>$x, cy=>$y, r=>1, fill=>$args{color}, stroke=>'none' );
+    }
+    else
+    {
+        $svg->line( x1=>$x, y1=>0, x2=>$x, y2=>$y,
+            fill=>'none', stroke=>$args{color}, 'stroke-width'=>1
+        );
+    }
     return;
 }
 
