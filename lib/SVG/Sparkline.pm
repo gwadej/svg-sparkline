@@ -21,29 +21,30 @@ sub new
     croak "Arguments not supplied as a hash reference.\n" unless 'HASH' eq ref $args;
 
     my $self = bless {
-        height => 12,
-        width => 0,
         -nodecl => 0,
         -allns => 0,
-        pady => 1,
-        padx => 0,
         color => '#000',
         %{$args},
     }, $class;
 
-    $self->{xoff} = -$self->{padx};
+    $self->_validate_pos_param( 'height', 12 );
+    $self->_validate_pos_param( 'width', 0 );
+    $self->_validate_pos_param( 'xscale' );
+    $self->_validate_pos_param( 'yscale' );
+    $self->_validate_nonneg_param( 'pady', 1 );
+    $self->_validate_nonneg_param( 'padx', 0 );
+    $self->_validate_mark_param();
+    foreach my $arg (qw/color bgcolor/)
+    {
+        next unless exists $self->{$arg};
+        croak "The value of $arg is not a valid color.\n"
+            unless _is_color( $self->{$arg} );
+    }
 
+    $self->{xoff} = -$self->{padx};
     $self->_make( $type );
 
     return $self;
-}
-
-sub _make {
-    my ($self, $type) = @_;
-    # Disable strict to allow calling method from plugin.
-    no strict 'refs'; ## no critic (ProhibitNoStrict)
-    $self->{_SVG} = "SVG::Sparkline::$type"->make( $self );
-    return;
 }
 
 sub get_height { return $_[0]->{height}; }
@@ -57,6 +58,71 @@ sub to_string
     $str =~ s/ xmlns:(?:svg|xlink)="[^"]+"//g unless $self->{'-allns'};
     $str =~ s/<\?[^\?]+\?>// if $self->{'-nodecl'};
     return $str;
+}
+
+sub _make
+{
+    my ($self, $type) = @_;
+    # Disable strict to allow calling method from plugin.
+    no strict 'refs'; ## no critic (ProhibitNoStrict)
+    $self->{_SVG} = "SVG::Sparkline::$type"->make( $self );
+    return;
+}
+
+sub _validate_pos_param
+{
+    my ($self, $name, $default) = @_;
+    croak "'$name' must have a positive numeric value.\n"
+        if exists $self->{$name} && $self->{$name} <= 0;
+    return if exists $self->{$name};
+
+    $self->{$name} = $default if defined $default;
+    return;
+}
+
+sub _validate_nonneg_param
+{
+    my ($self, $name, $default) = @_;
+    croak "'$name' must be a non-negative numeric value.\n"
+        if exists $self->{$name} && $self->{$name} < 0;
+    return if exists $self->{$name};
+
+    $self->{$name} = $default if defined $default;
+    return;
+}
+
+sub _validate_mark_param
+{
+    my ($self) = @_;
+
+    return unless exists $self->{mark};
+
+    croak "'mark' parameter must be an array reference.\n"
+        unless 'ARRAY' eq ref $self->{mark};
+    croak "'mark' array parameter must have an even number of elements.\n"
+        unless 0 == (@{$self->{mark}}%2);
+
+    my @marks = @{$self->{mark}};
+    while(@marks)
+    {
+        my ($index, $color) = splice( @marks, 0, 2 );
+        croak "'$index' is not a valid mark index.\n"
+            unless $index =~ /^(?:first|last|high|low|\d+)$/;
+        croak "'$color' is not a valid mark color.\n"
+            unless _is_color( $color );
+    }
+    return;
+}
+
+sub _is_color
+{
+    my ($color) = @_;
+    return 1 if $color =~ /^#[[:xdigit:]]{3}$/;
+    return 1 if $color =~ /^#[[:xdigit:]]{6}$/;
+    return 1 if $color =~ /^rgb\(\d+,\d+,\d+\)$/;
+    return 1 if $color =~ /^rgb\(\d+%,\d+%,\d+%\)$/;
+    return 1 if $color =~ /^[[:alpha:]]+$/;
+    return;
 }
 
 1; # Magic true value required at end of module

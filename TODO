@@ -1,10 +1,7 @@
 Future features.
 
- 0. Add testing for xscale parameter on Line, Area, and Bar.
- 1. Mark on area for any item that has zero height gets no mark.
- 2. Add real parameter validation
-    a. xscale, height, thick, etc. >0 or default.
-    b. width, etc. >0, if exist
+ 1. Add testing for xscale parameter on Line, Area, and Bar.
+ 2. Mark on area for any item that has zero height gets no mark.
  3. Display a reference line on sparkline
     a. Particular x value
     b. Particular y value
