@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 8;
+use Test::More tests => 10;
 use Carp;
 use SVG::Sparkline;
 
@@ -23,6 +23,12 @@ use warnings;
     my $w = SVG::Sparkline->new( Whisker => { -nodecl=>1, values=>'++0+0+', width=>36 } );
     like( "$w", qr/d="M2,0v-5m6,5v-5m6,5m6,0v-5m6,5m6,0v-5m6,5"/, 'Width=36' );
     like( "$w", qr/stroke-width="2"/, 'Width=36: stroke' );
+}
+
+{
+    my $w = SVG::Sparkline->new( Whisker => { -nodecl=>1, values=>'++0+0+', thick=>2 } );
+    like( "$w", qr/d="M2,0v-5m6,5v-5m6,5m6,0v-5m6,5m6,0v-5m6,5"/, 'thick=2' );
+    like( "$w", qr/stroke-width="2"/, 'thick=2: stroke' );
 }
 
 {

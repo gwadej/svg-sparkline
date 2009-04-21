@@ -38,7 +38,7 @@ sub make
     croak "No values specified for 'values'.\n" unless @values;
 
     # Figure out the width I want and define the viewBox
-    my $thick = 1;
+    my $thick = $args->{thick} || 1;
     my $space = 3*$thick;
     my $dwidth;
     if($args->{width})
