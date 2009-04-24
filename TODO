@@ -13,4 +13,9 @@ Future features.
  8. Combining multiple data sets in one sparkline.
     a. Overlapping
     b. One above the others
+ 9. Two more types
+    - Two y values, color area between them.
+    a. RangeBar
+    b. RangeArea
+10. Add gaps between Bars and RangeBars?
 
