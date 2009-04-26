@@ -42,8 +42,9 @@ sub make
     $args->{yoff} = -($baseline+$height+$args->{pady});
     my $svg = SVG::Sparkline::Utils::make_svg( $args );
 
+    my $off = _f( $gap/2 );
+    my $path = "M$off,0";
     my $prev = 0;
-    my $path = 'M' . _f($gap/2) . ',0';
     foreach my $v (@{$args->{values}})
     {
         my $curr = _f( $yscale*($v-$prev) );
@@ -64,7 +65,7 @@ sub make
     if( exists $args->{mark} )
     {
         _make_marks( $svg,
-            thick=>$thick, off=>$gap/2,
+            thick=>$thick, off=>$off,
             xscale=>$args->{xscale}, yscale=>$yscale,
             values=>$args->{values}, mark=>$args->{mark}
         );
