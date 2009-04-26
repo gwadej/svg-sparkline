@@ -19,5 +19,8 @@ Future features.
     b. One above the others
 10. Add gaps between Bars and RangeBars?
     a. gap parameter.
-    b Could also be applied to Whisker to change spacing.
+       1) Bar - DONE
+       2) Whisker - DONE
+       3) RangeBar
+    b. Verify gap support wrt. marks.
 
