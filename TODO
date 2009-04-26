@@ -1,6 +1,9 @@
 Future features.
 
- 1. Mark on bar of zero height.
+ 1. Two more types
+    - Two y values, color area between them.
+    a. RangeBar
+    b. RangeArea
  2. Display a reference line on sparkline
     a. Particular x value
     b. Particular y value
@@ -14,11 +17,7 @@ Future features.
  9. Combining multiple data sets in one sparkline.
     a. Overlapping
     b. One above the others
-10. Two more types
-    - Two y values, color area between them.
-    a. RangeBar
-    b. RangeArea
-11. Add gaps between Bars and RangeBars?
+10. Add gaps between Bars and RangeBars?
     a. gap parameter.
     b Could also be applied to Whisker to change spacing.
 
