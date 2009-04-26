@@ -1,5 +1,6 @@
 Future features.
 
+ 0. Mark on bar of zero height.
  1. Display a reference line on sparkline
     a. Particular x value
     b. Particular y value
