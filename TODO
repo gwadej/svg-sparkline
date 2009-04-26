@@ -1,22 +1,24 @@
 Future features.
 
- 0. Mark on bar of zero height.
- 1. Display a reference line on sparkline
+ 1. Mark on bar of zero height.
+ 2. Display a reference line on sparkline
     a. Particular x value
     b. Particular y value
- 2. Band of y-values feature
+ 3. Band of y-values feature
     - See the ET article
- 3. x/y args for Line and Area?
- 4. Ability to set baseline
- 5. Axes?
- 6. Labels?
- 7. Opacity features.
- 8. Combining multiple data sets in one sparkline.
+ 4. x/y args for Line and Area?
+ 5. Ability to set baseline
+ 6. Axes?
+ 7. Labels?
+ 8. Opacity features.
+ 9. Combining multiple data sets in one sparkline.
     a. Overlapping
     b. One above the others
- 9. Two more types
+10. Two more types
     - Two y values, color area between them.
     a. RangeBar
     b. RangeArea
-10. Add gaps between Bars and RangeBars?
+11. Add gaps between Bars and RangeBars?
+    a. gap parameter.
+    b Could also be applied to Whisker to change spacing.
 
