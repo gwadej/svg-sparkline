@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = '0.2.6';
+our $VERSION = '0.2.7';
 
 # alias to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -25,14 +25,17 @@ sub make
 
     # Figure out the width I want and define the viewBox
     my $dwidth;
+    my $gap = $args->{gap} || 0;
+    my $thick = $args->{xscale} || 3;
     if($args->{width})
     {
         $dwidth = $args->{width} - $args->{padx}*2;
         $args->{xscale} = _f( $dwidth / @{$args->{values}} );
+        $thick = $args->{xscale} - $gap;
     }
     else
     {
-        $args->{xscale} ||= 3;
+        $args->{xscale} ||= $thick+$gap;
         $dwidth = @{$args->{values}} * $args->{xscale};
         $args->{width} = $dwidth + 2*$args->{padx}; 
     }
@@ -40,13 +43,19 @@ sub make
     my $svg = SVG::Sparkline::Utils::make_svg( $args );
 
     my $prev = 0;
-    my $path = "M0,0";
+    my $path = 'M' . _f($gap/2) . ',0';
     foreach my $v (@{$args->{values}})
     {
         my $curr = _f( $yscale*($v-$prev) );
         $path .= "v$curr" if $curr;
-        $path .= "h$args->{xscale}";
+        $path .= "h$thick";
         $prev = $v;
+        if($gap)
+        {
+            $path .= 'v' . _f(-$curr) if $curr;
+            $path .= "h$gap";
+            $prev = 0;
+        }
     }
     $path .= 'v' . _f( $yscale*(-$prev) ) if $prev;
     $path .= 'z';
