@@ -82,23 +82,22 @@ sub _make_mark
     my $index = $args{index};
     my $h = _f($args{values}->[$index] * $args{yscale});
     my $x = _f($index * $args{thick});
+    my $y;
     if($h)
     {
-        my $y = $h > 0 ? 0 : $h;
-        $svg->rect( x=>$x, y=>$y,
-            width=>$args{thick}, height=>abs($h),
-            stroke=>'none', fill=>$args{color}
-        );
-        return;
+        $y = $h > 0 ? 0 : $h;
+        $h = abs( $h );
     }
     else
     {
-        $svg->rect( x=>$x, y=>-0.5,
-            width=>$args{thick}, height=>1,
-            stroke=>'none', fill=>$args{color}
-        );
-        return;
+        $y = -0.5;
+        $h = 1;
     }
+    $svg->rect( x=>$x, y=>$y,
+        width=>$args{thick}, height=>$h,
+        stroke=>'none', fill=>$args{color}
+    );
+    return;
 }
 
 sub _check_index
