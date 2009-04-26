@@ -41,7 +41,7 @@ use warnings;
 
     my $bz = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[4,0,8,10,5], mark=>[1=>'green'] } );
     is( "$bz",
-        '<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v-4h3v4h3v-8h3v-2h3v5h3v5z" fill="#000" stroke="none" /><rect fill="green" height="1" stroke="none" width="3" x="3" y="-0.5" /></svg>',
+        '<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v-4h3v4h3v-8h3v-2h3v5h3v5z" fill="#000" stroke="none" /><ellipse cx="4.5" cy="0" fill="green" rx="1.5" ry="0.5" stroke="none" /></svg>',
         'pos only: zero height mark'
     );
 }
@@ -79,7 +79,7 @@ use warnings;
 
     my $bz = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[-4,0,-8,-10,-5], mark=>[1=>'green'] } );
     is( "$bz",
-        '<svg height="12" viewBox="0 -1 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v4h3v-4h3v8h3v2h3v-5h3v-5z" fill="#000" stroke="none" /><rect fill="green" height="1" stroke="none" width="3" x="3" y="-0.5" /></svg>',
+        '<svg height="12" viewBox="0 -1 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v4h3v-4h3v8h3v2h3v-5h3v-5z" fill="#000" stroke="none" /><ellipse cx="4.5" cy="0" fill="green" rx="1.5" ry="0.5" stroke="none" /></svg>',
         'neg only: zero height mark'
     );
 }
@@ -118,7 +118,7 @@ use warnings;
 
     my $bz = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[-2,-5,0,5,3], mark=>[2=>'green'] } );
     is( "$bz",
-        '<svg height="12" viewBox="0 -6 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v2h3v3h3v-5h3v-5h3v2h3v3z" fill="#000" stroke="none" /><rect fill="green" height="1" stroke="none" width="3" x="6" y="-0.5" /></svg>',
+        '<svg height="12" viewBox="0 -6 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v2h3v3h3v-5h3v-5h3v2h3v3z" fill="#000" stroke="none" /><ellipse cx="7.5" cy="0" fill="green" rx="1.5" ry="0.5" stroke="none" /></svg>',
         'pos and neg: zero height mark'
     );
 }

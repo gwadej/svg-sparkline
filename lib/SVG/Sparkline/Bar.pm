@@ -81,22 +81,22 @@ sub _make_mark
     my ($svg, %args) = @_;
     my $index = $args{index};
     my $h = _f($args{values}->[$index] * $args{yscale});
-    my $x = _f($index * $args{thick});
-    my $y;
     if($h)
     {
-        $y = $h > 0 ? 0 : $h;
-        $h = abs( $h );
+        my $x = _f($index * $args{thick});
+        my $y = $h > 0 ? 0 : $h;
+        $svg->rect( x=>$x, y=>$y,
+            width=>$args{thick}, height=>abs( $h ),
+            stroke=>'none', fill=>$args{color}
+        );
     }
     else
     {
-        $y = -0.5;
-        $h = 1;
+        my $x = _f(($index+0.5) * $args{thick});
+        $svg->ellipse( cx=>$x, cy=>0, ry=>0.5, rx=>$args{thick}/2,
+            stroke=>'none', fill=>$args{color}
+        );
     }
-    $svg->rect( x=>$x, y=>$y,
-        width=>$args{thick}, height=>$h,
-        stroke=>'none', fill=>$args{color}
-    );
     return;
 }
 
