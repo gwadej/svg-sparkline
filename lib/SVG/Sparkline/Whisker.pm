@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = '0.2.5';
+our $VERSION = '0.2.7';
 
 # alias to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -39,12 +39,14 @@ sub make
 
     # Figure out the width I want and define the viewBox
     my $thick = $args->{thick} || 1;
-    my $space = 3*$thick;
+    my $gap   = $args->{gap} || 2 * $thick;
+    my $space = $thick + $gap;
     my $dwidth;
     if($args->{width})
     {
         $dwidth = $args->{width} - 2*$args->{padx};
         $thick = _f( $dwidth / (3*@values) );
+        $gap   = _f( 2* $thick );
         $space = 3*$thick;
     }
     else
@@ -59,7 +61,7 @@ sub make
     $wheight -= $args->{pady};
     my $svg = SVG::Sparkline::Utils::make_svg( $args );
 
-    my $path = "M$thick,0";
+    my $path = 'M'. _f($gap/2) . ',0';
     foreach my $v (@values)
     {
         if( $v )
