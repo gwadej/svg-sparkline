@@ -118,7 +118,7 @@ use warnings;
 
     my $bz = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[-2,-5,0,5,3], mark=>[2=>'green'] } );
     is( "$bz",
-        '<svg height="12" viewBox="0 -6 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v2h3v3h3v-6h3v-4h3v2h3v3z" fill="#000" stroke="none" /><rect fill="green" height="1" stroke="none" width="3" x="6" y="-0.5" /></svg>',
+        '<svg height="12" viewBox="0 -6 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v2h3v3h3v-5h3v-5h3v2h3v3z" fill="#000" stroke="none" /><rect fill="green" height="1" stroke="none" width="3" x="6" y="-0.5" /></svg>',
         'pos and neg: zero height mark'
     );
 }
