@@ -61,7 +61,8 @@ sub make
     $wheight -= $args->{pady};
     my $svg = SVG::Sparkline::Utils::make_svg( $args );
 
-    my $path = 'M'. _f($gap/2) . ',0';
+    my $off = _f( $gap/2 );
+    my $path = "M$off,0";
     foreach my $v (@values)
     {
         if( $v )
@@ -79,7 +80,7 @@ sub make
     if( exists $args->{mark} )
     {
         _make_marks( $svg,
-           thick=>$thick, space=>$space, wheight=>-$wheight,
+           thick=>$thick, off=>$off, space=>$space, wheight=>-$wheight,
            values=>\@values, mark=>$args->{mark}
         );
     }
@@ -105,7 +106,7 @@ sub _make_mark
     my ($svg, %args) = @_;
     my $index = $args{index};
     return unless $args{values}->[$index];
-    my $x = $index * $args{space}+$args{thick};
+    my $x = $index * $args{space}+$args{off};
     $svg->line( x1=>$x, x2=>$x, y1=>0, y2=>$args{wheight} * $args{values}->[$index],
         'stroke-width'=>$args{thick}, stroke=>$args{color}
     );
