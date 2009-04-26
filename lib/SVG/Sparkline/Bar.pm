@@ -64,7 +64,8 @@ sub make
     if( exists $args->{mark} )
     {
         _make_marks( $svg,
-            thick=>$args->{xscale}, yscale=>$yscale,
+            thick=>$thick, off=>$gap/2,
+            xscale=>$args->{xscale}, yscale=>$yscale,
             values=>$args->{values}, mark=>$args->{mark}
         );
     }
@@ -92,7 +93,7 @@ sub _make_mark
     my $h = _f($args{values}->[$index] * $args{yscale});
     if($h)
     {
-        my $x = _f($index * $args{thick});
+        my $x = _f($index * $args{xscale} + $args{off});
         my $y = $h > 0 ? 0 : $h;
         $svg->rect( x=>$x, y=>$y,
             width=>$args{thick}, height=>abs( $h ),
@@ -101,7 +102,7 @@ sub _make_mark
     }
     else
     {
-        my $x = _f(($index+0.5) * $args{thick});
+        my $x = _f(($index+0.5) * $args{xscale} +$args{off});
         $svg->ellipse( cx=>$x, cy=>0, ry=>0.5, rx=>$args{thick}/2,
             stroke=>'none', fill=>$args{color}
         );
