@@ -11,7 +11,7 @@ my @yvalues = (10,5,-10,-5,3,8,12,20,18,10,5);
 
 my $w = SVG::Sparkline->new( Whisker => { -nodecl=>1, bgcolor=>'#fff', values=>[1,1,0,1,0,1] } );
 is( "$w",
-     '<svg height="12" viewBox="0 -6 18 12" width="18" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="14" stroke="none" width="20" x="-1" y="-7" /><path d="M1,0v-5m3,5v-5m3,5m3,0v-5m3,5m3,0v-5m3,5" stroke="#000" stroke-width="1" /></svg>',
+     '<svg height="12" viewBox="0 -6 18 12" width="18" xmlns="http://www.w3.org/2000/svg"><rect fill="#fff" height="14" stroke="none" width="20" x="-1" y="-7" /><path d="M1,0v-5m3,5v-5m3,5m3,0v-5m3,5m3,0v-5" stroke="#000" stroke-width="1" /></svg>',
     'Whisker with background'
 );
 

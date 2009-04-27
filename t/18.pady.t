@@ -11,13 +11,13 @@ my @yvalues = (10,5,-10,-5,3,8,12,20,18,10,5);
 
 my $w = SVG::Sparkline->new( Whisker => { -nodecl=>1, height=>10, pady=>0, values=>[1,1,0,1,0,1] } );
 is( "$w",
-     '<svg height="10" viewBox="0 -5 18 10" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M1,0v-5m3,5v-5m3,5m3,0v-5m3,5m3,0v-5m3,5" stroke="#000" stroke-width="1" /></svg>',
+     '<svg height="10" viewBox="0 -5 18 10" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M1,0v-5m3,5v-5m3,5m3,0v-5m3,5m3,0v-5" stroke="#000" stroke-width="1" /></svg>',
     'Whisker: zero y padding'
 );
 
 my $w1 = SVG::Sparkline->new( Whisker => { -nodecl=>1, height=>20, pady=>5, values=>[1,1,0,1,0,1] } );
 is( "$w1",
-     '<svg height="20" viewBox="0 -10 18 20" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M1,0v-5m3,5v-5m3,5m3,0v-5m3,5m3,0v-5m3,5" stroke="#000" stroke-width="1" /></svg>',
+     '<svg height="20" viewBox="0 -10 18 20" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M1,0v-5m3,5v-5m3,5m3,0v-5m3,5m3,0v-5" stroke="#000" stroke-width="1" /></svg>',
     'Whisker: five y padding'
 );
 
