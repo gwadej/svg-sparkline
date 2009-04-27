@@ -23,10 +23,10 @@ isa_ok( $w3, 'SVG::Sparkline', 'pos binstr: right type' );
 is( "$w3", $expect, 'pos binstr: output correct' );
 
 my $w4 = SVG::Sparkline->new( Whisker => { -nodecl=>1, values=>[0,1,1,0,0,-1,-1,-1,1,1,-1,-1] } );
-like( "$w4", qr/d="M1,0m3,0v-5m3,5v-5m3,5m3,0m3,0v5m3,-5v5m3,-5v5m3,-5v-5m3,5v-5m3,5v5m3,-5v5m3,-5"/,
+like( "$w4", qr/d="M1,0m3,0v-5m3,5v-5m3,5m3,0m3,0v5m3,-5v5m3,-5v5m3,-5v-5m3,5v-5m3,5v5m3,-5v5"/,
     'posneg array: correct output' );
 
 my $w5 = SVG::Sparkline->new( Whisker => { -nodecl=>1, values=>'0++00---++--' } );
-like( "$w5", qr/d="M1,0m3,0v-5m3,5v-5m3,5m3,0m3,0v5m3,-5v5m3,-5v5m3,-5v-5m3,5v-5m3,5v5m3,-5v5m3,-5"/,
+like( "$w5", qr/d="M1,0m3,0v-5m3,5v-5m3,5m3,0m3,0v5m3,-5v5m3,-5v5m3,-5v-5m3,5v-5m3,5v5m3,-5v5"/,
     'posneg tickstr: correct output' );
 

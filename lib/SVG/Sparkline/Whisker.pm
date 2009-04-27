@@ -63,7 +63,7 @@ sub make
 
     my $off = _f( $gap/2 );
     my $path = "M$off,0";
-    foreach my $v (@values)
+    foreach my $v (@values[0..$#values-1])
     {
         if( $v )
         {
@@ -75,6 +75,7 @@ sub make
             $path .= "m$space,0";
         }
     }
+    $path .= 'v' . (-$values[-1]*$wheight);
     $svg->path( 'stroke-width'=>$thick, stroke=>$args->{color}, d=>$path );
 
     if( exists $args->{mark} )
