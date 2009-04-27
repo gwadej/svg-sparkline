@@ -167,7 +167,7 @@ Although the basics are there, this module is not yet feature complete.
 
 =head1 INTERFACE 
 
-=head2 CVG::Sparkline->new( $type, $args_hr )
+=head2 SVG::Sparkline->new( $type, $args_hr )
 
 Create a new L<SVG::Sparkline> object of the specified type, using the
 parameters in the C<$args_hr> hash reference. There are two groups of
@@ -364,18 +364,23 @@ The I<values> parameter is required for the I<Bar> sparkline type. The
 value must be a reference to an array of numeric values, specifying the
 height of the corresponding bar.
 
-=item xscale
+=item thick
 
 This optional parameter specifies the thickness of the individual bars on the
 bar graph. This parameter is ignored if the I<width> parameter is specified.
-If neither I<width> or I<xscale> are specified, the default value of I<xscale>
+If neither I<width> or I<thick> are specified, the default value of I<thick>
 is 3.
+
+=item gap
+
+This optional parameter specifies a gap to appear between individual bars on
+the bar graph. If the I<gap> is not specified, the default value is 0.
 
 =item width
 
 This optional parameter specifies the width of the sparkline in pixels. If
 the I<width> is not specified, the width of the sparkline is the value of
-I<xscale> times the number of I<values>.
+I<thick> times the number of I<values>.
 
 =item color
 
@@ -476,6 +481,12 @@ on the whisker chart. The gaps between the whiskers is twice the value of
 I<thick>. This parameter is ignored if the I<width> parameter is specified.
 If neither I<width> or I<thick> are specified, the default value of I<thick>
 is 1.
+
+=item gap
+
+This optional parameter specifies a gap to appear between individual whiskers
+on the whisker chart. If the I<gap> is not specified, the default value is
+twice the I<thick> value for the whiskers.
 
 =item color
 
