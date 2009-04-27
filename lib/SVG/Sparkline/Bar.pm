@@ -45,8 +45,10 @@ sub make
     my $off = _f( $gap/2 );
     my $path = "M$off,0";
     my $prev = 0;
+    my @pieces;
     foreach my $v (@{$args->{values}})
     {
+        my $path = '';
         my $curr = _f( $yscale*($v-$prev) );
         $path .= "v$curr" if $curr;
         $path .= "h$thick";
@@ -54,11 +56,14 @@ sub make
         if($gap)
         {
             $path .= 'v' . _f(-$curr) if $curr;
-            $path .= "h$gap";
+#            $path .= "h$gap";
             $prev = 0;
         }
+        push @pieces, $path;
     }
-    $path .= 'v' . _f( $yscale*(-$prev) ) if $prev;
+    push @pieces, 'v' . _f( $yscale*(-$prev) ) if $prev;
+    my $space = $gap ? "h$gap" : '';
+    $path .= join( $space, @pieces );
     $path .= 'z';
     $svg->path( stroke=>'none', fill=>$args->{color}, d=>$path );
 
