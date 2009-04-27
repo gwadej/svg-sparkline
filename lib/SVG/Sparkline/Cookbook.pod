@@ -161,7 +161,7 @@ in a format that SVG understands.
    my $sl = SVG::Sparkline->new( Area => { values=>\@depth, color=>'#0000ff' } );
 
 This would make an area graph with the filled area being blue. See the recipe
-L</"How do I specify a color for the line or background?"> for legal color formats.
+L</"How do I specify a color for the data, background, or marks?"> for legal color formats.
 
 =head3 How do I change the color of the background?
 
@@ -172,11 +172,11 @@ in a format that SVG understands.
    my $sl = SVG::Sparkline->new( Line => { values=>\@depth, bgcolor=>'silver' } );
 
 This would make a line graph on a light gray background. See the recipe
-L</"How do I specify a color for the line or background?"> for legal color formats.
+L</"How do I specify a color for the data, background, or marks?"> for legal color formats.
 
 By default, the background should be transparent.
 
-=head3 How do I specify a color for the line or background?
+=head3 How do I specify a color for the data, background, or marks?
 
 Colors are specified using the color definitions defined for SVG. These formats include
 
@@ -272,7 +272,7 @@ the 15th (14 0-based).
 The C<mark> attribute takes pairs of values. The first item of each pair is an
 index (or one of four special terms: first, last, high, and low). The second item
 is a SVG-supported color as described in
-L</"How do I specify a color for the line or background?">.
+L</"How do I specify a color for the data, background, or marks?">.
 
 If you need more than one mark, simply add more pairs to the anonymous array.
 
