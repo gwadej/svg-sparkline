@@ -35,7 +35,7 @@ is( "$b4",
 
 my $b5 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[2,2,5,0,-2,-2,-5] } );
 is( "$b5",
-    '<svg height="12" viewBox="0 -6 21 12" width="21" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v-2h3h3v-3h3v5h3v2h3h3v3h3v-5z" fill="#000" stroke="none" /></svg>',
+    '<svg height="12" viewBox="0 -6 21 12" width="21" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v-2h6v-3h3v5h3v2h6v3h3v-5z" fill="#000" stroke="none" /></svg>',
     'dupes: output correct'
 );
 

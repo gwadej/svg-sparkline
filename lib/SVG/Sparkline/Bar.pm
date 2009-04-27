@@ -4,6 +4,7 @@ use warnings;
 use strict;
 use Carp;
 use SVG;
+use List::Util ();
 use SVG::Sparkline::Utils;
 
 use 5.008000;
@@ -51,9 +52,9 @@ sub make
         my $curr = _f( $yscale*($v-$prev) );
         my $subpath = $curr ? "v${curr}h$args->{thick}" : "h$args->{thick}";
         $prev = $v;
-        if($gap)
+        if($gap && $curr)
         {
-            $subpath .= 'v' . _f(-$curr) if $curr;
+            $subpath .= 'v' . _f(-$curr);
             $prev = 0;
         }
         push @pieces, $subpath;
@@ -61,6 +62,7 @@ sub make
     push @pieces, 'v' . _f( $yscale*(-$prev) ) if $prev;
     my $spacer = $gap ? "h$gap" : '';
     my $path = "M$off,0" . join( $spacer, @pieces ) . 'z';
+    $path = _clean_path( $path );
     $svg->path( stroke=>'none', fill=>$args->{color}, d=>$path );
 
     if( exists $args->{mark} )
@@ -117,6 +119,21 @@ sub _check_index
     return SVG::Sparkline::Utils::mark_to_index( 'Bar', @_ );
 }
 
+sub _clean_path
+{
+    my ($path) = @_;
+    $path =~ s!((?:h[\d.]+){2,})!_consolidate_moves( $1 )!eg;
+    $path =~ s/h0(?![.\d])//g;
+    return $path;
+}
+
+sub _consolidate_moves
+{
+    my ($moves) = @_;
+    my @steps = split /h/, $moves;
+    shift @steps; # discard empty initial string
+    return 'h' . _f( List::Util::sum( @steps ) );
+}
 
 1; # Magic true value required at end of module
 __END__

@@ -8,7 +8,7 @@ use warnings;
 use SVG::Sparkline;
 
 my $values = '0++0--';
-my $path = 'M1,0m3,0v-5m3,5v-5m3,5m3,0v5m3,-5v5';
+my $path = 'M4,0v-5m3,5v-5m6,5v5m3,-5v5';
 {
     my $expect = qq[<svg height="12" viewBox="0 -6 18 12" width="18" xmlns="http://www.w3.org/2000/svg"><path d="$path" stroke="#000" stroke-width="1" /><line stroke="green" stroke-width="1" x1="7" x2="7" y1="0" y2="-5" /></svg>];
     my $w = SVG::Sparkline->new( Whisker => { -nodecl=>1, values=>$values, mark=>[2=>'green'] } );
@@ -34,7 +34,7 @@ my $path = 'M1,0m3,0v-5m3,5v-5m3,5m3,0v5m3,-5v5';
 }
 
 {
-    my $expect = '<svg height="12" viewBox="0 -6 18 12" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M1,0v-5m3,5m3,0v-5m3,5m3,0v5m3,-5v5" stroke="#000" stroke-width="1" /><line stroke="green" stroke-width="1" x1="1" x2="1" y1="0" y2="-5" /><line stroke="red" stroke-width="1" x1="16" x2="16" y1="0" y2="5" /></svg>';
+    my $expect = '<svg height="12" viewBox="0 -6 18 12" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M1,0v-5m6,5v-5m6,5v5m3,-5v5" stroke="#000" stroke-width="1" /><line stroke="green" stroke-width="1" x1="1" x2="1" y1="0" y2="-5" /><line stroke="red" stroke-width="1" x1="16" x2="16" y1="0" y2="5" /></svg>';
     my $w = SVG::Sparkline->new( Whisker => { -nodecl=>1, values=>'+0+0--', mark=>[first=>'green', last=>'red'] } );
     is( "$w", $expect, 'whisker: named marks' );
 }

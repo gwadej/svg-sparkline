@@ -26,7 +26,7 @@ use SVG::Sparkline;
 {
     my $b = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[1,2,0,-2,-1], gap=>1 } );
     is( "$b",
-        '<svg height="12" viewBox="0 -6 20 12" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M0.5,0v-2.5h3v2.5h1v-5h3v5h1h3h1v5h3v-5h1v2.5h3v-2.5z" fill="#000" stroke="none" /></svg>',
+        '<svg height="12" viewBox="0 -6 20 12" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M0.5,0v-2.5h3v2.5h1v-5h3v5h5v5h3v-5h1v2.5h3v-2.5z" fill="#000" stroke="none" /></svg>',
         'Bar: gap of 1'
     );
 }
@@ -34,7 +34,7 @@ use SVG::Sparkline;
 {
     my $b = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[1,2,0,-2,-1], gap=>2 } );
     is( "$b",
-        '<svg height="12" viewBox="0 -6 25 12" width="25" xmlns="http://www.w3.org/2000/svg"><path d="M1,0v-2.5h3v2.5h2v-5h3v5h2h3h2v5h3v-5h2v2.5h3v-2.5z" fill="#000" stroke="none" /></svg>',
+        '<svg height="12" viewBox="0 -6 25 12" width="25" xmlns="http://www.w3.org/2000/svg"><path d="M1,0v-2.5h3v2.5h2v-5h3v5h7v5h3v-5h2v2.5h3v-2.5z" fill="#000" stroke="none" /></svg>',
         'Bar: gap of 2'
     );
 }

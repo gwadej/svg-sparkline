@@ -1,14 +1,5 @@
 Future features.
 
- 0. Cleanup from overnight.
-    b. Utils method that 'cleans up' paths.
-        1) combine horizontal movements
-        2) ? vertical movements?
-        3) Don't touch line draws, just moves.
-    c. Potentially build data structure, consolidate, then convert to path.
-    d. Add docs for gap - DONE
-    e. Replace xscale support on bar with thick. - DONE
-    f. Correct Cookbook to support interface changes wrt gap and xscale.
  1. Two more types
     - Two y values, color area between them.
     a. RangeBar

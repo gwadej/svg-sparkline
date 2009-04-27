@@ -9,7 +9,7 @@ use SVG::Sparkline;
 
 {
     my $w = SVG::Sparkline->new( Whisker => { -nodecl=>1, values=>'++0+0+', thick=>2 } );
-    like( "$w", qr/d="M2,0v-5m6,5v-5m6,5m6,0v-5m6,5m6,0v-5"/, 'thick=2' );
+    like( "$w", qr/d="M2,0v-5m6,5v-5m12,5v-5m12,5v-5"/, 'thick=2' );
     like( "$w", qr/stroke-width="2"/, 'thick=2: stroke' );
 }
 

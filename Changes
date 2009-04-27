@@ -1,8 +1,9 @@
 Revision history for SVG-Sparkline
 
-0.2.7  ???
+0.2.7  Sun Apr 26 22:40:00 2009
        Correct Area and Bar mark handling when height of mark would have been
        0. Add gap parameter which controls spacing of Bar and Whisker types.
+       Improve the representation of the Bar and Whisker graphs.
 0.2.6  Mon Apr 20 19:30:00 2009
        Documentation corrections.
        Add accessors for height and width.
