@@ -31,3 +31,7 @@ t/16.line_marks.t
 t/17.area_marks.t
 t/18.pady.t
 t/19.padx.t
+t/20.xscale.t
+t/21.gap.t
+t/22.gap_and_mark.t
+t/23.thick.t

@@ -26,52 +26,48 @@ sub make
     # Figure out the width I want and define the viewBox
     my $dwidth;
     my $gap = $args->{gap} || 0;
-    my $thick = $args->{xscale} || 3;
+    $args->{thick} ||= 3;
+    my $space = $args->{thick}+$gap;
     if($args->{width})
     {
         $dwidth = $args->{width} - $args->{padx}*2;
-        $args->{xscale} = _f( $dwidth / @{$args->{values}} );
-        $thick = $args->{xscale} - $gap;
+        $space = _f( $dwidth / @{$args->{values}} );
+        $args->{thick} = $space - $gap;
     }
     else
     {
-        $args->{xscale} ||= $thick+$gap;
-        $dwidth = @{$args->{values}} * $args->{xscale};
+        $dwidth = @{$args->{values}} * $space;
         $args->{width} = $dwidth + 2*$args->{padx}; 
     }
     $args->{yoff} = -($baseline+$height+$args->{pady});
+    $args->{xscale} = $space;
     my $svg = SVG::Sparkline::Utils::make_svg( $args );
 
     my $off = _f( $gap/2 );
-    my $path = "M$off,0";
     my $prev = 0;
     my @pieces;
     foreach my $v (@{$args->{values}})
     {
-        my $path = '';
         my $curr = _f( $yscale*($v-$prev) );
-        $path .= "v$curr" if $curr;
-        $path .= "h$thick";
+        my $subpath = $curr ? "v${curr}h$args->{thick}" : "h$args->{thick}";
         $prev = $v;
         if($gap)
         {
-            $path .= 'v' . _f(-$curr) if $curr;
-#            $path .= "h$gap";
+            $subpath .= 'v' . _f(-$curr) if $curr;
             $prev = 0;
         }
-        push @pieces, $path;
+        push @pieces, $subpath;
     }
     push @pieces, 'v' . _f( $yscale*(-$prev) ) if $prev;
-    my $space = $gap ? "h$gap" : '';
-    $path .= join( $space, @pieces );
-    $path .= 'z';
+    my $spacer = $gap ? "h$gap" : '';
+    my $path = "M$off,0" . join( $spacer, @pieces ) . 'z';
     $svg->path( stroke=>'none', fill=>$args->{color}, d=>$path );
 
     if( exists $args->{mark} )
     {
         _make_marks( $svg,
-            thick=>$thick, off=>$off,
-            xscale=>$args->{xscale}, yscale=>$yscale,
+            thick=>$args->{thick}, off=>$off,
+            space=>$space, yscale=>$yscale,
             values=>$args->{values}, mark=>$args->{mark}
         );
     }
@@ -99,7 +95,7 @@ sub _make_mark
     my $h = _f($args{values}->[$index] * $args{yscale});
     if($h)
     {
-        my $x = _f($index * $args{xscale} + $args{off});
+        my $x = _f($index * $args{space} + $args{off});
         my $y = $h > 0 ? 0 : $h;
         $svg->rect( x=>$x, y=>$y,
             width=>$args{thick}, height=>abs( $h ),
@@ -108,7 +104,7 @@ sub _make_mark
     }
     else
     {
-        my $x = _f(($index+0.5) * $args{xscale} +$args{off});
+        my $x = _f(($index+0.5) * $args{space} +$args{off});
         $svg->ellipse( cx=>$x, cy=>0, ry=>0.5, rx=>$args{thick}/2,
             stroke=>'none', fill=>$args{color}
         );
