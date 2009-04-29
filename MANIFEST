@@ -3,10 +3,10 @@ Changes
 lib/SVG/Sparkline.pm
 lib/SVG/Sparkline/Area.pm
 lib/SVG/Sparkline/Bar.pm
+lib/SVG/Sparkline/Cookbook.pod
 lib/SVG/Sparkline/Line.pm
 lib/SVG/Sparkline/Utils.pm
 lib/SVG/Sparkline/Whisker.pm
-lib/SVG/Sparkline/Cookbook.pod
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
@@ -35,3 +35,5 @@ t/20.xscale.t
 t/21.gap.t
 t/22.gap_and_mark.t
 t/23.thick.t
+t/pod-coverage.t
+t/pod.t

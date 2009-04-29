@@ -7,6 +7,7 @@ WriteMakefile(
     AUTHOR              => 'G. Wade Johnson <wade@anomaly.org>',
     VERSION_FROM        => 'lib/SVG/Sparkline.pm',
     ABSTRACT_FROM       => 'lib/SVG/Sparkline.pm',
+    LICENSE             => 'perl',
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' => 0,

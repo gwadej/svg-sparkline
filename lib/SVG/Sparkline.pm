@@ -8,7 +8,7 @@ use SVG;
 use overload  '""' => \&to_string;
 
 use 5.008000;
-our $VERSION = '0.2.7';
+our $VERSION = 0.28;
 
 sub new
 {
@@ -135,7 +135,7 @@ SVG::Sparkline - Create Sparklines in SVG
 
 =head1 VERSION
 
-This document describes SVG::Sparkline version 0.2.5
+This document describes SVG::Sparkline version 0.28
 
 =head1 SYNOPSIS
 
