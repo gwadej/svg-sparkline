@@ -18,9 +18,11 @@ sub make
     my ($class, $args) = @_;
     # validate parameters
     SVG::Sparkline::Utils::validate_array_param( $args, 'values' );
-    my $vals = SVG::Sparkline::Utils::summarize_values( $args->{values} );
     croak "'values' must be an array of pairs.\n"
         if grep { 'ARRAY' ne ref $_ || 2 != @{$_} } @{$args->{values}};
+    my $vals = SVG::Sparkline::Utils::summarize_values(
+        [ map { @{$_} } @{$args->{values}} ]
+    );
 
     my $height = $args->{height} - 2*$args->{pady};
     my $yscale = -$height / $vals->{range};
@@ -48,22 +50,15 @@ sub make
 
     my $off = _f( $gap/2 );
     my $prev = 0;
-    my @pieces;
+    my $path = "M". _f($off-$args->{thick}).",0";
     foreach my $v (@{$args->{values}})
     {
-        my $curr = _f( $yscale*($v-$prev) );
-        my $subpath = $curr ? "v${curr}h$args->{thick}" : "h$args->{thick}";
-        $prev = $v;
-        if($gap && $curr)
-        {
-            $subpath .= 'v' . _f(-$curr);
-            $prev = 0;
-        }
-        push @pieces, $subpath;
+        # Move from previous x,y to low value
+        $path .= 'm'. _f($args->{thick}+$gap) .','. _f($yscale*($v->[0]-$prev));
+        my $vert = _f( $yscale * ($v->[1]-$v->[0]) );
+        $path .= "v${vert}h$args->{thick}v". _f(-$vert)."h-$args->{thick}";
+        $prev = $v->[0];
     }
-    push @pieces, 'v' . _f( $yscale*(-$prev) ) if $prev;
-    my $spacer = $gap ? "h$gap" : '';
-    my $path = "M$off,0" . join( $spacer, @pieces ) . 'z';
     $path = _clean_path( $path );
     $svg->path( stroke=>'none', fill=>$args->{color}, d=>$path );
 
@@ -124,17 +119,9 @@ sub _check_index
 sub _clean_path
 {
     my ($path) = @_;
-    $path =~ s!((?:h[\d.]+){2,})!_consolidate_moves( $1 )!eg;
+    $path =~ s/^M([-.\d]+),([-.\d]+)m([-.\d]+),([-.\d]+)/'M'. _f($1+$3) .','. _f($2+$4)/e;
     $path =~ s/h0(?![.\d])//g;
     return $path;
-}
-
-sub _consolidate_moves
-{
-    my ($moves) = @_;
-    my @steps = split /h/, $moves;
-    shift @steps; # discard empty initial string
-    return 'h' . _f( List::Util::sum( @steps ) );
 }
 
 1; # Magic true value required at end of module
