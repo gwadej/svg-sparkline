@@ -50,7 +50,7 @@ sub make
 
     my $off = _f( $gap/2 );
     my $prev = 0;
-    my $path = "M". _f($off-$args->{thick}).",0";
+    my $path = "M". _f(-$args->{thick}-$off).",0";
     foreach my $v (@{$args->{values}})
     {
         # Move from previous x,y to low value
