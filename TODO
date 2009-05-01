@@ -10,6 +10,11 @@ Future features.
     b. What do the following mark indexes mean?
        1) high (highest high?)
        2) low  (lowest low?)
+    c. Other mark types
+       1) lowest high
+       2) highest low
+       3) largest variation
+       4) smallest variation
  2. Display a reference line on sparkline
     a. Particular x value
     b. Particular y value

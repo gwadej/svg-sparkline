@@ -118,26 +118,26 @@ sub _check_index
     return 0 if $index eq 'first';
     return $#{$values} if $index eq 'last';
     return $index if $index !~ /\D/ && $index < @{$values};
-    #if( 'high' eq $index )
-    #{
-        #my $high = $values->[0];
-        #my $ndx = 0;
-        #foreach my $i ( 1 .. $#{$values} )
-        #{
-            #($high,$ndx) = ($values->[$i],$i) if $values->[$i] > $high;
-        #}
-        #return $ndx;
-    #}
-    #elsif( 'low' eq $index )
-    #{
-        #my $low = $values->[0];
-        #my $ndx = 0;
-        #foreach my $i ( 1 .. $#{$values} )
-        #{
-            #($low,$ndx) = ($values->[$i],$i) if $values->[$i] < $low;
-        #}
-        #return $ndx;
-    #}
+    if( 'high' eq $index )
+    {
+        my $high = $values->[0]->[1];
+        my $ndx = 0;
+        foreach my $i ( 1 .. $#{$values} )
+        {
+            ($high,$ndx) = ($values->[$i]->[1],$i) if $values->[$i]->[1] > $high;
+        }
+        return $ndx;
+    }
+    elsif( 'low' eq $index )
+    {
+        my $low = $values->[0]->[0];
+        my $ndx = 0;
+        foreach my $i ( 1 .. $#{$values} )
+        {
+            ($low,$ndx) = ($values->[$i]->[0],$i) if $values->[$i]->[0] < $low;
+        }
+        return $ndx;
+    }
 
     die "'$index' is not a valid mark for $type sparkline";
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 3;
+use Test::More tests => 5;
 use Carp;
 use SVG::Sparkline;
 
@@ -32,6 +32,24 @@ my $path = 'M0,-2v-2h3v2h-3m3,-1v-3h3v3h-3m3,2v-2h3v2h-3m3,-4v-5h3v5h-3m3,5v-6h3
 {
     my $mark = '<rect fill="blue" height="6" stroke="none" width="3" x="12" y="0" />';
     my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values, mark=>[last=>'blue'] } );
+    is( "$rb",
+        qq[<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" />$mark</svg>],
+        'last mark'
+    );
+}
+
+{
+    my $mark = '<rect fill="green" height="5" stroke="none" width="3" x="9" y="-5" />';
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values, mark=>[high=>'green'] } );
+    is( "$rb",
+        qq[<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" />$mark</svg>],
+        'high mark'
+    );
+}
+
+{
+    my $mark = '<rect fill="red" height="6" stroke="none" width="3" x="12" y="0" />';
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values, mark=>[low=>'red'] } );
     is( "$rb",
         qq[<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" />$mark</svg>],
         'last mark'
