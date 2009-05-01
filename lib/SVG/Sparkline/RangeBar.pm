@@ -81,7 +81,7 @@ sub _make_marks
     while(@marks)
     {
         my ($index,$color) = splice( @marks, 0, 2 );
-        $index = _check_index( $index, $args{values} );
+        $index = SVG::Sparkline::Utils::range_mark_to_index( 'RangeBar', $index, $args{values} );
         _make_mark( $svg, %args, index=>$index, color=>$color );
     }
     return;
@@ -112,36 +112,6 @@ sub _make_mark
     return;
 }
 
-sub _check_index
-{
-    my ($type, $index, $values) = ( 'RangeBar', @_ );
-    return 0 if $index eq 'first';
-    return $#{$values} if $index eq 'last';
-    return $index if $index !~ /\D/ && $index < @{$values};
-    if( 'high' eq $index )
-    {
-        my $high = $values->[0]->[1];
-        my $ndx = 0;
-        foreach my $i ( 1 .. $#{$values} )
-        {
-            ($high,$ndx) = ($values->[$i]->[1],$i) if $values->[$i]->[1] > $high;
-        }
-        return $ndx;
-    }
-    elsif( 'low' eq $index )
-    {
-        my $low = $values->[0]->[0];
-        my $ndx = 0;
-        foreach my $i ( 1 .. $#{$values} )
-        {
-            ($low,$ndx) = ($values->[$i]->[0],$i) if $values->[$i]->[0] < $low;
-        }
-        return $ndx;
-    }
-
-    die "'$index' is not a valid mark for $type sparkline";
-}
-
 sub _clean_path
 {
     my ($path) = @_;
@@ -155,7 +125,7 @@ __END__
 
 =head1 NAME
 
-SVG::Sparkline::RangeBar - Supports SVG::Sparkline for bar graphs.
+SVG::Sparkline::RangeBar - Supports SVG::Sparkline for range bar graphs.
 
 =head1 VERSION
 
