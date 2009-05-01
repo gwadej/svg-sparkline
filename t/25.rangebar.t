@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 12;
+use Test::More tests => 13;
 use Carp;
 use SVG::Sparkline;
 
@@ -24,8 +24,6 @@ my $path = 'M0,-2v-2h3v2h-3m3,-1v-3h3v3h-3m3,2v-2h3v2h-3m3,-4v-5h3v5h-3m3,5v-6h3
 {
     my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values, width=>20 } );
     my $path = 'M0,-2v-2h4v2h-4m4,-1v-3h4v3h-4m4,2v-2h4v2h-4m4,-4v-5h4v5h-4m4,5v-6h4v6h-4';
-    my $pathw = $path;
-    $pathw =~ s/([mh]-?)3/${1}4/g;
     is( "$rb",
         qq[<svg height="12" viewBox="0 -11 20 12" width="20" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" /></svg>],
 
@@ -104,6 +102,15 @@ my $path = 'M0,-2v-2h3v2h-3m3,-1v-3h3v3h-3m3,2v-2h3v2h-3m3,-4v-5h3v5h-3m3,5v-6h3
     is( "$rb",
         qq[<svg height="12" viewBox="0 -11 30 12" width="30" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" /></svg>],
         'gap=3'
+    );
+}
+
+{
+    my $path = 'M0,-2v-2h4v2h-4m4,-1v-3h4v3h-4m4,2v-2h4v2h-4m4,-4v-5h4v5h-4m4,5v-6h4v6h-4';
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values, thick=>4 } );
+    is( "$rb",
+        qq[<svg height="12" viewBox="0 -11 20 12" width="20" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" /></svg>],
+        'thick=4'
     );
 }
 
