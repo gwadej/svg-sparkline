@@ -91,13 +91,14 @@ sub _make_mark
 {
     my ($svg, %args) = @_;
     my $index = $args{index};
-    my $h = _f($args{values}->[$index] * $args{yscale});
+    my ($lo, $hi) = @{$args{values}->[$index]};
+    my $y = _f( $lo * $args{yscale} );
+    my $h = _f( ($hi-$lo) * $args{yscale});
     if($h)
     {
         my $x = _f($index * $args{space} + $args{off});
-        my $y = $h > 0 ? 0 : $h;
         $svg->rect( x=>$x, y=>$y,
-            width=>$args{thick}, height=>abs( $h ),
+            width=>$args{thick}, height=>abs($h),
             stroke=>'none', fill=>$args{color}
         );
     }
@@ -113,7 +114,32 @@ sub _make_mark
 
 sub _check_index
 {
-    return SVG::Sparkline::Utils::mark_to_index( 'RangeBar', @_ );
+    my ($type, $index, $values) = ( 'RangeBar', @_ );
+    return 0 if $index eq 'first';
+    return $#{$values} if $index eq 'last';
+    return $index if $index !~ /\D/ && $index < @{$values};
+    #if( 'high' eq $index )
+    #{
+        #my $high = $values->[0];
+        #my $ndx = 0;
+        #foreach my $i ( 1 .. $#{$values} )
+        #{
+            #($high,$ndx) = ($values->[$i],$i) if $values->[$i] > $high;
+        #}
+        #return $ndx;
+    #}
+    #elsif( 'low' eq $index )
+    #{
+        #my $low = $values->[0];
+        #my $ndx = 0;
+        #foreach my $i ( 1 .. $#{$values} )
+        #{
+            #($low,$ndx) = ($values->[$i],$i) if $values->[$i] < $low;
+        #}
+        #return $ndx;
+    #}
+
+    die "'$index' is not a valid mark for $type sparkline";
 }
 
 sub _clean_path

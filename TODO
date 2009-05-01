@@ -5,6 +5,11 @@ Future features.
     a. RangeBar
        1) Support gap parameter.
     b. RangeArea
+ 2. RangeBar bugs to handle
+    a. What if the range is 0 (high and low are the same)?
+    b. What do the following mark indexes mean?
+       1) high (highest high?)
+       2) low  (lowest low?)
  2. Display a reference line on sparkline
     a. Particular x value
     b. Particular y value
