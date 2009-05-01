@@ -5,6 +5,7 @@ lib/SVG/Sparkline/Area.pm
 lib/SVG/Sparkline/Bar.pm
 lib/SVG/Sparkline/Cookbook.pod
 lib/SVG/Sparkline/Line.pm
+lib/SVG/Sparkline/RangeArea.pm
 lib/SVG/Sparkline/RangeBar.pm
 lib/SVG/Sparkline/Utils.pm
 lib/SVG/Sparkline/Whisker.pm
@@ -37,5 +38,8 @@ t/21.gap.t
 t/22.gap_and_mark.t
 t/23.thick.t
 t/24.rangebar_bad_params.t
+t/25.rangebar.t
+t/26.rangebar_marks.t
+t/27.rangearea_bad_params.t
 t/pod-coverage.t
 t/pod.t

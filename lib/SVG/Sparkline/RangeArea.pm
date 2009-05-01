@@ -20,11 +20,12 @@ sub make
     croak "'values' must be an array of pairs.\n"
         if grep { 'ARRAY' ne ref $_ || 2 != @{$_} } @{$args->{values}};
     my $valdesc = SVG::Sparkline::Utils::summarize_xy_values(
-        [ map { @{$_} } @{$args->{values}} ]
+        [ (map { $_->[0] } @{$args->{values}}), (reverse map { $_->[1] } @{$args->{values}}) ]
     );
-    $valdesc->{xrange} /= 2;
-    my $off = $valdesc->{xrange}-1;
-    foreach my $v (@{$valdesc->{vals}}[$valdesc->{xrange} .. $#{$valdesc->{vals}}])
+    $valdesc->{xrange} = $#{$args->{values}};
+    $valdesc->{xmax} = $#{$args->{values}};
+    my $off = $valdesc->{xrange};
+    foreach my $v (@{$valdesc->{vals}}[($off+1) .. $#{$valdesc->{vals}}])
     {
         $v->[0] = $off--;
     }
