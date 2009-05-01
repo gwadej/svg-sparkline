@@ -55,11 +55,10 @@ sub _make_marks
     my ($svg, %args) = @_;
     
     my @marks = @{$args{mark}};
-    my @yvalues = map { $_->[1] } @{$args{values}};
     while(@marks)
     {
         my ($index,$color) = splice( @marks, 0, 2 );
-        $index = SVG::Sparkline::Utils::mark_to_index( 'Area', $index, \@yvalues );
+        $index = _check_index( $index, $args{values} );
         _make_mark( $svg, %args, index=>$index, color=>$color );
     }
     return;
@@ -72,7 +71,7 @@ sub _make_mark
     my ($lo, $hi) = @{$args{values}->[$index]};
     my $y = _f( $lo * $args{yscale} );
     my $yh = _f( $hi * $args{yscale} );
-    my $x = _f($index * $args{space} + $args{off});
+    my $x = _f($index * $args{xscale});
 
     if(abs($hi-$lo) <= 0.01)
     {
@@ -85,6 +84,36 @@ sub _make_mark
         );
     }
     return;
+}
+
+sub _check_index
+{
+    my ($type, $index, $values) = ( 'RangeArea', @_ );
+    return 0 if $index eq 'first';
+    return $#{$values} if $index eq 'last';
+    return $index if $index !~ /\D/ && $index < @{$values};
+    if( 'high' eq $index )
+    {
+        my $high = $values->[0]->[1];
+        my $ndx = 0;
+        foreach my $i ( 1 .. $#{$values} )
+        {
+            ($high,$ndx) = ($values->[$i]->[1],$i) if $values->[$i]->[1] > $high;
+        }
+        return $ndx;
+    }
+    elsif( 'low' eq $index )
+    {
+        my $low = $values->[0]->[0];
+        my $ndx = 0;
+        foreach my $i ( 1 .. $#{$values} )
+        {
+            ($low,$ndx) = ($values->[$i]->[0],$i) if $values->[$i]->[0] < $low;
+        }
+        return $ndx;
+    }
+
+    die "'$index' is not a valid mark for $type sparkline";
 }
 
 1; # Magic true value required at end of module
