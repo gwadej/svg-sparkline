@@ -22,9 +22,9 @@ my $path = 'M0,-2v-2h3v2h-3m3,-1v-3h3v3h-3m3,2v-2h3v2h-3m3,-4v-5h3v5h-3m3,5v-6h3
 }
 
 {
-    my $rb = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>\@values, width=>20 } );
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values, width=>20 } );
     my $pathw = $path;
-    $pathw =~ s/(h-?)3/${1}4/g;
+    $pathw =~ s/([mh]-?)3/${1}4/g;
     is( "$rb",
         qq[<svg height="12" viewBox="0 -11 20 12" width="20" xmlns="http://www.w3.org/2000/svg"><path d="$pathw" fill="#000" stroke="none" /></svg>],
         'pos only with width: output correct'
@@ -32,7 +32,7 @@ my $path = 'M0,-2v-2h3v2h-3m3,-1v-3h3v3h-3m3,2v-2h3v2h-3m3,-4v-5h3v5h-3m3,5v-6h3
 }
 
 {
-    my $rb = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>\@values, color=>'#008' } );
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values, color=>'#008' } );
     is( "$rb",
         qq[<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#008" stroke="none" /></svg>],
         'pos only color: output correct'
