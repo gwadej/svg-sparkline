@@ -7,10 +7,7 @@ Future features.
     b. RangeArea
  2. RangeBar bugs to handle
     a. What if the range is 0 (high and low are the same)?
-    b. What do the following mark indexes mean?
-       1) high (highest high?)
-       2) low  (lowest low?)
-    c. Other mark types
+    b. Other mark types
        1) lowest high
        2) highest low
        3) largest variation

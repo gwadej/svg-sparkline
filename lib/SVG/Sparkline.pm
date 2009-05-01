@@ -153,6 +153,9 @@ This document describes SVG::Sparkline version 0.28
     my $sl4 = SVG::Sparkline->new( Bar => { values=>\@values, color=>'#66f', height=>10 } );
     print $sl4->to_string();
   
+    my $sl5 = SVG::Sparkline->new( RangeBar => { values=>\@value_pairs, color=>'#66f', height=>10 } );
+    print $sl5->to_string();
+  
 =head1 DESCRIPTION
 
 In the book I<Beautiful Evidence>, Edward Tufte describes sparklines as
@@ -380,7 +383,7 @@ the bar graph. If the I<gap> is not specified, the default value is 0.
 
 This optional parameter specifies the width of the sparkline in pixels. If
 the I<width> is not specified, the width of the sparkline is the value of
-I<thick> times the number of I<values>.
+I<thick> C<+> I<gap> times the number of I<values>.
 
 =item color
 
@@ -434,6 +437,58 @@ C<thick> parameter.
 This parameter determines the distance between data points. The C<width>
 parameter overrides the C<xscale> parameter. If no C<width> or C<xscale>
 are supplied, the default value is 2.
+
+=back
+
+=head3 RangeBar
+
+The I<RangeBar> sparkline type shows high/low pairs of related values that define
+a range at each of the supplied data points. Each data point is displayed as a
+bar (like the bar graph) that ranges from the low value to the high value.
+
+=over 4
+
+=item values
+
+This parameter is slightly more complicated than the other sparkline types. Its value
+is a reference to an array of array references. Each of these internal array references
+contains two numbers: a low value followed by a high value. These numbers are used to
+calculate the height of the bar and its placement veritcally on the sparkline.
+
+=item thick
+
+This optional parameter specifies the thickness of the individual bars on the
+bar graph. This parameter is ignored if the I<width> parameter is specified.
+If neither I<width> or I<thick> are specified, the default value of I<thick>
+is 3.
+
+=item gap
+
+This optional parameter specifies a gap to appear between individual bars on
+the bar graph. If the I<gap> is not specified, the default value is 0.
+
+=item width
+
+This optional parameter specifies the width of the sparkline in pixels. If
+the I<width> is not specified, the width of the sparkline is the value of
+I<thick> C<+> I<gap> times the number of I<values>.
+
+=item color
+
+This optional parameter specifies the color of the filled area between the
+data line and the x-axis as a SVG supported color string. The default value
+for this parameter is I<#000> (black).
+
+=item mark
+
+The mark for RangeBar replaces the bar in question with one of the specified color.
+
+There is one difference between the mark index values for RangeBar and for other
+sparkline types. Since there are two values for each index, the I<high> and I<low>
+indexes need further explanation.
+
+The index I<high> chooses the highest of the high values. The index I<low> chooses
+the lowest of the low values.
 
 =back
 
