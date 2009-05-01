@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 7;
+use Test::More tests => 9;
 use Carp;
 use SVG::Sparkline;
 
@@ -36,6 +36,22 @@ my $path = 'M0,-2v-2h3v2h-3m3,-1v-3h3v3h-3m3,2v-2h3v2h-3m3,-4v-5h3v5h-3m3,5v-6h3
     is( "$rb",
         qq[<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#008" stroke="none" /></svg>],
         'pos only color: output correct'
+    );
+}
+
+{
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values, height=>10, pady=>0 } );
+    is( "$rb",
+        qq[<svg height="10" viewBox="0 -10 15 10" width="15" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" /></svg>],
+        'pady=0'
+    );
+}
+
+{
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values, height=>20, pady=>5 } );
+    is( "$rb",
+        qq[<svg height="20" viewBox="0 -15 15 20" width="15" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" /></svg>],
+        'pady=5'
     );
 }
 
