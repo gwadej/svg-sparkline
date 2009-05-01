@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 5;
+use Test::More tests => 7;
 use Carp;
 use SVG::Sparkline;
 
@@ -39,27 +39,27 @@ my $path = 'M0,-2v-2h3v2h-3m3,-1v-3h3v3h-3m3,2v-2h3v2h-3m3,-4v-5h3v5h-3m3,5v-6h3
     );
 }
 
-#my $b4 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[2,4,5,3,0,-2,-4,-3,-5,0,3,-3,5,2,0] } );
-#is( "$b4",
-    #'<svg height="12" viewBox="0 -6 45 12" width="45" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v-2h3v-2h3v-1h3v2h3v3h3v2h3v2h3v-1h3v2h3v-5h3v-3h3v6h3v-8h3v3h3v2h3z" fill="#000" stroke="none" /></svg>',
-    #'pos/neg: output correct'
-#);
+{
+    my @values = (
+        [2,4], [3,5], [1,2], [-3,1], [-5,-2], [-4,4]
+    );
+    my $path = 'M0,-2v-2h3v2h-3m3,-1v-2h3v2h-3m3,2v-1h3v1h-3m3,4v-4h3v4h-3m3,2v-3h3v3h-3m3,-1v-8h3v8h-3';
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values } );
+    is( "$rb",
+        qq[<svg height="12" viewBox="0 -6 18 12" width="18" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" /></svg>],
+        'pos/neg: output correct'
+    );
+}
 
-#my $b5 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[2,2,5,0,-2,-2,-5] } );
-#is( "$b5",
-    #'<svg height="12" viewBox="0 -6 21 12" width="21" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v-2h6v-3h3v5h3v2h6v3h3v-5z" fill="#000" stroke="none" /></svg>',
-    #'dupes: output correct'
-#);
-
-#my $b6 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[1,2,3,4,3,2,1] } );
-#is ( "$b6",
-    #'<svg height="12" viewBox="0 -11 21 12" width="21" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v-2.5h3v-2.5h3v-2.5h3v-2.5h3v2.5h3v2.5h3v2.5h3v2.5z" fill="#000" stroke="none" /></svg>',
-    #'pos: output correct'
-#);
-
-#my $b7 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[-1,-2,-3,-4,-3,-2,-1] } );
-#is ( "$b7",
-    #'<svg height="12" viewBox="0 -1 21 12" width="21" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v2.5h3v2.5h3v2.5h3v2.5h3v-2.5h3v-2.5h3v-2.5h3v-2.5z" fill="#000" stroke="none" /></svg>',
-    #'negs: output correct'
-#);
+{
+    my @values = (
+        [-2,0], [-10,-5], [-6,-3], [-3,-1], [-5,-2]
+    );
+    my $path = 'M0,2v-2h3v2h-3m3,8v-5h3v5h-3m3,-4v-3h3v3h-3m3,-3v-2h3v2h-3m3,2v-3h3v3h-3';
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values } );
+    is( "$rb",
+        qq[<svg height="12" viewBox="0 -1 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" /></svg>],
+        'neg: output correct'
+    );
+}
 
