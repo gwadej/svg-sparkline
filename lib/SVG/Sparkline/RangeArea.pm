@@ -43,7 +43,7 @@ sub make
     {
         _make_marks( $svg,
             xscale=>$args->{xscale}, yscale=>$args->{yscale},
-            values=>$valdesc->{vals}, mark=>$args->{mark}
+            values=>$args->{values}, mark=>$args->{mark}
         );
     }
 
@@ -69,15 +69,18 @@ sub _make_mark
 {
     my ($svg, %args) = @_;
     my $index = $args{index};
-    my $x = _f($args{xscale} * $args{values}->[$index]->[0]);
-    my $y = _f($args{yscale} * ($args{values}->[$index]->[1]));
-    if(abs($y) <= 0.01)
+    my ($lo, $hi) = @{$args{values}->[$index]};
+    my $y = _f( $lo * $args{yscale} );
+    my $yh = _f( $hi * $args{yscale} );
+    my $x = _f($index * $args{space} + $args{off});
+
+    if(abs($hi-$lo) <= 0.01)
     {
         $svg->circle( cx=>$x, cy=>$y, r=>1, fill=>$args{color}, stroke=>'none' );
     }
     else
     {
-        $svg->line( x1=>$x, y1=>0, x2=>$x, y2=>$y,
+        $svg->line( x1=>$x, y1=>$y, x2=>$x, y2=>$yh,
             fill=>'none', stroke=>$args{color}, 'stroke-width'=>1
         );
     }

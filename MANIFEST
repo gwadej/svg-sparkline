@@ -41,5 +41,6 @@ t/24.rangebar_bad_params.t
 t/25.rangebar.t
 t/26.rangebar_marks.t
 t/27.rangearea_bad_params.t
+t/28.rangearea.t
 t/pod-coverage.t
 t/pod.t
