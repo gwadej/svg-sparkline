@@ -116,7 +116,7 @@ sub _make_mark
     my ($svg, %args) = @_;
     my $index = $args{index};
     my ($lo, $hi) = @{$args{values}->[$index]};
-    my $y = _f( $lo * $args{yscale} );
+    my $y = _f( $hi * $args{yscale} );
     my $h = _f( ($hi-$lo) * $args{yscale});
     if($h)
     {
