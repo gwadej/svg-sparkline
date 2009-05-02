@@ -62,12 +62,7 @@ sub make
         }
         else
         {
-            $path .= 'v-0.5';
-            foreach my $i (1 .. $args->{thick}-1)
-            {
-                $path .= 'h1v' . ($i%2? 1 :-1);
-            }
-            $path .= 'h1v'. ($args->{thick}%2?0.5: -0.5) . "h-$args->{thick}";
+            $path .= _zero_height_path( $args->{thick} );
         }
         $prev = $v->[0];
     }
@@ -83,6 +78,21 @@ sub make
         );
     }
     return $svg;
+}
+
+sub _zero_height_path
+{
+    my ($thick) = @_;
+    my $path = 'v-0.5';
+    my $step = 1;
+    my $num_steps = int( $thick ) - 1;
+    my $leftover = $thick-$num_steps;
+    foreach my $i (1 .. $num_steps)
+    {
+        $path .= "h${step}v" . ($i%2? 1 :-1);
+    }
+    $path .= "h${leftover}v". ($thick%2?0.5: -0.5) . "h-$thick";
+    return $path;
 }
 
 sub _make_marks
