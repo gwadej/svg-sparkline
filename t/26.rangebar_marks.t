@@ -96,8 +96,5 @@ $path = 'M0.5,-2v-2h3v2h-3m4,-1v-3h3v3h-3m4,2v-2h3v2h-3m4,-4v-5h3v5h-3m4,5v-6h3v
         qq[<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" />$mark</svg>],
         'mark on zero height bar'
     );
-    open my $fh, '>', 'junk.svg';
-    print $fh $rb;
-    close $fh;
 }
 
