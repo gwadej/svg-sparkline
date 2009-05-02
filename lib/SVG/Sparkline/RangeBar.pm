@@ -85,8 +85,10 @@ sub _zero_height_path
     my ($thick) = @_;
     my $path = 'v-0.5';
     my $step = 1;
-    my $num_steps = int( $thick ) - 1;
-    my $leftover = $thick-$num_steps;
+    $step = $thick/4 if $thick <= 2;
+    $step = 2 if $thick >= 8;
+    my $num_steps = int( $thick/$step ) - 1;
+    my $leftover = $thick-($num_steps*$step);
     foreach my $i (1 .. $num_steps)
     {
         $path .= "h${step}v" . ($i%2? 1 :-1);

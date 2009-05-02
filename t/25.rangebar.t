@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 14;
+use Test::More tests => 18;
 use Carp;
 use SVG::Sparkline;
 
@@ -121,6 +121,46 @@ my $path = 'M0,-2v-2h3v2h-3m3,-1v-3h3v3h-3m3,2v-2h3v2h-3m3,-4v-5h3v5h-3m3,5v-6h3
     is( "$rb",
         qq[<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" /></svg>],
         'zero height bar'
+    );
+}
+
+{
+    my @values = ( [2,4], [3,6], [2,2], [5,10], [0,6] );
+    my $path = 'M0,-2v-2h6v2h-6m6,-1v-3h6v3h-6m6,1v-0.5h1v1h1v-1h1v1h1v-1h1v1h1v-0.5h-6m6,-3v-5h6v5h-6m6,5v-6h6v6h-6';
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values, thick=>6 } );
+    is( "$rb",
+        qq[<svg height="12" viewBox="0 -11 30 12" width="30" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" /></svg>],
+        'zero height bar: thick=6'
+    );
+}
+
+{
+    my @values = ( [2,4], [3,6], [2,2], [5,10], [0,6] );
+    my $path = 'M0,-2v-2h8v2h-8m8,-1v-3h8v3h-8m8,1v-0.5h2v1h2v-1h2v1h2v-0.5h-8m8,-3v-5h8v5h-8m8,5v-6h8v6h-8';
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values, thick=>8 } );
+    is( "$rb",
+        qq[<svg height="12" viewBox="0 -11 40 12" width="40" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" /></svg>],
+        'zero height bar: thick=8'
+    );
+}
+
+{
+    my @values = ( [2,4], [3,6], [2,2], [5,10], [0,6] );
+    my $path = 'M0,-2v-2h2v2h-2m2,-1v-3h2v3h-2m2,1v-0.5h0.5v1h0.5v-1h0.5v1h0.5v-0.5h-2m2,-3v-5h2v5h-2m2,5v-6h2v6h-2';
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values, thick=>2 } );
+    is( "$rb",
+        qq[<svg height="12" viewBox="0 -11 10 12" width="10" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" /></svg>],
+        'zero height bar: thick=2'
+    );
+}
+
+{
+    my @values = ( [2,4], [3,6], [2,2], [5,10], [0,6] );
+    my $path = 'M0,-2v-2h3.25v2h-3.25m3.25,-1v-3h3.25v3h-3.25m3.25,1v-0.5h1v1h1v-1h1.25v0.5h-3.25m3.25,-3v-5h3.25v5h-3.25m3.25,5v-6h3.25v6h-3.25';
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values, thick=>3.25 } );
+    is( "$rb",
+        qq[<svg height="12" viewBox="0 -11 16.25 12" width="16.25" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" /></svg>],
+        'zero height bar: thick=3.25'
     );
 }
 
