@@ -43,5 +43,8 @@ t/26.rangebar_marks.t
 t/27.rangearea_bad_params.t
 t/28.rangearea.t
 t/29.rangearea_marks.t
+t/99.private_bar_clean_path.t
+t/99.private_is_color.t
+t/99.private_whisker_clean_path.t
 t/pod-coverage.t
 t/pod.t

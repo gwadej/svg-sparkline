@@ -1,5 +1,11 @@
 #!/usr/bin/env perl
 
+#
+# Testing private method.
+# This method is not part of the public interface, and therefore may change at
+# any time. It's functionality and existence are not guaranteed.
+#
+
 use Test::More tests => 6;
 use Carp;
 
