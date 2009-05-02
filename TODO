@@ -1,12 +1,11 @@
 Future features.
 
  0. Handle mark on 0 Bar the same as RangeBar?
- 1. RangeBar bugs to handle
-    a. Other mark types
-       1) lowest high
-       2) highest low
-       3) largest variation
-       4) smallest variation
+ 1. RangeBar/RangeArea: Other mark types
+    a. lowest high
+    b. highest low
+    c. largest variation
+    d. smallest variation
  2. Display a reference line on sparkline
     a. Particular x value
     b. Particular y value
