@@ -1,13 +1,8 @@
 Future features.
 
- 1. Two more types
-    - Two y values, color area between them.
-    a. RangeBar
-       1) Support gap parameter.
-    b. RangeArea
- 2. RangeBar bugs to handle
-    a. What if the range is 0 (high and low are the same)?
-    b. Other mark types
+ 0. Handle mark on 0 Bar the same as RangeBar?
+ 1. RangeBar bugs to handle
+    a. Other mark types
        1) lowest high
        2) highest low
        3) largest variation

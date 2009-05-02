@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = 0.28;
+our $VERSION = 0.30;
 
 # alias to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -169,7 +169,7 @@ SVG::Sparkline::Whisker - Supports SVG::Sparkline for whisker graphs.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Whisker version 0.28
+This document describes SVG::Sparkline::Whisker version 0.30
 
 =head1 DESCRIPTION
 

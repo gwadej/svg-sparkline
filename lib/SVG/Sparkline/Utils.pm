@@ -6,7 +6,7 @@ use Carp;
 use List::Util;
 use SVG;
 
-our $VERSION = 0.28;
+our $VERSION = 0.30;
 
 sub format_f
 {
@@ -225,7 +225,7 @@ SVG::Sparkline::Utils - Utility functions used by the sparkline type modules.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Utils version 0.28
+This document describes SVG::Sparkline::Utils version 0.30
 
 =head1 DESCRIPTION
 
