@@ -116,7 +116,7 @@ my $path = 'M0,-2v-2h3v2h-3m3,-1v-3h3v3h-3m3,2v-2h3v2h-3m3,-4v-5h3v5h-3m3,5v-6h3
 
 {
     my @values = ( [2,4], [3,6], [2,2], [5,10], [0,6] );
-    my $path = 'M0,-2v-2h3v2h-3m3,-1v-3h3v3h-3m3,1v0h3v0h-3m3,-3v-5h3v5h-3m3,5v-6h3v6h-3';
+    my $path = 'M0,-2v-2h3v2h-3m3,-1v-3h3v3h-3m3,1v-0.5h1v1h1v-1h1v0.5h-3m3,-3v-5h3v5h-3m3,5v-6h3v6h-3';
     my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values } );
     is( "$rb",
         qq[<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" /></svg>],

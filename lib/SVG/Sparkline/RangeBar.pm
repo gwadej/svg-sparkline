@@ -56,7 +56,19 @@ sub make
         # Move from previous x,y to low value
         $path .= 'm'. _f($args->{thick}+$gap) .','. _f($yscale*($v->[0]-$prev));
         my $vert = _f( $yscale * ($v->[1]-$v->[0]) );
-        $path .= "v${vert}h$args->{thick}v". _f(-$vert)."h-$args->{thick}";
+        if($vert)
+        {
+            $path .= "v${vert}h$args->{thick}v". _f(-$vert)."h-$args->{thick}";
+        }
+        else
+        {
+            $path .= 'v-0.5';
+            foreach my $i (1 .. $args->{thick}-1)
+            {
+                $path .= 'h1v' . ($i%2? 1 :-1);
+            }
+            $path .= 'h1v'. ($args->{thick}%2?0.5: -0.5) . "h-$args->{thick}";
+        }
         $prev = $v->[0];
     }
     $path = _clean_path( $path );
