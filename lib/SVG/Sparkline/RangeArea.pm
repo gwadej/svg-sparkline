@@ -43,7 +43,8 @@ sub make
     {
         _make_marks( $svg,
             xscale=>$args->{xscale}, yscale=>$args->{yscale},
-            values=>$args->{values}, mark=>$args->{mark}
+            values=>$args->{values}, mark=>$args->{mark},
+            base=>$valdesc->{base}
         );
     }
 
@@ -69,8 +70,8 @@ sub _make_mark
     my ($svg, %args) = @_;
     my $index = $args{index};
     my ($lo, $hi) = @{$args{values}->[$index]};
-    my $y = _f( $lo * $args{yscale} );
-    my $yh = _f( $hi * $args{yscale} );
+    my $y = _f( ($lo-$args{base}) * $args{yscale} );
+    my $yh = _f( ($hi-$args{base}) * $args{yscale} );
     my $x = _f($index * $args{xscale});
 
     if(abs($hi-$lo) <= 0.01)
