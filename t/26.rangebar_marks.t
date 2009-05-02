@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 8;
+use Test::More tests => 9;
 use Carp;
 use SVG::Sparkline;
 
@@ -84,3 +84,20 @@ $path = 'M0.5,-2v-2h3v2h-3m4,-1v-3h3v3h-3m4,2v-2h3v2h-3m4,-4v-5h3v5h-3m4,5v-6h3v
         'high mark with thick=4'
     );
 }
+
+{
+    my @values = (
+        [2,4], [3,6], [2,2], [5,10], [0,6]
+    );
+    my $path = 'M0,-2v-2h3v2h-3m3,-1v-3h3v3h-3m3,1v-0.5h1v1h1v-1h1v0.5h-3m3,-3v-5h3v5h-3m3,5v-6h3v6h-3';
+    my $mark = '<path d="M6,-2v-0.5h1v1h1v-1h1v0.5h-3" fill="blue" stroke="none" />';
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, values=>\@values, mark=>[2=>'blue'] } );
+    is( "$rb",
+        qq[<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" />$mark</svg>],
+        'mark on zero height bar'
+    );
+    open my $fh, '>', 'junk.svg';
+    print $fh $rb;
+    close $fh;
+}
+

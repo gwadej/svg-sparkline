@@ -128,8 +128,9 @@ sub _make_mark
     }
     else
     {
-        my $x = _f(($index+0.5) * $args{space} +$args{off});
-        $svg->ellipse( cx=>$x, cy=>0, ry=>0.5, rx=>$args{thick}/2,
+        my $x = _f($index * $args{space} +$args{off});
+        $svg->path(
+            d=>"M$x,$y". _zero_height_path( $args{thick} ),
             stroke=>'none', fill=>$args{color}
         );
     }
