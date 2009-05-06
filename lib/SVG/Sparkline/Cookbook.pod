@@ -274,7 +274,7 @@ sparkline multiple times). The special index terms C<high> and C<low> come to
 the rescue.
 
   my $sl = SVG::Sparkline->new(
-        Line=>{ values=>\@rainfall, mark=>[high=>'green', low=>'red'] }
+        `Line=>{ values=>\@rainfall, mark=>[high=>'green', low=>'red'] }
   );
 
 This will generate two dots on the sparkline: a green one at the high value
@@ -333,7 +333,7 @@ wanted to double the spacing, you would do this:
 
 =head2 Bar Sparklines
 
-=head3 I want the bars to be wider/narrower.
+=head3 I want the bars to be wider/narrower on my Bar sparkline.
 
 There are two ways to change the width of the bars on a I<Bar> sparkline.
 The L<SVG::Sparkline> constructor supports an optional I<thick> parameter that
@@ -350,7 +350,7 @@ bar size defaults to the I<width> divided by the number of data points.
 
 If we assume 12 months of data in C<@rainfall>, the bars are drawn 10 pixels wide.
 
-=head3 I want spacing between my bars to make them stand out more.
+=head3 I want spacing between my bars on my Bar sparkline.
 
 The default I<Bar> sparkline has no spacing between the bars for the maximum use
 of space. (After all, sparklines are supposed to be small.) You can change the
@@ -361,7 +361,7 @@ pixels of spacing between the bars, you would do the following:
 
 =head2 Line Sparklines
 
-=head3 I want the Line to be thicker/thinner.
+=head3 I want to change the thickness of the line.
 
 The thickness of the line on the I<Line> sparkline is controlled by the optional
 I<thick> parameter to the constructor. This parameter specifies the stroke width
@@ -371,9 +371,29 @@ of the line in pixels.
 
 generates a line 2 pixels wide instead of the default 1 pixel line.
 
+=head3 My Line sparkline is too spiky, how can I spread it out?
+
+See L</"My Area sparkline is too spiky, how can I spread it out?">. The same approach
+works with a I<Line> sparkline.
+
 =head2 RangeArea Sparklines
 
+=head3 I want to spread out the sparkline so it's not spiky.
+
+See L</"My Area sparkline is too spiky, how can I spread it out?">. The same approach
+works with a I<RangeArea> sparkline.
+
 =head2 RangeBar Sparklines
+
+=head3 I want the bars to be wider/narrower on my RangeBar sparkline.
+
+See L</"I want the bars to be wider/narrower on my Bar sparkline."> The same
+technique works for I<RangeBar>.
+
+=head3 I want spacing between my bars on my RangeBar sparkline.
+
+See L</"I want spacing between my bars on my Bar sparkline."> The same
+technique works for I<RangeBar>.
 
 =head2 Whisker Sparklines
 
@@ -395,6 +415,16 @@ number of data points.
   my $sl = SVG::Sparkline->new( Whisker=>{ values=>\@tosses, width=>120 } );
 
 If there are 10 values in C<@tosses>, the whiskers are drawn 4 pixels wide.
+
+=head3 I want to change the spacing between the whiskers on my sparkline.
+
+The distance between the whiskers can be changed either by modifying the
+width of the sparkline or through the use of the I<gap> parameter.
+
+By default, the I<gap> is twice the I<thick>ness of the whiskers. To change that,
+specify a value in pixels as shown below:
+
+   my $sl = SVG::Sparkline->new( Whisker=>{ values=\@tosses, gap=>5 } );
 
 =head2 Using the generated sparklines
 
