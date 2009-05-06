@@ -1,8 +1,8 @@
 Revision history for SVG-Sparkline
 
-0.30   ???
-       Added RangeBar and RangeArea types.
-0.28   Not released
+0.30   Wed May 6 18:15:00 2009
+       Added RangeBar and RangeArea types. Moved core documentation to the
+       Manual. Updated the Cookbook to match the latest interface.
        Convert version number and perform admin cleanups for higher
        Kwalitee.
 0.2.7  Sun Apr 26 22:40:00 2009
