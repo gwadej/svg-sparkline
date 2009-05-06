@@ -319,6 +319,57 @@ are supplied, the default value is 2.
 
 =back
 
+=head2 RangeArea
+
+An C<RangeArea> sparkline type shows high/low continuous values by displaying
+shading the area between two lines of continuous data. The supplied I<color>
+attribute determines the shading. Area graphs do particularly well for
+continuous data.
+
+If you would prefer to just have a single line shaded to the x-axis, see the
+I<Area> type. If you would prefer a single continuous line with no shading see
+the I<Line> type.
+
+=over 4
+
+=item values
+
+The value of this parameter is a reference to an array. This array is either
+an array of numeric values representing the y-values of the data to be plotted,
+or an array of anonymous arrays, each containing an x-value and a y-value.
+
+=item width
+
+This parameter is optional for the I<RangeArea> sparkline type. The value is
+the width of the sparkline in pixels. The default value for this parameter is
+the number of items in the I<values> parameter.
+
+=item color
+
+This optional parameter specifies the color of the filled area between the
+data line and the x-axis as a SVG supported color string. The default value
+for this parameter is I<#000> (black).
+
+=item mark
+
+The mark for a I<RangeArea> is a vertical line of the specified color. The line moves
+from the low value to the high value at the specified position.
+
+There is one difference between the mark index values for I<RangeArea> and for other
+sparkline types. Since there are two values for each index, the I<high> and I<low>
+indexes need further explanation.
+
+The index I<high> chooses the highest of the high values. The index I<low> chooses
+the lowest of the low values.
+
+=item xscale
+
+This parameter determines the distance between data points. The C<width>
+parameter overrides the C<xscale> parameter. If no C<width> or C<xscale>
+are supplied, the default value is 2.
+
+=back
+
 =head2 RangeBar
 
 The I<RangeBar> sparkline type shows high/low pairs of related values that define
