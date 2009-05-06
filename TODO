@@ -1,24 +1,28 @@
 Future features.
 
- 0. Handle mark on 0 Bar the same as RangeBar?
- 1. Ability to change the mark
+ 1. Possibly DataUtility module that simplifies making the data for
+    RangeArea and RangeBar?
+ 2. Ability to change the mark
     a. Size
     b. Style (cross vs. dot, ellipse vs. dot, dot vs. line, etc.)
- 2. RangeBar/RangeArea: Other mark types
+ 3. RangeBar/RangeArea: Other mark types
     a. lowest high
     b. highest low
     c. largest variation
     d. smallest variation
- 3. Display a reference line on sparkline
+ 4. Whisker: other mark types
+    a. All low ticks
+    b. All high ticks
+ 5. Display a reference line on sparkline
     a. Particular x value
     b. Particular y value
- 4. Band of y-values feature
+ 6. Band of y-values feature
     - See the ET article
- 5. x/y args for Line and Area?
- 6. Ability to set baseline
- 7. Axes?
- 8. Labels?
- 9. Opacity features.
-10. Combining multiple data sets in one sparkline.
+ 7. x/y args for Line and Area?
+ 8. Ability to set baseline
+ 9. Axes?
+10. Labels?
+11. Opacity features.
+12. Combining multiple data sets in one sparkline.
     a. Overlapping
     b. One above the others
