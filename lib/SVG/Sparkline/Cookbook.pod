@@ -4,7 +4,7 @@ SVG::Sparkline::Cookbook - Performing specific tasks with SVG::Sparklines
 
 =head1 VERSION
 
-This document describes L<SVG::Sparkline> version 0.2.5.
+This document describes L<SVG::Sparkline> version 0.30.
 
 =head1 INTRODUCTION
 
@@ -104,10 +104,17 @@ compare a number of values, I<Bar> displays work well. When continuous data
 has been aggregated into a small number of categories, (e.g. rainfall amount
 per month for twelve months), a I<Bar> sparkline also works well.
 
+If the discrete data describes a range of high and low values (two values for
+each data point), then the I<RangeBar> sparkline type is more appropriate.
+
 =head3 Time-series data
 
 When attempting to display continuously changing data or time-series data,
 the I<Line> and I<Area> sparkline types are most appropriate.
+
+If the continuous data describes a range of high and low values (two values
+for each data point), then the I<RangeArea> sparkline type is more
+appropriate.
 
 =head2 Creating basic sparklines
 
@@ -118,6 +125,35 @@ a time-series data set in the array C<@samples>. To create a simple
 sparkline, you would do the following:
 
    my $sl = SVG::Sparkline->new( Line => { values => \@samples } );
+
+If the line isn't dramatic enough, you could do an I<Area> sparkline, as follows:
+
+   my $sl = SVG::Sparkline->new( Area => { values => \@samples } );
+
+=head3 I want to create a sparkline for discrete data.
+
+Let's say you have a set of data points that represent a discrete data set
+in the array C<@samples>. To create a simple sparkline, you would do the
+following:
+
+   my $sl = SVG::Sparkline->new( Bar => { values => \@samples } );
+
+=head3 I want to create a sparkline for wins and losses for sports team.
+
+Some data doesn't really have a range of values beyond a binary choice:
+high/low, win/loss, heads/tails, etc. The appropriate choice for this is
+the I<Whisker> sparkline type.
+
+If you had a teams win/loss record in an array of '+' and '-' characters
+called @games, you could build the sparkline like this:
+
+   my $sl = SVG::Sparkline->new( Whisker => { values => @games } );
+
+=head2 I want to plot two related time series data streams (highs/lows).
+
+The I<RangeArea> sparkline type is just what you need. First, you need to
+get the data into the proper form. The I<RangeArea> type expects data as
+an arrayref of arrayrefs containing pairs of numeric data.
 
 =head2 Changing the display
 
@@ -210,59 +246,13 @@ I<black>, I<yellow>, I<magenta>, I<cyan>, I<gray>, I<silver>, etc.
 
 =back
 
-=head3 I want the Whiskers to be thicker/thinner.
-
-There are two ways to change the thickness of the whiskers on a I<Whisker>
-sparkline. The L<SVG::Sparkline> constructor supports an optional I<thick>
-parameter that specifies the whisker thickness (in pixels) on a I<Whisker>
-sparkline. For example,
-
-  my $sl = SVG::Sparkline( Whisker=>{ values=>\@tosses, thick=>2 } );
-
-generates whiskers that are 2 pixels wide, instead of the default 1.
-
-Specifying a I<width> different than the default also changes the
-whisker size. The whisker size defaults to 1/3 the I<width> divided by the
-number of data points.
-
-  my $sl = SVG::Sparkline( Whisker=>{ values=>\@tosses, width=>120 } );
-
-If there are 10 values in C<@tosses>, the whiskers are drawn 4 pixels wide.
-
-=head3 I want the Line to be thicker/thinner.
-
-The thickness of the line on the I<Line> sparkline is controlled by the optional
-I<thick> parameter to the constructor. This parameter specifies the stroke width
-of the line in pixels.
-
-  my $sl = SVG::Sparkline( Line=>{ values=>\@highs, thick=>2 } );
-
-generates a line 2 pixels wide instead of the default 1 pixel line.
-
-=head3 I want the bars to be wider/narrower.
-
-There are two ways to change the width of the bars on a I<Bar> sparkline.
-The L<SVG::Sparkline> constructor supports an optional I<thick> parameter that
-specifies the bar thickness (in pixels) on a I<Bar> sparkline. For example,
-
-  my $sl = SVG::Sparkline( Bar=>{ values=>\@rainfall, thick=>6 } );
-
-generates bars that are 6 pixels wide, instead of the default 3.
-
-Specifying a I<width> different than the default also changes the bar size. The
-bar size defaults to the I<width> divided by the number of data points.
-
-  my $sl = SVG::Sparkline( Bar=>{ values=>\@rainfall, width=>120 } );
-
-If we assume 12 months of data in C<@rainfall>, the bars are drawn 10 pixels wide.
-
 =head3 I need to mark a specific data point on the sparkline.
 
 It is often useful to be able to mark specific data points on a sparkline so
 that you can refer to them elsewhere. You mark a specific data point with the
 C<mark> parameter. For example,
 
-  my $sl = SVG::Sparkline(
+  my $sl = SVG::Sparkline->new(
         Line=>{ values=>\@rainfall, mark=>[14=>'blue'] }
   );
 
@@ -283,7 +273,7 @@ the index for the high and low values (especially, if you are generating this
 sparkline multiple times). The special index terms C<high> and C<low> come to
 the rescue.
 
-  my $sl = SVG::Sparkline(
+  my $sl = SVG::Sparkline->new(
         Line=>{ values=>\@rainfall, mark=>[high=>'green', low=>'red'] }
   );
 
@@ -296,7 +286,7 @@ The C<pady> parameter specifies the amount of padding between the displayed
 data and the top/bottom of the sparkline in pixels. The default value of
 C<pady> is 1 pixel if none is specified.
 
-  my $sl = SVG::Sparkline(
+  my $sl = SVG::Sparkline->new(
         Line=>{ values=>\@rainfall, pady=>3 }
   );
 
@@ -310,13 +300,101 @@ The C<padx> parameter specifies the amount of padding between the displayed
 data and the left and right of the sparkline in pixels. The default value of
 C<padx> is 0 pixels if none is specified.
 
-  my $sl = SVG::Sparkline(
+  my $sl = SVG::Sparkline->new(
         Line=>{ values=>\@rainfall, padx=>2 }
   );
 
 This adds 2 more pixels of spacing between the data and the left and right of
 the sparkline graphic. To add padding to the top and bottom, see the previous
 recipe.
+
+=head2 Area Sparklines
+
+=head3 My Area sparkline is too spiky, how can I spread it out?
+
+There are two ways to change the spacing between data points on an I<Area>
+sparkline: setting the I<width> and setting the x-scaling.
+
+If you have a fixed width in mind (say 100 pixels), you can set the width of
+the area graph as follows:
+
+   my $sl = SVG::Sparkline->new(
+        Area => { values=>\@temps, width=>100 }
+   );
+
+On the other hand, if you don't have a fixed width in mind, but you still want
+the data points farther apart, the I<xscale> parameter specifies the number of
+pixels between individual data points. The default scale is 2 pixels. If you
+wanted to double the spacing, you would do this:
+
+   my $sl = SVG::Sparkline->new(
+        Area => { values=>\@temps, xscale=>4 }
+   );
+
+=head2 Bar Sparklines
+
+=head3 I want the bars to be wider/narrower.
+
+There are two ways to change the width of the bars on a I<Bar> sparkline.
+The L<SVG::Sparkline> constructor supports an optional I<thick> parameter that
+specifies the bar thickness (in pixels) on a I<Bar> sparkline. For example,
+
+  my $sl = SVG::Sparkline->new( Bar=>{ values=>\@rainfall, thick=>6 } );
+
+generates bars that are 6 pixels wide, instead of the default 3.
+
+Specifying a I<width> different than the default also changes the bar size. The
+bar size defaults to the I<width> divided by the number of data points.
+
+  my $sl = SVG::Sparkline->new( Bar=>{ values=>\@rainfall, width=>120 } );
+
+If we assume 12 months of data in C<@rainfall>, the bars are drawn 10 pixels wide.
+
+=head3 I want spacing between my bars to make them stand out more.
+
+The default I<Bar> sparkline has no spacing between the bars for the maximum use
+of space. (After all, sparklines are supposed to be small.) You can change the
+spacing through the use of the I<gap> parameter. For example, if you want two
+pixels of spacing between the bars, you would do the following:
+
+  my $sl = SVG::Sparkline->new( Bar=>{ values=>\@rainfall, gap=>2 } );
+
+=head2 Line Sparklines
+
+=head3 I want the Line to be thicker/thinner.
+
+The thickness of the line on the I<Line> sparkline is controlled by the optional
+I<thick> parameter to the constructor. This parameter specifies the stroke width
+of the line in pixels.
+
+  my $sl = SVG::Sparkline->new( Line=>{ values=>\@highs, thick=>2 } );
+
+generates a line 2 pixels wide instead of the default 1 pixel line.
+
+=head2 RangeArea Sparklines
+
+=head2 RangeBar Sparklines
+
+=head2 Whisker Sparklines
+
+=head3 I want the Whiskers to be thicker/thinner.
+
+There are two ways to change the thickness of the whiskers on a I<Whisker>
+sparkline. The L<SVG::Sparkline> constructor supports an optional I<thick>
+parameter that specifies the whisker thickness (in pixels) on a I<Whisker>
+sparkline. For example,
+
+  my $sl = SVG::Sparkline->new( Whisker=>{ values=>\@tosses, thick=>2 } );
+
+generates whiskers that are 2 pixels wide, instead of the default 1.
+
+Specifying a I<width> different than the default also changes the
+whisker size. The whisker size defaults to 1/3 the I<width> divided by the
+number of data points.
+
+  my $sl = SVG::Sparkline->new( Whisker=>{ values=>\@tosses, width=>120 } );
+
+If there are 10 values in C<@tosses>, the whiskers are drawn 4 pixels wide.
 
 =head2 Using the generated sparklines
 
@@ -326,7 +404,7 @@ Use the C<print> global function to write to a file. The C<SVG::Sparkline>
 is converted to a string using the C<SVG::Sparkline::to_string> method,
 automatically. For example,
 
-    my $sl = SVG::Sparkline( Bar=>{ values=>\@rainfall } );
+    my $sl = SVG::Sparkline->new( Bar=>{ values=>\@rainfall } );
     open( my $fh, '>', 'rainfall_sparkline.svg' )
         or die "Unable to create rainfall_sparkline.svg.\n";
     print $fh $sl;
