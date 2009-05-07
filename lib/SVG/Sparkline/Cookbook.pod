@@ -149,7 +149,7 @@ called @games, you could build the sparkline like this:
 
    my $sl = SVG::Sparkline->new( Whisker => { values => @games } );
 
-=head2 I want to plot two related time series data streams (highs/lows).
+=head3 I want to plot two related time series data streams (highs/lows).
 
 The I<RangeArea> sparkline type is just what you need. First, you need to
 get the data into the proper form. The I<RangeArea> type expects data as
