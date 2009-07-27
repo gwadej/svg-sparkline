@@ -1,5 +1,8 @@
 Future features.
 
+ 0. Better attribute validation.
+    a. Should generate an error on unrecognized parameters.
+ 0. Update docs to new version.
  1. Possibly DataUtility module that simplifies making the data for
     RangeArea and RangeBar?
  2. Ability to change the mark
