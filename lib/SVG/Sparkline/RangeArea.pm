@@ -92,11 +92,11 @@ __END__
 
 =head1 NAME
 
-SVG::Sparkline::Area - Supports SVG::Sparkline for area graphs.
+SVG::Sparkline::RangeArea - Supports SVG::Sparkline for range area graphs.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Area version 0.30
+This document describes SVG::Sparkline::RangeArea version 0.30
 
 =head1 DESCRIPTION
 

@@ -1,6 +1,6 @@
 =head1 NAME
 
-SVG::Sparkline - Create Sparklines in SVG
+SVG::Sparkline::Manual - Documentation for the SVG::Sparkline module
 
 =head1 VERSION
 
