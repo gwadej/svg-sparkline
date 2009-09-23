@@ -1,31 +1,39 @@
 Future features.
 
- 0. Better attribute validation.
-    a. Should generate an error on unrecognized parameters.
  0. Update docs to new version.
- 1. Possibly DataUtility module that simplifies making the data for
+ 1. Better attribute validation.
+    a. Should generate an error on unrecognized parameters.
+ 2. Make physical sizes optional
+    a. Two switches: one to turn on, on to turn off
+    b. Default to on, document that default may change
+ 3. CGI utility for building/serving sparklines.
+    a. POST support for all possible parameters
+    b. GET support, shorter params to allow more data?
+ 4. Command line utility for building sparklines
+
+ 5. Possibly DataUtility module that simplifies making the data for
     RangeArea and RangeBar?
- 2. Ability to change the mark
+ 6. Ability to change the mark
     a. Size
     b. Style (cross vs. dot, ellipse vs. dot, dot vs. line, etc.)
- 3. RangeBar/RangeArea: Other mark types
+ 7. RangeBar/RangeArea: Other mark types
     a. lowest high
     b. highest low
     c. largest variation
     d. smallest variation
- 4. Whisker: other mark types
+ 8. Whisker: other mark types
     a. All low ticks
     b. All high ticks
- 5. Display a reference line on sparkline
+ 9. Display a reference line on sparkline
     a. Particular x value
     b. Particular y value
- 6. Band of y-values feature
+10. Band of y-values feature
     - See the ET article
- 7. x/y args for Line and Area?
- 8. Ability to set baseline
- 9. Axes?
-10. Labels?
-11. Opacity features.
-12. Combining multiple data sets in one sparkline.
+11. x/y args for Line and Area?
+12. Ability to set baseline
+13. Axes?
+14. Labels?
+15. Opacity features.
+16. Combining multiple data sets in one sparkline.
     a. Overlapping
     b. One above the others
