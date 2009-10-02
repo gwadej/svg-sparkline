@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 9;
+use Test::More tests => 11;
 use Carp;
 use SVG::Sparkline;
 
@@ -49,5 +49,17 @@ my $b7 = SVG::Sparkline->new( Bar => { -nodecl=>1, values=>[-1,-2,-3,-4,-3,-2,-1
 is ( "$b7",
     '<svg height="12" viewBox="0 -1 21 12" width="21" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v2.5h3v2.5h3v2.5h3v2.5h3v-2.5h3v-2.5h3v-2.5h3v-2.5z" fill="#000" stroke="none" /></svg>',
     'negs: output correct'
+);
+
+my $b8 = SVG::Sparkline->new( Bar => { -nodecl=>1, -sized => 1, values=>[-1,-2,-3,-4,-3,-2,-1] } );
+is ( "$b8",
+    '<svg height="12" viewBox="0 -1 21 12" width="21" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v2.5h3v2.5h3v2.5h3v2.5h3v-2.5h3v-2.5h3v-2.5h3v-2.5z" fill="#000" stroke="none" /></svg>',
+    'sized true: output correct'
+);
+
+my $b9 = SVG::Sparkline->new( Bar => { -nodecl=>1, -sized => 0, values=>[-1,-2,-3,-4,-3,-2,-1] } );
+is ( "$b9",
+    '<svg viewBox="0 -1 21 12" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v2.5h3v2.5h3v2.5h3v2.5h3v-2.5h3v-2.5h3v-2.5h3v-2.5z" fill="#000" stroke="none" /></svg>',
+    'sized false: output correct'
 );
 

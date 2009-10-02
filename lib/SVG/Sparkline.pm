@@ -19,11 +19,13 @@ sub new
     croak "Unrecognized Sparkline type '$type'.\n" if $@;
     croak "Missing arguments hash.\n" unless defined $args;
     croak "Arguments not supplied as a hash reference.\n" unless 'HASH' eq ref $args;
+    # TODO : Add logic to look for unknown parameters and bail.
 
     my $self = bless {
         -nodecl => 0,
         -allns => 0,
         color => '#000',
+        -sized => 1,
         %{$args},
     }, $class;
 
@@ -57,6 +59,13 @@ sub to_string
     # Cleanup
     $str =~ s/ xmlns:(?:svg|xlink)="[^"]+"//g unless $self->{'-allns'};
     $str =~ s/<\?[^\?]+\?>// if $self->{'-nodecl'};
+    unless( $self->{'-sized'} )
+    {
+        # If I try to keep them from being created, default '100%' values
+        # show up instead.
+        $str =~ s/(<svg[^>]*) height="[^"]+"/$1/;
+        $str =~ s/(<svg[^>]*) width="[^"]+"/$1/;
+    }
     return $str;
 }
 

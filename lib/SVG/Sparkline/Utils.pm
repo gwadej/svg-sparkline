@@ -182,7 +182,7 @@ sub range_mark_to_index
         return $ndx;
     }
 
-    die "'$index' is not a valid mark for $type sparkline";
+    croak "'$index' is not a valid mark for $type sparkline";
 }
 
 sub mark_to_index
@@ -212,7 +212,7 @@ sub mark_to_index
         return $ndx;
     }
 
-    die "'$index' is not a valid mark for $type sparkline";
+    croak "'$index' is not a valid mark for $type sparkline";
 }
 
 

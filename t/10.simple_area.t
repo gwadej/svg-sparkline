@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 6;
+use Test::More tests => 8;
 use Carp;
 use SVG::Sparkline;
 
@@ -37,5 +37,19 @@ my $a5 = SVG::Sparkline->new( Area => { -nodecl=>1, values=>\@yvalues } );
 is( "$a5",
     qq{<svg height="12" viewBox="0 -7.67 21 12" width="21" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="$points" stroke="none" /></svg>},
     'no width: output correct'
+);
+
+$points = '0,0 0,-3.33 2,-1.67 4,3.33 6,1.67 8,-1 10,-2.67 12,-4 14,-6.67 16,-6 18,-3.33 20,-1.67 20,0';
+my $a6 = SVG::Sparkline->new( Area => { -nodecl=>1, -sized => 1, values=>\@yvalues } );
+is( "$a6",
+    qq{<svg height="12" viewBox="0 -7.67 21 12" width="21" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="$points" stroke="none" /></svg>},
+    'sized true: output correct'
+);
+
+$points = '0,0 0,-3.33 2,-1.67 4,3.33 6,1.67 8,-1 10,-2.67 12,-4 14,-6.67 16,-6 18,-3.33 20,-1.67 20,0';
+my $a7 = SVG::Sparkline->new( Area => { -nodecl=>1, -sized => 0, values=>\@yvalues } );
+is( "$a7",
+    qq{<svg viewBox="0 -7.67 21 12" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="$points" stroke="none" /></svg>},
+    'sized false: output correct'
 );
 

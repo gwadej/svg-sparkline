@@ -78,6 +78,15 @@ the default SVG namespace is included in the sparkline.
 If the value of the parameter is 1, a namespace is supplied for the prefix
 I<svg> and the prefix I<xlink>.
 
+=item -sized
+
+The value of this parameter is a boolean that specifies whether the generated
+sparkline should contain C<width> and C<height> attributes on the root element.
+
+A value of 1 causes them to be added, while 0 leaves them off. The default
+value of this parameter is 1. (Although that may change in future versions.
+Add the parameter if you want to be future-proof.)
+
 =item bgcolor
 
 The value of this parameter is an SVG-supported color string which specifies

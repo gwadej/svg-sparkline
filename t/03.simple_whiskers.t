@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 9;
+use Test::More tests => 11;
 use Carp;
 use SVG::Sparkline;
 
@@ -30,3 +30,15 @@ my $w5 = SVG::Sparkline->new( Whisker => { -nodecl=>1, values=>'0++00---++--' } 
 like( "$w5", qr/d="M4,0v-5m3,5v-5m9,5v5m3,-5v5m3,-5v5m3,-5v-5m3,5v-5m3,5v5m3,-5v5"/,
     'posneg tickstr: correct output' );
 
+{
+    my $expect = '<svg height="12" viewBox="0 -6 18 12" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M1,0v-5m3,5v-5m6,5v-5m6,5v-5" stroke="#000" stroke-width="1" /></svg>';
+    my $w1 = SVG::Sparkline->new( Whisker => { -nodecl=>1, -sized=>1, values=>[1,1,0,1,0,1] } );
+    is( "$w1", $expect, 'sized true: output correct' );
+}
+
+{
+    my $expect = '<svg viewBox="0 -6 18 12" xmlns="http://www.w3.org/2000/svg"><path d="M1,0v-5m3,5v-5m6,5v-5m6,5v-5" stroke="#000" stroke-width="1" /></svg>';
+
+    my $w1 = SVG::Sparkline->new( Whisker => { -nodecl=>1, -sized => 0, values=>[1,1,0,1,0,1] } );
+    is( "$w1", $expect, 'sized false: output correct' );
+}

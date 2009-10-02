@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 18;
+use Test::More tests => 20;
 use Carp;
 use SVG::Sparkline;
 
@@ -19,6 +19,22 @@ my $path = 'M0,-2v-2h3v2h-3m3,-1v-3h3v3h-3m3,2v-2h3v2h-3m3,-4v-5h3v5h-3m3,5v-6h3
         'pos only: output correct'
     );
     is( "$rb", $rb->to_string, 'Stringify works' );
+}
+
+{
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, -sized => 1, values=>\@values } );
+    is( "$rb",
+        qq[<svg height="12" viewBox="0 -11 15 12" width="15" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" /></svg>],
+        'sized true: output correct'
+    );
+}
+
+{
+    my $rb = SVG::Sparkline->new( RangeBar => { -nodecl=>1, -sized => 0, values=>\@values } );
+    is( "$rb",
+        qq[<svg viewBox="0 -11 15 12" xmlns="http://www.w3.org/2000/svg"><path d="$path" fill="#000" stroke="none" /></svg>],
+        'sized false: output correct'
+    );
 }
 
 {

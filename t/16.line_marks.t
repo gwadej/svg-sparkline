@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 16;
+use Test::More tests => 17;
 use Carp;
 use SVG::Sparkline;
 
@@ -121,3 +121,8 @@ use warnings;
         'Double size mark'
     );
 }
+
+eval {
+    SVG::Sparkline->new( Line => { -nodecl=>1, values=>[-2,-5,0,5,3], mark=>[xyzzy=>'green'] } );
+};
+like( $@, qr/not a valid mark/, 'line: unrecogized mark not allowed' );

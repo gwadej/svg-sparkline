@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 15;
+use Test::More tests => 16;
 use Carp;
 use SVG::Sparkline;
 
@@ -111,3 +111,8 @@ use warnings;
         'pos/neg only: mark high'
     );
 }
+
+eval {
+    SVG::Sparkline->new( Area => { -nodecl=>1, values=>[-2,-5,0,5,3], mark=>[xyzzy=>'green'] } );
+};
+like( $@, qr/not a valid mark/, 'area: unrecogized mark not allowed' );

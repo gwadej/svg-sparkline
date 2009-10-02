@@ -4,8 +4,8 @@ Future features.
  1. Better attribute validation.
     a. Should generate an error on unrecognized parameters.
  2. Make physical sizes optional (Helder)
-    a. Two switches: one to turn on, on to turn off
-    b. Default to on, document that default may change
+    a. Two switches: one to turn on, on to turn off - DONE
+    b. Default to on, document that default may change - DONE
     c. Set the size at point of use which makes it easier to fit the text.
     d. Need to play with how this works in use.
     e. only use preserveAspectRatio and viewBox
