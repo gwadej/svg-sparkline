@@ -77,7 +77,6 @@ sparkline.pl - Command line tool for creating sparklines
 
 This document describes sparkline.pl version 0.03
 
-
 =head1 Synopsis
 
     sparkline.pl {type} [options] --values=1,2,3,4,5
@@ -158,19 +157,37 @@ Synonym for C<--values>.
 
 Specify the color of the data line.
 
-=item --xscale=f
+=item --xscale={length}
 
-=item --thick=f
+Specify the distance between individual data points in the absence of a
+a I<--width>. If neither I<--width> or I<--xscale> are supplied, the default
+is 2.
 
-=item --gap=f
+=item --thick={length}
 
-=item --outfile=s
+Thickness of the line for those sparklines that have lines. For a Bar or
+RangeBar sparkline, this specifies the thickness of the bar.
+
+=item --gap={length}
+
+Gap between the bars of the Bar sparkline or the whiskers of the
+Whisker sparkline.
+
+=item --outfile={filename}
+
+Specify the name of a file where the sparkline should be written. The file
+must not exist unless the C<--clobber> parameter is supplied.
+
+By default, the sparkline is written to stdout.
 
 =item --o=s
 
 Synonym for C<--clobber>.
 
 =item --clobber
+
+If the file specified by C<--outfile> does exist, this parameter gives permission
+for the program to overwrite the file.
 
 =item --c
 
