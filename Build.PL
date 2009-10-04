@@ -11,6 +11,8 @@ my $builder = Module::Build->new(
         'Test::More' => 0,
         'Carp'       => 0,
         'SVG'        => 2.49,
+        'Getopt::Long' => 0,
+        'Pod::Usage'   => 0,
     },
     add_to_cleanup      => [ 'SVG-Sparkline-*' ],
 );
