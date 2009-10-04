@@ -5,22 +5,23 @@ use warnings;
 
 use SVG::Sparkline;
 use Getopt::Long;
+use Pod::Usage;
 
 my $type = shift;
+pod2usage( -verbose => 2, -exitval => 0 )
+    if $type eq '--help' or $type eq '--man';
 
 my %options;
-my $outfile;
-my $clobber;
 GetOptions(
     'nodecl' => \$options{'-nodecl'},
     'allns' => \$options{'-allns'},
-    'sized' => \$options{'-sized'},
+    'sized!' => \$options{'-sized'},
     'bgcolor|bg=s' => \$options{'bgcolor'},
     'padx=f' => \$options{'padx'},
     'pady=f' => \$options{'pady'},
     'height|h=f' => \$options{'height'},
     'width|w=f' => \$options{'width'},
-    'values|data|v=s@' => \$options{'values'},
+    'values|v=s' => \$options{'values'},
     'mark=s@' => \$options{'mark'},
     'color=s' => \$options{'color'},
     'xscale=f' => \$options{'xscale'},
@@ -28,22 +29,12 @@ GetOptions(
     'gap=f' => \$options{'gap'},
     'outfile|o=s' => \$options{'outfile'},
     'clobber|c' => \$options{'clobber'},
-) or usage();
+    'help|man' => \$help,
+) or pod2usage( 'Unrecognized argument' );
 
-my %params;
-foreach my $key (keys %options)
-{
-    $params{$key} = $options{$key} if defined $options{$key};
-}
-unless(1 == @{$params{'values'}})
-{
-    print "
-    $params{'values'} = [ split ',', $params{'values'}[0] ];
-}
-use Data::Dumper;
-print Dumper( \%params );
-exit;
-my $svg = SVG::Sparkline->new( $type => \%params );
+pod2usage( -verbose => 2, -exitval => 0 ) if $help;
+
+my $svg = SVG::Sparkline->new( $type => parameters_from_cmdline( \%options );
 
 my $fh = \*STDOUT;
 if( defined $options{'outfile'} )
@@ -59,12 +50,22 @@ print $fh "$svg";
 close $fh;
 
 
-sub usage
+sub parameters_from_cmdline
 {
-    print <<'EOF';
-    Need to put a usage message in here.
-EOF
-    exit;
+    my %params;
+    foreach my $key (keys %options)
+    {
+        $params{$key} = $options{$key} || 0 if $key eq '-sized';
+        $params{$key} = $options{$key} if defined $options{$key};
+    }
+    # Clean up values parameter
+    $params{'values'} = [ split ',', $params{'values'} ]
+        unless 'Whisker' eq $type && $params{'values'} =~ /^[-+0]+$/;
+
+    # Clean up mark parameter
+    $params{'mark'} = [ map { split /[=:]/, $_ } @{$params{'mark'}} ];
+
+    return \%params;
 }
 
 __END__
@@ -77,85 +78,127 @@ sparkline.pl - Command line tool for creating sparklines
 This document describes sparkline.pl version 0.03
 
 
-=head1 USAGE
+=head1 Synopsis
 
-    sparkline.pl {type} [options]
+    sparkline.pl {type} [options] --values=1,2,3,4,5
+    sparkline.pl {type} -o outfile.svg [options] --values=1,2,3,4,5
+    sparkline.pl --help
 
 =head1 DESCRIPTION
 
-This program creates sparklines from a command line.
+Create sparklines from a command line, printing either to stdout or
+a file. The command line options set the parameters passed to
+C<SVG::Sparklines> to create the sparkline.
 
 =head1 OPTIONS 
 
+=over 4
 
-=head1 DIAGNOSTICS
+=item --nodecl
 
-=for author to fill in:
-    List every single error and warning message that the module can
-    generate (even the ones that will "never happen"), with a full
-    explanation of each problem, one or more likely causes, and any
-    suggested remedies.
+Removes the XML declaration from the beginning of the SVG output.
 
-=over
+=item --allns
 
-=item C<< Error message here, perhaps with %s placeholders >>
+Provide all of the xmlns attributes on the root svg element, the default is to
+only supply the default SVG namespace.
 
-[Description of error here]
+=item --sized
 
-=item C<< Another error message here >>
+Add the I<height> and I<width> attributes on the root svg element. This is
+currently the default behavior.
 
-[Description of error here]
+=item --nosized
 
-[Et cetera, et cetera]
+Do not add the I<height> and I<width> attributes to the root svg element.
+
+=item --bgcolor={color}
+
+Specify a background color for the sparkline. By default, the sparkline will
+have a transparent background.
+
+=item --bg={color}
+
+Synonym for C<--bgcolor>.
+
+=item --padx={length}
+
+Provide {length} pixels of padding on the left and right of the sparkline.
+
+=item --pady={length}
+
+Provide {length} pixels of padding on the top and bottom of the sparkline.
+
+=item --height={length}
+
+Specify the height of the sparkline. The default height is 10 pixels.
+
+=item --h={length}
+
+Synonym for C<--height>.
+
+=item --width={length}
+
+Specify the width of the sparkling in pixels. The default width depends on the
+sparkline type and the number of data values.
+
+=item --w={length}
+
+Synonym for C<--width>.
+
+=item --values={comma separated list of values}
+
+=item --v={comma separated list of values}
+
+Synonym for C<--values>.
+
+=item --mark=s@
+
+=item --color={color}
+
+Specify the color of the data line.
+
+=item --xscale=f
+
+=item --thick=f
+
+=item --gap=f
+
+=item --outfile=s
+
+=item --o=s
+
+Synonym for C<--clobber>.
+
+=item --clobber
+
+=item --c
+
+Synonym for C<--clobber>.
+
+=item --help
+
+Display the full help documentation for sparkline.pl.
+
+=item --man
+
+Synonym for C<--help>.
 
 =back
 
-
 =head1 CONFIGURATION AND ENVIRONMENT
 
-=for author to fill in:
-    A full explanation of any configuration system(s) used by the
-    module, including the names and locations of any configuration
-    files, and the meaning of any environment variables or properties
-    that can be set. These descriptions must also include details of any
-    configuration language used.
-  
-ModName requires no configuration files or environment variables.
-
+sparkline.pl requires no configuration files or environment variables.
 
 =head1 DEPENDENCIES
 
-=for author to fill in:
-    A list of all the other modules that this module relies upon,
-    including any restrictions on versions, and an indication whether
-    the module is part of the standard Perl distribution, part of the
-    module's distribution, or must be installed separately. ]
-
-None.
-
+L<SVG::Sparkline>, L<Getopt::Long>, and L<Pod::Usage>.
 
 =head1 INCOMPATIBILITIES
 
-=for author to fill in:
-    A list of any modules that this module cannot be used in conjunction
-    with. This may be due to name conflicts in the interface, or
-    competition for system or program resources, or due to internal
-    limitations of Perl (for example, many modules that use source code
-    filters are mutually incompatible).
-
 None reported.
 
-
 =head1 BUGS AND LIMITATIONS
-
-=for author to fill in:
-    A list of known problems with the module, together with some
-    indication Whether they are likely to be fixed in an upcoming
-    release. Also a list of restrictions on the features the module
-    does provide: data types that cannot be handled, performance issues
-    and the circumstances in which they may arise, practical
-    limitations on the size of data sets, special cases that are not
-    (yet) handled, etc.
 
 No bugs have been reported.
 
@@ -166,10 +209,10 @@ G. Wade Johnson  C<< wade@anomaly.org >>
 
 =head1 LICENCE AND COPYRIGHT
 
-Copyright (c) <YEAR>, G. Wade Johnson C<< wade@anomaly.org >>. All rights reserved.
+Copyright (c) 2009, G. Wade Johnson C<< wade@anomaly.org >>. All rights reserved.
 
 This module is free software; you can redistribute it and/or
-modify it under the same terms as Perl itself. See L<perlartistic>.
+modify it under the same terms as Perl 5.10.0 itself. See L<perlartistic>.
 
 
 =head1 DISCLAIMER OF WARRANTY
