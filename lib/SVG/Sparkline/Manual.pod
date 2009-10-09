@@ -516,6 +516,13 @@ is used by the stringification overload.
 This module has been greatly improved by suggestions and corrections supplied
 but Robert Boone, Debbie Campbell, and Joshua Keroes.
 
+Thanks to Helder Magalhães for the suggestion to remove the I<height> and
+I<width> attributes from the root I<svg> element. This lead to the definition
+of the I<-sized> parameter.
+
+Thanks to Jeff Schiller for the idea of the sparklines.cgi.pl script. Honestly,
+I would not have thought to provide it (since it's not hard to build).
+
 =head1 AUTHOR
 
 G. Wade Johnson  C<< <wade@anomaly.org> >>
