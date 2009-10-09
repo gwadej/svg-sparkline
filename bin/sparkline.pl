@@ -29,12 +29,12 @@ GetOptions(
     'gap=f' => \$options{'gap'},
     'outfile|o=s' => \$options{'outfile'},
     'clobber|c' => \$options{'clobber'},
-    'help|man' => \$help,
+    'help|man' => \$options{'help'},
 ) or pod2usage( 'Unrecognized argument' );
 
-pod2usage( -verbose => 2, -exitval => 0 ) if $help;
+pod2usage( -verbose => 2, -exitval => 0 ) if $options{'help'};
 
-my $svg = SVG::Sparkline->new( $type => parameters_from_cmdline( \%options );
+my $svg = SVG::Sparkline->new( $type => parameters_from_cmdline( \%options ) );
 
 my $fh = \*STDOUT;
 if( defined $options{'outfile'} )
@@ -59,8 +59,11 @@ sub parameters_from_cmdline
         $params{$key} = $options{$key} if defined $options{$key};
     }
     # Clean up values parameter
+    
     $params{'values'} = [ split ',', $params{'values'} ]
         unless 'Whisker' eq $type && $params{'values'} =~ /^[-+0]+$/;
+    $params{'values'} = [ map { [ split ':', $_ ] } @{$params{'values'}} ]
+        if $type eq 'RangeArea' or $type eq 'RangeBar';
 
     # Clean up mark parameter
     $params{'mark'} = [ map { split /[=:]/, $_ } @{$params{'mark'}} ];
@@ -147,11 +150,47 @@ Synonym for C<--width>.
 
 =item --values={comma separated list of values}
 
+Specify the parameters to display on the sparkline. These values can take one
+of three forms.
+
+=over 4
+
+=item All but RangeArea and RangeBar
+
+Almost all sparkline types support the default data format which is a series
+of numbers separated by commas. The C<Whisker> type has limits on the values
+allowed. Other than that, all specified types work the same way.
+
+  --values=1,2,3,4,5,6,7,8,9
+
+=item Whisker
+
+The C<Whisker> sparkline type supports another format which is more condensed.
+This is a series of '+', '-', and '0' characters that represent the high, low,
+and neutral ticks on the Whisker graph.
+
+   --values=+--+-0+---+++
+
+=item RangeArea and RangeBar
+
+These two sparkline types require a pair of data values for each point on the
+sparkline. To accomplish this, we comma-separated list of pairs of values. Each
+pair consists of two values separated by a colon, with the smaller value first.
+
+   --values=1:1,2:4,3:9,4:16,5:25
+
+=back
+
 =item --v={comma separated list of values}
 
 Synonym for C<--values>.
 
-=item --mark=s@
+=item --mark={mark}
+
+This parameter can be supplied multiple times to define multiple marks. Each mark
+has an index value and a color separated by a colon (or equals). The index value
+can be either a numeric index or one of the named indexes described in
+L<SVG::Sparkline::Manual> under I<mark>.
 
 =item --color={color}
 
