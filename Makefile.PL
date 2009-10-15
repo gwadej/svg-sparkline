@@ -8,7 +8,7 @@ WriteMakefile(
     VERSION_FROM        => 'lib/SVG/Sparkline.pm',
     ABSTRACT_FROM       => 'lib/SVG/Sparkline.pm',
     LICENSE             => 'perl',
-    EXE_FILES           => ['bin/sparklines.pl'],
+    EXE_FILES           => ['bin/sparkline.pl'],
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' => 0,

@@ -1,9 +1,5 @@
 The SVG::Sparkline module supports creating sparkline graphics in SVG.
 
-The parameters used to create the sparkline types and the scaling code
-have both changed significantly in the 0.2.0 version of the code. If you
-used the library pre-0.2.0, you will need to make a few adjustments.
-
 INSTALLATION
 
 To install this module, run the following commands:

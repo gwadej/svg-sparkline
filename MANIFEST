@@ -10,6 +10,7 @@ lib/SVG/Sparkline/RangeArea.pm
 lib/SVG/Sparkline/RangeBar.pm
 lib/SVG/Sparkline/Utils.pm
 lib/SVG/Sparkline/Whisker.pm
+bin/sparkline.pl
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
