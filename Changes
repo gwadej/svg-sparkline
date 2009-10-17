@@ -4,6 +4,7 @@ Revision history for SVG-Sparkline
        on the root svg element, as suggested by Helder Magalhães.
        Created sparkline.pl command line script for easy creation of a
        sparkline.
+       Created sparkline.cgi CGI script as suggested by Jeff Schiller.
 0.31   Thu May 7 17:10:00 2009
        Patch release to take care of the fact that the Manual did not get
        uploaded.
