@@ -11,6 +11,7 @@ lib/SVG/Sparkline/RangeBar.pm
 lib/SVG/Sparkline/Utils.pm
 lib/SVG/Sparkline/Whisker.pm
 bin/sparkline.pl
+bin/sparkline.cgi
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
