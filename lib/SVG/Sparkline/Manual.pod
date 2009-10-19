@@ -37,7 +37,7 @@ focus here is on the kinds of data well-suited to the sparklines concept.
 
 Although the basics are there, this module is not yet feature complete.
 
-=head1 INTERFACE 
+=head1 LIBRARY INTERFACE 
 
 =head2 SVG::Sparkline->new( $type, $args_hr )
 
@@ -498,6 +498,10 @@ specified color.
 
 =back
 
+=head1 PUBLIC METHODS
+
+The following public methods are provided on the C<SVG::Sparkline> object.
+
 =head2 get_height
 
 Returns in height in pixels of the completed sparkline.
@@ -511,6 +515,15 @@ Returns in width in pixels of the completed sparkline.
 Convert the L<SVG::Sparkline> object to an XML string. This is the method that
 is used by the stringification overload.
 
+=head1 PROGRAMS
+
+The library also supplies two programs that simplies the creation of sparklines
+without programming. The command-line tool C<sparkline.pl> is documented in
+the program itself. The documentation is displayed when executing the program
+with the C<--help> parameter.
+
+The CGI script is documented in L<SVG::Sparkline::Manual::CGI>.
+
 =head1 ACKNOWLEDGEMENTS
 
 This module has been greatly improved by suggestions and corrections supplied
@@ -520,7 +533,7 @@ Thanks to Helder Magalhães for the suggestion to remove the I<height> and
 I<width> attributes from the root I<svg> element. This lead to the definition
 of the I<-sized> parameter.
 
-Thanks to Jeff Schiller for the idea of the sparklines.cgi.pl script. Honestly,
+Thanks to Jeff Schiller for the idea of the sparklines.cgi script. Honestly,
 I would not have thought to provide it (since it's not hard to build).
 
 =head1 AUTHOR
