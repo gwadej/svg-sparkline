@@ -137,6 +137,23 @@ Although it should be obvious, it is important that the modules that this
 script depends on are available to the webserver and user the CGI will be
 run as. Otherwise, the program will not execute.
 
+=head1 HOSTED ENVIRONMENT
+
+If you need to run the script in a hosted environment, you may not be able to
+install the dependencies normally. The recommended approach is the use the
+L<local::lib> module to configure a local Perl directory for modules the host
+admin won't or can't install.
+
+Follow the directions in the L<local::Lib> module. Then install L<SVG> and
+L<SVG::Sparkline> to the local perl directories. Then add the following lines
+to your copy of C<sparkline.cgi> before the other libraries.
+
+   use lib '/home/example/perl5/lib/perl5';
+   use local::lib;
+
+Obviously, you will need to replace I</home/example/perl5> with the path created
+by the L<local::lib> bootstrap process.
+
 =head1 DEPENDENCIES
 
 L<CGI>, L<SVG::Sparkline>, L<SVG>, and the various submodules associated
