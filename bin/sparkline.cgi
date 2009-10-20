@@ -2,6 +2,7 @@
 
 use strict;
 # Reduce load time of the script.
+## no critic(RequireUseWarnings)
 #use warnings;
 
 use SVG::Sparkline;
