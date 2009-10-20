@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = 0.32;
+our $VERSION = 0.33;
 
 # aliases to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -76,7 +76,7 @@ SVG::Sparkline::Line - Supports SVG::Sparkline for line graphs.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Line version 0.32
+This document describes SVG::Sparkline::Line version 0.33
 
 =head1 DESCRIPTION
 

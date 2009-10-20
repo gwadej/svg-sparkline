@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = 0.32;
+our $VERSION = 0.33;
 
 # aliases to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -96,7 +96,7 @@ SVG::Sparkline::RangeArea - Supports SVG::Sparkline for range area graphs.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::RangeArea version 0.32
+This document describes SVG::Sparkline::RangeArea version 0.33
 
 =head1 DESCRIPTION
 

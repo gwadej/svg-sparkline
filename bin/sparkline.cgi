@@ -1,7 +1,8 @@
 #!/usr/bin/env perl
 
 use strict;
-use warnings;
+# Reduce load time of the script.
+#use warnings;
 
 use SVG::Sparkline;
 use CGI;
