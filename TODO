@@ -32,3 +32,58 @@ Future features.
     a. Overlapping
     b. One above the others
 16. Explore using preserveAspectRatio for keeping sparkline shape.
+17. Potential support for desc, title, longdesc, alt, etc. for accessibility
+    a. Maybe talk to accessibility experts about sparklines
+    b. From SVG IG meeting
+18. Can we generate a reasonable graph from a few thousand data points
+        maybe by summarizing?
+    a. From SVG IG meeting
+19. Auto-slope feature (aim for slopes of 45 deg)
+    a. need sampling theory
+
+-------
+Notes from Aug 6 SVG IG meeting
+
+DavePorter:Wade, what are some good sources for open-source graphing  
+modules for SVG, like "big charts" you mentioned, with all the options  
+like axes or labels?  Realizing this is off your topic, but you  
+probably have some experience here.
+[09:38am]codedread:fyi, launchpad.net has added sparklines recently  
+(implemented in Canvas): https://code.launchpad.net/scour (takes some  
+time to load)
+[09:38am]an:Jeff: how easy/tough is it to integrate in a webpage
+[09:39am]an:G. Wade: maybe I'll offer a CGI version later ...
+[09:42am]an:AN: would be cool to see little temperature curves in  
+Google Earth (in the bubbles)
+[09:44am]an:AN: maybe use tooltips to show min/max/mean or verbal  
+description on how to interpret
+[09:44am]an:Jeff: also ask the accessibility guys what they think  
+about sparklines in general
+an:Jeff: also ask the accessibility guys what they think about  
+sparklines in general
+[09:45am]an:Edward Tufte also proposes to put sparklines in tables for  
+quick overviews
+[09:46am]an:Rob: accessibility is also the responsibility of the  
+author - at a higher level
+[09:49am]codedread:Jeff: challenge is that the data might not be known  
+by the author (pulled from a live service, like stock quotes)
+* CGI version requested by Jeff (multiple times)
+* Google Earth has ability to add data
+	* AN
+	* Suggested that graphs of temperatures like I did for Houston would  
+be cool.
+	* WebKit implementation
+* Accessibility
+	* Allow Developer to add a piece of text for description or alt tag,  
+etc.
+	* Only developer/author really knows what should be displayed
+	* Don't want the text to be overwhelming, subtle like the sl itself.
+	* Need to talk to accessibility experts about sparklines in general  
+and SVG sparklines in specific
+	* desc, longdesc, alt
+* Possibility for filtering incoming data
+	* Generate a reasonable graph from a few thousand data points (not  
+sure it can be done.
+* Need sampling theory to deal with the slope issue that I wanted to  
+look at.
+
