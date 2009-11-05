@@ -8,10 +8,14 @@ use List::Util ();
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = 0.33;
+our $VERSION = 0.34;
 
 # alias to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
+
+sub valid_param {
+    return scalar grep { $_[1] eq $_ } qw/gap thick/;
+}
 
 sub make
 {
@@ -154,7 +158,7 @@ SVG::Sparkline::RangeBar - Supports SVG::Sparkline for range bar graphs.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::RangeBar version 0.33
+This document describes SVG::Sparkline::RangeBar version 0.34
 
 =head1 DESCRIPTION
 
@@ -166,6 +170,11 @@ a 'RangeBar' sparkline. It is loaded on demand by L<SVG::Sparkline>.
 =head2 make
 
 Create an L<SVG> object that represents the RangeBar style of Sparkline.
+
+=head2 valid_param
+
+Class method that returns true if the supplied parameter is valid for an
+RangeBar Sparkline.
 
 =head1 DIAGNOSTICS
 
