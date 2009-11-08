@@ -1,7 +1,8 @@
 Future features.
 
  1. Better attribute validation.
-    a. Should generate an error on unrecognized parameters.
+    a. Should generate an error on unrecognized parameters. - DONE
+    b. Need to generate tests.
  2. Possible ability to do compressed SVG
  3. CGI utility for building/serving sparklines. (Jeff Schiller) - DONE
     a. POST support for all possible parameters - Need to test.
