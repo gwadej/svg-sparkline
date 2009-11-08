@@ -7,3 +7,5 @@ blib
 pm_to_blib
 *.bak
 *.old
+.releaserc
+SVG-Sparkline-*.tar.gz
