@@ -10,6 +10,12 @@ use overload  '""' => \&to_string;
 use 5.008000;
 our $VERSION = 0.34;
 
+my %valid_parms = map { $_ => 1 } qw(
+        -allns color -sized
+        height width xscale yscale pady padx
+        color bgcolor mark values
+);
+
 sub new
 {
     my ($class, $type, $args) = @_;
@@ -19,7 +25,7 @@ sub new
     croak "Unrecognized Sparkline type '$type'.\n" if $@;
     croak "Missing arguments hash.\n" unless defined $args;
     croak "Arguments not supplied as a hash reference.\n" unless 'HASH' eq ref $args;
-    # TODO : Add logic to look for unknown parameters and bail.
+    _no_unrecognized_parameters( $type, $args );
 
     my $self = bless {
         -allns => 0,
@@ -70,9 +76,17 @@ sub to_string
 sub _make
 {
     my ($self, $type) = @_;
-    # Disable strict to allow calling method from plugin.
-    no strict 'refs'; ## no critic (ProhibitNoStrict)
     $self->{_SVG} = "SVG::Sparkline::$type"->make( $self );
+    return;
+}
+
+sub _no_unrecognized_parameters {
+    my ( $type, $args ) = @_;
+    my $class = "SVG::Sparkline::$type";
+    foreach my $parm (keys %{$args}) {
+        croak "Parameter '$parm' not recognized for '$type'\n"
+            unless exists $valid_parms{$parm} || $class->valid_param( $parm );
+    }
     return;
 }
 
@@ -141,7 +155,7 @@ SVG::Sparkline - Create Sparklines in SVG
 
 =head1 VERSION
 
-This document describes SVG::Sparkline version 0.33
+This document describes SVG::Sparkline version 0.34
 
 =head1 SYNOPSIS
 

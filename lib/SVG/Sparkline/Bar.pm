@@ -8,10 +8,14 @@ use List::Util ();
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = 0.33;
+our $VERSION = 0.34;
 
 # alias to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
+
+sub valid_param {
+    return scalar grep { $_[1] eq $_ } qw/gap thick/;
+}
 
 sub make
 {
@@ -144,7 +148,7 @@ SVG::Sparkline::Bar - Supports SVG::Sparkline for bar graphs.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Bar version 0.33
+This document describes SVG::Sparkline::Bar version 0.34
 
 =head1 DESCRIPTION
 
@@ -156,6 +160,11 @@ a 'Bar' sparkline. It is loaded on demand by L<SVG::Sparkline>.
 =head2 make
 
 Create an L<SVG> object that represents the Bar style of Sparkline.
+
+=head2 valid_param
+
+Class method that returns true if the supplied parameter is valid for an
+Bar Sparkline.
 
 =head1 DIAGNOSTICS
 
