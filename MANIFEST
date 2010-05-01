@@ -21,7 +21,6 @@ t/00.load.t
 t/01.bad_new.t
 t/02.whisker_bad_parms.t
 t/03.simple_whiskers.t
-t/04.nodecl_option.t
 t/05.allns_option.t
 t/06.whisker_width.t
 t/07.line_bad_parms.t

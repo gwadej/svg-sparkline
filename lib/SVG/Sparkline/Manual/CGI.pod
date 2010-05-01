@@ -4,7 +4,7 @@ sparkline.cgi - CGI script for generating SVG-based sparklines
 
 =head1 VERSION
 
-This document describes sparkline.cgi version 0.33
+This document describes sparkline.cgi version 0.34
 
 =head1 SYNOPSIS
 
@@ -24,7 +24,7 @@ currently inconsistent. You can work around this by using the C<object> tag. For
 example, to render a Line sparkline in an HTML page, you might use the following:
 
     <object type="image/svg+xml" height="12"
-        data="http://anomaly.org/cgi-bin/sparkline.cgi?type=Line&sized=0&nodecl=1&color=blue&values=10,12,9,11,14,17,20,15,13,8,5,9,13&mark=3:green&mark=high:%23f66&mark=last:%23000&thick=2&padx=4">
+        data="http://anomaly.org/cgi-bin/sparkline.cgi?type=Line&sized=0&color=blue&values=10,12,9,11,14,17,20,15,13,8,5,9,13&mark=3:green&mark=high:%23f66&mark=last:%23000&thick=2&padx=4">
     </object>
 
 =head1 QUERY PARAMETERS
@@ -35,10 +35,6 @@ example, to render a Line sparkline in an HTML page, you might use the following
 
 The value of this parameter specifies the type of sparkline. It must be one of
 C<Area>, C<Bar>, C<Line>, C<RangeArea>, C<RangeBar>, or C<Whisker>.
-
-=item nodecl
-
-A value of 1 removes the XML declaration from the beginning of the SVG output.
 
 =item allns
 

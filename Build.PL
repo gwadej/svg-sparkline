@@ -10,7 +10,7 @@ my $builder = Module::Build->new(
     requires => {
         'Test::More' => 0,
         'Carp'       => 0,
-        'SVG'        => 2.49,
+        'SVG'        => 2.50,
         'Getopt::Long' => 0,
         'Pod::Usage'   => 0,
     },

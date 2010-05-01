@@ -4,7 +4,7 @@ SVG::Sparkline::Cookbook - Performing specific tasks with SVG::Sparklines
 
 =head1 VERSION
 
-This document describes L<SVG::Sparkline> version 0.33.
+This document describes L<SVG::Sparkline> version 0.34.
 
 =head1 INTRODUCTION
 
@@ -68,23 +68,6 @@ eye and lose the effect.
 =head2 Basic Configuration
 
 There are a few configuration items that apply to all sparkline types.
-
-=head3 I want to embed the sparkline and the XML declaration is in the way.
-
-The XML declaration is an optional string added at the beginning of an XML file.
-It can be used to provide some standardized information to the XML parser used
-to read the XML document.
-
-Unfortunately, it can only occur at the beginning of an XML document. If you want
-to embed the sparkline output in another XML document, this declaration must not
-be present.
-
-Pass the attribute C<< -nodecl => 1 >> to the L<SVG::Sparkline> constructor to
-have the SVG generated without the XML declaration. For example,
-
-    my $sp = SVG::Sparkline->new( Line => { -nodecl=>1, values=>\@data } );
-
-Generates a sparkline without the declaration.
 
 =head2 How to choose a Sparkline Type
 
@@ -467,9 +450,7 @@ Of course, you may need to adjust the height and width to match your sparkline.
 
 You should be able to copy the SVG from the sparkline directly into the XHTML file
 where you would like it to appear. Browsers that support <em>complex documents</em>
-should display the SVG along with everything else. Make certain to create the
-L<SVG::Sparkline> with the C<< -nodecl=>1 >> option to prevent the XML declaration
-from being added.
+should display the SVG along with everything else.
 
 =head3 I want to embed the sparkline in an SVG file.
 
@@ -503,10 +484,6 @@ C<transform> attribute to place it.
 where the C<< E<lt>svg/> >> is replaced with your actual sparkline.
 
 =back
-
-Whichever method you use, remember that you need to use the C<< -nodecl=>1 >>
-parameter when creating the L<SVG::Sparkline> because you won't need the XML
-declaration.
 
 =head2 Decorations
 

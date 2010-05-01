@@ -8,7 +8,7 @@ use SVG;
 use overload  '""' => \&to_string;
 
 use 5.008000;
-our $VERSION = 0.33;
+our $VERSION = 0.34;
 
 sub new
 {
@@ -22,7 +22,6 @@ sub new
     # TODO : Add logic to look for unknown parameters and bail.
 
     my $self = bless {
-        -nodecl => 0,
         -allns => 0,
         color => '#000',
         -sized => 1,
@@ -58,7 +57,6 @@ sub to_string
     my $str = $self->{_SVG}->xmlify();
     # Cleanup
     $str =~ s/ xmlns:(?:svg|xlink)="[^"]+"//g unless $self->{'-allns'};
-    $str =~ s/<\?[^\?]+\?>// if $self->{'-nodecl'};
     unless( $self->{'-sized'} )
     {
         # If I try to keep them from being created, default '100%' values

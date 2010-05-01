@@ -13,7 +13,7 @@ pod2usage( -verbose => 2, -exitval => 0 )
 
 my %options;
 GetOptions(
-    'nodecl' => \$options{'-nodecl'},
+    'nodecl' => \$options{'-nodecl'},  # Deprecated, remove later.
     'allns' => \$options{'-allns'},
     'sized!' => \$options{'-sized'},
     'bgcolor|bg=s' => \$options{'bgcolor'},
@@ -95,10 +95,6 @@ C<SVG::Sparklines> to create the sparkline.
 =head1 OPTIONS 
 
 =over 4
-
-=item --nodecl
-
-Removes the XML declaration from the beginning of the SVG output.
 
 =item --allns
 

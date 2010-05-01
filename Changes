@@ -1,5 +1,8 @@
 Revision history for SVG-Sparkline
 
+0.34   Fri Apr 30 23:45:00 2010
+       SVG 2.50 removed the unnecessary xml declaration. Modified module
+       and scripts to remove -nodecl flag which is no longer needed.
 0.33   Tue Oct 20 19:25:00 2009
        Correct documentation problems with the CGI Manual.
 0.32   Sun Oct 18 10:40:00 2009

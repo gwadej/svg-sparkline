@@ -49,7 +49,7 @@ sub parameters_from_query
         {
             $params{'-sized'} = $value[0] || 0;
         }
-        elsif( $key eq 'nodecl' or $key eq 'allns' ) {
+        elsif( $key eq 'allns' ) {
             $params{"-$key"} = $value[0];
         }
         elsif( $key eq 'mark' )

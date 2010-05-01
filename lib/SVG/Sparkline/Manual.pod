@@ -4,7 +4,7 @@ SVG::Sparkline::Manual - Documentation for the SVG::Sparkline module
 
 =head1 VERSION
 
-This document describes SVG::Sparkline version 0.33
+This document describes SVG::Sparkline version 0.34
 
 =head1 SYNOPSIS
 
@@ -55,17 +55,6 @@ L</SPARKLINE TYPES> for a full description of the parameters as they apply to
 each type.
 
 =over 4
-
-=item -nodecl
-
-The value of this parameter is a boolean that specifies whether the XML
-declaration statement is to be removed from the generated SVG.
-
-If you are embedding the SVG content directly in another document (maybe
-HTML), you should pass this parameter with a 1. If you are generating a
-standalone sparkline document, you should pass a 0.
-
-The I<-nodecl> parameter defaults to 0.
 
 =item -allns
 
