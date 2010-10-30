@@ -1,5 +1,8 @@
 Revision history for SVG-Sparkline
 
+0.35   Sat Oct 30 16:55:00 2010
+       Corrected the CGI script to handle the stricter validation of input
+       parameters.
 0.34   Fri Apr 30 23:45:00 2010
        SVG 2.50 removed the unnecessary xml declaration. Modified module
          and scripts to remove -nodecl flag which is no longer needed.
