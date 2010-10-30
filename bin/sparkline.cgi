@@ -56,6 +56,11 @@ sub parameters_from_query
         {
             $params{$key} = [ @value ];
         }
+        elsif( $key eq 'type' )
+        {
+            # Already dealt with.
+            next;
+        }
         elsif( length $value[0] )
         {
             $params{$key} = $value[0];
