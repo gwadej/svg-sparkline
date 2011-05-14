@@ -29,7 +29,7 @@ WriteMakefile(
         resources => {
             license => 'http://dev.perl.org/licenses/',
             homepage => 'http://wiki.github.com/gwadej/svg-sparkline',
-#            bugtracker => 'http://code.google.com/p/svg-sparkline/issues/list',
+            bugtracker => 'https://rt.cpan.org/Public/Dist/Display.html?Name=SVG-Sparkline',
             repository => 'https://github.com/gwadej/svg-sparkline',
 #            MailingList => 'http://groups.google.com/group/svg-sparkline',
         },
