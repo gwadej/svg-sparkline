@@ -49,5 +49,5 @@ t/29.rangearea_marks.t
 t/99.private_bar_clean_path.t
 t/99.private_is_color.t
 t/99.private_whisker_clean_path.t
-t/pod-coverage.t
-t/pod.t
+xt/pod-coverage.t
+xt/pod.t
