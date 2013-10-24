@@ -5,7 +5,7 @@ use Module::Build;
 my $builder = Module::Build->new(
     module_name         => 'SVG::Sparkline',
     license             => 'perl',
-    dist_author         => 'G. Wade Johnson <wade@anomaly.org>',
+    dist_author         => 'G. Wade Johnson <gwadej@cpan.org>',
     dist_version_from   => 'lib/SVG/Sparkline.pm',
     requires => {
         'Test::More' => 0,

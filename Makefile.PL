@@ -4,7 +4,7 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
     NAME                => 'SVG::Sparkline',
-    AUTHOR              => 'G. Wade Johnson <wade@anomaly.org>',
+    AUTHOR              => 'G. Wade Johnson <gwadej@cpan.org>',
     VERSION_FROM        => 'lib/SVG/Sparkline.pm',
     ABSTRACT_FROM       => 'lib/SVG/Sparkline.pm',
     LICENSE             => 'perl',

@@ -7,7 +7,7 @@ use SVG;
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = 0.36;
+our $VERSION = 1.00;
 
 # aliases to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -88,7 +88,7 @@ SVG::Sparkline::Area - Supports SVG::Sparkline for area graphs.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::Area version 0.36
+This document describes SVG::Sparkline::Area version 1.00
 
 =head1 DESCRIPTION
 
@@ -147,11 +147,11 @@ No bugs have been reported.
 
 =head1 AUTHOR
 
-G. Wade Johnson  C<< wade@anomaly.org >>
+G. Wade Johnson  C<< gwadej@cpan.org >>
 
 =head1 LICENCE AND COPYRIGHT
 
-Copyright (c) 2012, G. Wade Johnson C<< wade@anomaly.org >>. All rights reserved.
+Copyright (c) 2013, G. Wade Johnson C<< gwadej@cpan.org >>. All rights reserved.
 
 This module is free software; you can redistribute it and/or
 modify it under the same terms as Perl 5.8.0. See L<perlartistic>.
