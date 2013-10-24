@@ -25,7 +25,9 @@ sub make
     my $vals = SVG::Sparkline::Utils::summarize_values( $args->{values} );
 
     my $height = $args->{height} - 2*$args->{pady};
-    my $yscale = -$height / $vals->{range};
+    # If we get all zeros for data, the range will be 0, and the division will
+    # fail. Almost anything will be a reasonable range, so arbitrarily choose 1.
+    my $yscale = -$height / ($vals->{range} || 1);
     my $baseline = _f(-$yscale*$vals->{min});
 
     # Figure out the width I want and define the viewBox

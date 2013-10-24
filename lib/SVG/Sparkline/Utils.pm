@@ -39,6 +39,9 @@ sub calculate_yscale_and_offset
 {
     my ($args, $yrange, $offset) = @_;
 
+    # If the data values are all 0, default the range. Any value would be
+    # usable. So, I just pick 1 arbitrarily.
+    $yrange ||= 1;
     my $height = $args->{height} - 2*$args->{pady};
     $args->{yscale} = -$height / $yrange;
     my $baseline = format_f( -$args->{yscale} * $offset );
