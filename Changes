@@ -1,5 +1,8 @@
 Revision history for SVG-Sparkline
 
+0.36   Mon Sep 3 19:05:55 2012
+       Modified to remove author testing from main tests.
+       Updated Metadata in the Makefile creation.
 0.35   Sat Oct 30 16:55:00 2010
        Corrected the CGI script to handle the stricter validation of input
        parameters.
