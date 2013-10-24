@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 11;
+use Test::More tests => 12;
 use Carp;
 use SVG::Sparkline;
 
@@ -41,4 +41,11 @@ like( "$w5", qr/d="M4,0v-5m3,5v-5m9,5v5m3,-5v5m3,-5v5m3,-5v-5m3,5v-5m3,5v5m3,-5v
 
     my $w1 = SVG::Sparkline->new( Whisker => { -sized => 0, values=>[1,1,0,1,0,1] } );
     is( "$w1", $expect, 'sized false: output correct' );
+}
+
+{
+    my $expect = '<svg height="12" viewBox="0 -6 18 12" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M16,0v0" stroke="#000" stroke-width="1" /></svg>';
+
+    my $w1 = SVG::Sparkline->new( Whisker => { values=>[0,0,0,0,0,0] } );
+    is( "$w1", $expect, 'all zero data: output correct' );
 }

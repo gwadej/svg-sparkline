@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 8;
+use Test::More tests => 9;
 use Carp;
 use SVG::Sparkline;
 
@@ -53,3 +53,9 @@ is( "$a7",
     'sized false: output correct'
 );
 
+$points = '0,0 0,0 2,0 4,0 6,0 8,0 10,0 12,0 14,0 16,0 18,0 18,0';
+my $a8 = SVG::Sparkline->new( Area => { values=>[ (0) x 10 ] } );
+is( "$a8",
+    qq{<svg height="12" viewBox="0 -11 19 12" width="19" xmlns="http://www.w3.org/2000/svg"><polygon fill="#000" points="$points" stroke="none" /></svg>},
+    'all zero data: output correct'
+);

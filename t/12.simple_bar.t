@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Test::More tests => 11;
+use Test::More tests => 12;
 use Carp;
 use SVG::Sparkline;
 
@@ -61,5 +61,12 @@ my $b9 = SVG::Sparkline->new( Bar => { -sized => 0, values=>[-1,-2,-3,-4,-3,-2,-
 is ( "$b9",
     '<svg viewBox="0 -1 21 12" xmlns="http://www.w3.org/2000/svg"><path d="M0,0v2.5h3v2.5h3v2.5h3v2.5h3v-2.5h3v-2.5h3v-2.5h3v-2.5z" fill="#000" stroke="none" /></svg>',
     'sized false: output correct'
+);
+
+
+my $b10 = SVG::Sparkline->new( Bar => { values=>[0,0,0,0,0,0,0] } );
+is ( "$b10",
+    '<svg height="12" viewBox="0 -11 21 12" width="21" xmlns="http://www.w3.org/2000/svg"><path d="M0,0h21z" fill="#000" stroke="none" /></svg>',
+    'all zero data: output correct'
 );
 
