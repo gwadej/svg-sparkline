@@ -1,4 +1,3 @@
-Build.PL
 Changes
 lib/SVG/Sparkline.pm
 lib/SVG/Sparkline/Area.pm
@@ -49,5 +48,8 @@ t/29.rangearea_marks.t
 t/99.private_bar_clean_path.t
 t/99.private_is_color.t
 t/99.private_whisker_clean_path.t
-xt/pod-coverage.t
+xt/critic.t
+xt/hasversion.t
+xt/minimumversion.t
+xt/podcoverage.t
 xt/pod.t

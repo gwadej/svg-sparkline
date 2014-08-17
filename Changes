@@ -1,5 +1,10 @@
 Revision history for SVG-Sparkline
 
+???? ???????????
+    - Update author tests to be more complete
+    - Add Perl minimum version test.
+    - Remove support for Module::Build
+    - Update META_SPEC information in Makefile.PL
 1.00   2013-10-24T09:00:00-0500
     - Corrected divide-by-zero error if all input data is 0, reported by
       Peter Robinson.

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Test that the syntax of our POD documentation is valid
+# Ensure pod coverage in your distribution
 use strict;
 BEGIN {
 	$|  = 1;
@@ -8,14 +8,13 @@ BEGIN {
 }
 
 my @MODULES = (
-	'Pod::Simple 3.07',
-	'Test::Pod 1.26',
+	'Test::Pod::Coverage 1.08',
 );
 
 # Don't run tests during end-user installs
 use Test::More;
 plan( skip_all => 'Author tests not required for installation' )
-	unless ( $ENV{RELEASE_TESTING} or $ENV{AUTOMATED_TESTING} );
+	unless ( $ENV{RELEASE_TESTING} );
 
 # Load the testing modules
 foreach my $MODULE ( @MODULES ) {
@@ -27,6 +26,6 @@ foreach my $MODULE ( @MODULES ) {
 	}
 }
 
-all_pod_files_ok();
+all_pod_coverage_ok();
 
 1;
