@@ -12,6 +12,7 @@ WriteMakefile(
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' => 0,
+        'Test::Exception' => 0,
         'Carp'       => 0,
         'SVG'        => 2.50,
         'Getopt::Long' => 0,

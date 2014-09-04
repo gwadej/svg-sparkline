@@ -8,7 +8,7 @@ use List::Util ();
 use SVG::Sparkline::Utils;
 
 use 5.008000;
-our $VERSION = 1.00;
+our $VERSION = 1.10;
 
 # alias to make calling shorter.
 *_f = *SVG::Sparkline::Utils::format_f;
@@ -159,7 +159,7 @@ SVG::Sparkline::RangeBar - Supports SVG::Sparkline for range bar graphs.
 
 =head1 VERSION
 
-This document describes SVG::Sparkline::RangeBar version 1.00
+This document describes SVG::Sparkline::RangeBar version 1.10
 
 =head1 DESCRIPTION
 

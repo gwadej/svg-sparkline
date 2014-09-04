@@ -8,7 +8,7 @@ use SVG;
 use overload  '""' => \&to_string;
 
 use 5.008000;
-our $VERSION = 1.00;
+our $VERSION = 1.10;
 
 my %valid_parms = map { $_ => 1 } qw(
         -allns color -sized
@@ -156,7 +156,7 @@ SVG::Sparkline - Create Sparklines in SVG
 
 =head1 VERSION
 
-This document describes SVG::Sparkline version 1.00
+This document describes SVG::Sparkline version 1.10
 
 =head1 SYNOPSIS
 
