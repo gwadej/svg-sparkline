@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 
 use Test::More tests => 6;
+use Test::Exception;
 use Carp;
 use SVG::Sparkline;
 
@@ -56,10 +57,9 @@ my $points = '0,-2 2,-3 4,-1 6,-5 8,0 8,-6 6,-10 4,-3 2,-6 0,-4';
     );
 }
 
-eval {
+throws_ok {
     my @values = (
         [2,4], [3,6], [2,2], [5,10], [0,6]
     );
     SVG::Sparkline->new( RangeArea => { values=>\@values, mark=>[xyzzy=>'green'] } );
-};
-like( $@, qr/not a valid mark/, 'rangearea: unrecogized mark not allowed' );
+} qr/not a valid mark/, 'rangearea: unrecogized mark not allowed';

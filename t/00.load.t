@@ -1,7 +1,10 @@
 use Test::More tests => 1;
 
+use strict;
+use warnings;
+
 BEGIN {
-use_ok( 'SVG::Sparkline' );
+    use_ok( 'SVG::Sparkline' );
 }
 
-diag( "Testing SVG::Sparkline $SVG::Sparkline::VERSION" );
+note( "Testing SVG::Sparkline $SVG::Sparkline::VERSION" );

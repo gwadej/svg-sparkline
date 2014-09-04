@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 
 use Test::More tests => 10;
+use Test::Exception;
 use Carp;
 use SVG::Sparkline;
 
@@ -98,10 +99,9 @@ $path = 'M0.5,-2v-2h3v2h-3m4,-1v-3h3v3h-3m4,2v-2h3v2h-3m4,-4v-5h3v5h-3m4,5v-6h3v
     );
 }
 
-eval {
+throws_ok {
     my @values = (
         [2,4], [3,6], [2,2], [5,10], [0,6]
     );
     SVG::Sparkline->new( RangeBar => { values=>\@values, mark=>[xyzzy=>'green'] } );
-};
-like( $@, qr/not a valid mark/, 'rangebar: unrecogized mark not allowed' );
+} qr/not a valid mark/, 'rangebar: unrecogized mark not allowed';
