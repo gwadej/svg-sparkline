@@ -8,12 +8,17 @@ use Getopt::Long;
 use Pod::Usage;
 
 my $type = shift;
+if( !defined $type or $type eq '--help-types' )
+{
+    print "No Sparkline type specified.\n";
+    help_types();
+}
+
 pod2usage( -verbose => 2, -exitval => 0 )
     if $type eq '--help' or $type eq '--man';
 
 my %options;
 GetOptions(
-    'nodecl' => \$options{'-nodecl'},  # Deprecated, remove later.
     'allns' => \$options{'-allns'},
     'sized!' => \$options{'-sized'},
     'bgcolor|bg=s' => \$options{'bgcolor'},
@@ -30,9 +35,11 @@ GetOptions(
     'outfile|o=s' => \$options{'outfile'},
     'clobber|c' => \$options{'clobber'},
     'help|man' => \$options{'help'},
+    'help-types' => \$options{'help-types'},
 ) or pod2usage( 'Unrecognized argument' );
 
 pod2usage( -verbose => 2, -exitval => 0 ) if $options{'help'};
+help_types() if $options{'help-types'};
 
 my $svg = SVG::Sparkline->new( $type => parameters_from_cmdline( \%options ) );
 
@@ -49,6 +56,22 @@ print $fh "$svg";
 
 close $fh;
 
+sub help_types
+{
+    print <<'EOF';
+Supported Sparkline types:
+
+  * Area
+  * Bar
+  * Line
+  * RangeArea
+  * RangeBar
+  * Whisker
+
+Check the help page for descriptions of the types and further information.
+EOF
+    exit;
+}
 
 sub parameters_from_cmdline
 {
@@ -91,6 +114,44 @@ This document describes sparkline.pl version 0.03
 Create sparklines from a command line, printing either to stdout or
 a file. The command line options set the parameters passed to
 C<SVG::Sparklines> to create the sparkline.
+
+=head1 TYPES
+
+This program supports the following Sparkline types:
+
+=over 4
+
+=item Area
+
+An C<Area> sparkline is a basic line graph shaded between the line and
+the x axis.
+
+=item Bar
+
+The I<Bar> sparkline type is a simple bar graph or histogram.
+
+=item Line
+
+The I<Line> sparkline type is a simple line graph.
+
+=item RangeArea
+
+An C<RangeArea> sparkline type shows high/low continuous values by displaying
+shading the area between two lines of continuous data.
+
+=item RangeBar
+
+The I<RangeBar> sparkline type shows high/low pairs of related values that define
+a range at each of the supplied data points.
+
+=item Whisker
+
+The I<Whisker> sparkline type shows a sequence of events that can have one
+of two outcomes (e.g. win/loss).
+
+=back
+
+See L<SVG::Sparkline::Manual> for more details.
 
 =head1 OPTIONS 
 
@@ -217,7 +278,7 @@ By default, the sparkline is written to stdout.
 
 =item --o=s
 
-Synonym for C<--clobber>.
+Synonym for C<--outfile>.
 
 =item --clobber
 
