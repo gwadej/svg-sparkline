@@ -10,11 +10,19 @@ use CGI;
 
 my $q = CGI->new;
 my $type = $q->param('type');
-unless( length $type ) 
+if( !length $type )
 {
     print $q->header(-status => 400 ),
           $q->start_html( 'Input error' ),
           $q->h2( 'No sparkline type supplied' ),
+          $q->end_html;
+    exit 0;
+}
+if( !$q->param('values') )
+{
+    print $q->header(-status => 400 ),
+          $q->start_html( 'Input error' ),
+          $q->h2( 'No sparkline values supplied' ),
           $q->end_html;
     exit 0;
 }

@@ -4,6 +4,11 @@ Revision history for SVG-Sparkline
     - Remove --nodecl parameter from sparklines.pl that has bee deprecated for
       almost five years.
     - Correct uninitialized value errors if sparklines.pl is not passed a type.
+      (Thank you, Gabor Szabo).
+    - Add --help-types parameter that lists the supported Sparkline types.
+      (Thank you, Gabor Szabo).
+    - Verify required --values parameter for sparkline.pl.
+    - Verify required 'values' parameter for sparkline.cgi
 1.10 2014-09-03T21:00:00-0600
     - Update author tests to be more complete
     - Add Perl minimum version test.

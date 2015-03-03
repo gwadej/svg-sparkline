@@ -76,6 +76,10 @@ EOF
 sub parameters_from_cmdline
 {
     my %params;
+
+    die "Missing required --values parameter. No idea what to chart.\n"
+        unless defined $options{'values'};
+
     foreach my $key (keys %options)
     {
         $params{$key} = $options{$key} || 0 if $key eq '-sized';
@@ -207,8 +211,8 @@ Synonym for C<--width>.
 
 =item --values={comma separated list of values}
 
-Specify the parameters to display on the sparkline. These values can take one
-of three forms.
+This required parameter specifies the data to display on the sparkline. The
+supplied data can take one of three forms.
 
 =over 4
 
@@ -319,10 +323,14 @@ No bugs have been reported.
 
 G. Wade Johnson  C<< gwadej@cpan.org >>
 
+=head1 ACKNOWLEDGEMENTS
+
+Thanks to Gabor Szabo for pointing out some deficiencies in the parameter
+handling and usability of the sparkline.pl program.
 
 =head1 LICENCE AND COPYRIGHT
 
-Copyright (c) 2012, G. Wade Johnson C<< gwadej@cpan.org >>. All rights reserved.
+Copyright (c) 2015, G. Wade Johnson C<< gwadej@cpan.org >>. All rights reserved.
 
 This module is free software; you can redistribute it and/or
 modify it under the same terms as Perl 5.8.0. See L<perlartistic>.
