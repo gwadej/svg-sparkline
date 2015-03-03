@@ -192,7 +192,7 @@ parameters specific to that type.
 
 =head2 Area
 
-An C<Area> sparkline is a basic line graph with shaded between the line and
+An C<Area> sparkline is a basic line graph shaded between the line and
 the x axis. The supplied I<color> attribute determines the shading. Area
 graphs do particularly well for continuous data. If you would prefer to just
 have the line without filling the area, see the I<Line> type.
